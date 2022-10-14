@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:sgrsoft/ui/screens/democalendar/calendar.dart';
+import 'package:sgrsoft/ui/screens/demomodal/demomodal.dart';
+import 'package:sgrsoft/ui/screens/demoparams/demoparams.dart';
+import 'package:sgrsoft/ui/screens/puntos_recoleccion/detalle/detalle.dart';
+import 'package:sgrsoft/ui/screens/puntos_recoleccion/editar/editar.dart';
+import 'package:sgrsoft/ui/screens/puntos_recoleccion/listado/listado.dart';
+import 'package:sgrsoft/ui/screens/puntos_recoleccion/mapa/mapa.dart';
+import 'package:sgrsoft/ui/settings/settings_controller.dart';
+import 'package:sgrsoft/ui/settings/settings_view.dart';
 
-import 'sample_feature/sample_item_details_view.dart';
-import 'sample_feature/sample_item_list_view.dart';
-import 'settings/settings_controller.dart';
-import 'settings/settings_view.dart';
-
-/// The Widget that configures your application.
-class MyApp extends StatelessWidget {
-  const MyApp({
-    Key? key,
+class MainApp extends StatelessWidget {
+  const MainApp({
+    super.key,
     required this.settingsController,
-  }) : super(key: key);
+  });
 
   final SettingsController settingsController;
 
@@ -43,6 +46,7 @@ class MyApp extends StatelessWidget {
           ],
           supportedLocales: const [
             Locale('en', ''), // English, no country code
+            Locale('es', ''), // Español, no country code
           ],
 
           // Use AppLocalizations to configure the correct application title
@@ -56,7 +60,27 @@ class MyApp extends StatelessWidget {
           // Define a light and dark color theme. Then, read the user's
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.
-          theme: ThemeData(),
+          theme: ThemeData(
+            brightness: Brightness.light,
+            primarySwatch: Colors.lightGreen,
+            useMaterial3: false,
+            fontFamily: 'Ubuntu',
+          ),
+          // theme: ThemeData(
+          //     // primarySwatch: const Color(0xff8ac53f), //Colors.green
+          //     brightness: Brightness.light,
+          //     colorScheme: ColorScheme.fromSwatch().copyWith(
+          //       primary: const Color(0xff8ac53f),
+          //       secondary: const Color.fromARGB(255, 96, 133, 48),
+          //       primaryContainer: const Color.fromARGB(255, 216, 245, 179),
+          //       shadow: const Color.fromARGB(255, 19, 32, 3),
+          //       error: const Color.fromARGB(255, 255, 84, 84),
+          //       onSurface: const Color.fromARGB(255, 122, 206, 122),
+          //       // outline: const Color.fromARGB(255, 81, 218, 46),
+          //       outline: const Color.fromARGB(255, 119, 145, 119),
+          //     ),
+          //     useMaterial3: true,
+          //     fontFamily: 'Ubuntu'),
           darkTheme: ThemeData.dark(),
           themeMode: settingsController.themeMode,
 
@@ -69,11 +93,22 @@ class MyApp extends StatelessWidget {
                 switch (routeSettings.name) {
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
-                  case SampleItemDetailsView.routeName:
-                    return const SampleItemDetailsView();
-                  case SampleItemListView.routeName:
+                  case ListadoPuntosRecoleccionScreens.routeName:
+                    return const ListadoPuntosRecoleccionScreens();
+                  case MapaPuntosRecoleccion.routeName:
+                    return const MapaPuntosRecoleccion();
+                  case DetallePuntosRecoleccionScreens.routeName:
+                    return const DetallePuntosRecoleccionScreens();
+                  case EditarPuntosRecoleccionScreens.routeName:
+                    return const EditarPuntosRecoleccionScreens();
+                  case DemoParams.routeName:
+                    return const DemoParams();
+                  case DemoModal.routeName:
+                    return const DemoModal();
+                  case CalendarWidget.routeName:
+                    return const CalendarWidget();
                   default:
-                    return const SampleItemListView();
+                    return const ListadoPuntosRecoleccionScreens();
                 }
               },
             );

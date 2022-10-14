@@ -10,16 +10,32 @@ environment:
   sdk: ">=2.17.6 <3.0.0"
 
 dependencies:
+  cached_network_image: ^3.2.2
+  dio: ^4.0.6
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.1.1
   flutter_localizations:
     sdk: flutter
+  flutter_native_splash: ^2.2.11
+  http: ^0.13.5
+  intl: ^0.17.0
+  json_annotation: ^4.7.0
+  latlng: ^0.2.0
+  map: ^1.3.3
+  palette_generator: ^0.3.3+2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^2.0.0
+  build_runner: ^2.2.1
+  json_serializable: ^6.4.1
+
+flutter_native_splash:
+  color: "#8ac53f"
+  image: assets/images/logo.png
 
 flutter:
   uses-material-design: true
@@ -30,3 +46,11 @@ flutter:
   assets:
     # Add assets from the images directory to the application.
     - assets/images/
+    - assets/images/fotos/
+    - assets/images/iconos/
+
+  fonts:
+    - family: Ubuntu
+      fonts:
+        - asset: assets/fonts/Ubuntu/Ubuntu-Regular.ttf
+        - asset: assets/fonts/Ubuntu/Ubuntu-Bold.ttf
