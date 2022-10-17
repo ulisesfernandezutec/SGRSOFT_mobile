@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:sgrsoft/ui/screens/democalendar/calendar.dart';
-import 'package:sgrsoft/ui/screens/demomodal/demomodal.dart';
-import 'package:sgrsoft/ui/screens/demoparams/demoparams.dart';
-import 'package:sgrsoft/ui/screens/puntos_recoleccion/detalle/detalle.dart';
-import 'package:sgrsoft/ui/screens/puntos_recoleccion/editar/editar.dart';
-import 'package:sgrsoft/ui/screens/puntos_recoleccion/listado/listado.dart';
-import 'package:sgrsoft/ui/screens/puntos_recoleccion/mapa/mapa.dart';
+import 'package:sgrsoft/ui/view/democalendar/calendar.dart';
+import 'package:sgrsoft/ui/view/demomodal/demomodal.dart';
+import 'package:sgrsoft/ui/view/demoparams/demoparams.dart';
+import 'package:sgrsoft/ui/view/puntos_recoleccion/detalle/detalle.dart';
+import 'package:sgrsoft/ui/view/puntos_recoleccion/editar/editar.dart';
+import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/listado.dart';
+import 'package:sgrsoft/ui/view/puntos_recoleccion/mapa/mapa.dart';
 import 'package:sgrsoft/ui/settings/settings_controller.dart';
 import 'package:sgrsoft/ui/settings/settings_view.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sgrsoft/domain/models/tipo_de_residuo.dart';
-import 'package:sgrsoft/ui/screens/tipo_de_residuo/nuevo/agregar.dart';
+import 'package:sgrsoft/ui/view/tipo_de_residuo/nuevo/agregar.dart';
 import 'package:sgrsoft/ui/widgets/app_bar.dart';
 
 import '../detalle/detalle.dart';

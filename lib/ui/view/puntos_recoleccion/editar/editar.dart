@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sgrsoft/ui/screens/puntos_recoleccion/widgets/mapa.dart';
+import 'package:sgrsoft/ui/view/puntos_recoleccion/widgets/mapa.dart';
 import 'package:sgrsoft/ui/widgets/app_bar.dart';
 import 'package:sgrsoft/ui/widgets/combo.dart';
 

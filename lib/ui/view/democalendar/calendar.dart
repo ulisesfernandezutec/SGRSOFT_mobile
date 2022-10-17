@@ -18,7 +18,7 @@ class _CalendarWidgetState extends State<CalendarWidget> with RestorationMixin {
   String? get restorationId => widget.restorationId;
 
   final RestorableDateTime _selectedDate =
-      RestorableDateTime(DateTime(2021, 7, 25));
+      RestorableDateTime(DateTime(2022, 7, 25));
   late final RestorableRouteFuture<DateTime?> _restorableDatePickerRouteFuture =
       RestorableRouteFuture<DateTime?>(
     onComplete: _selectDate,
@@ -41,8 +41,8 @@ class _CalendarWidgetState extends State<CalendarWidget> with RestorationMixin {
           restorationId: 'date_picker_dialog',
           initialEntryMode: DatePickerEntryMode.calendarOnly,
           initialDate: DateTime.fromMillisecondsSinceEpoch(arguments! as int),
-          firstDate: DateTime(2021),
-          lastDate: DateTime(2022),
+          firstDate: DateTime(2022),
+          lastDate: DateTime(2023),
         );
       },
     );

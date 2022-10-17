@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sgrsoft/ui/screens/puntos_recoleccion/detalle/detalle.dart';
+import 'package:intl/intl.dart';
+import 'package:sgrsoft/ui/view/puntos_recoleccion/detalle/detalle.dart';
 
 class TarjetaPuntoRecoleccion extends StatefulWidget {
   final String estado;
@@ -83,8 +84,34 @@ class _TarjetaPuntoRecoleccionState extends State<TarjetaPuntoRecoleccion> {
                                     bottomLeft: Radius.circular(10.0)),
                               ),
                               child: Text(
-                                widget.titulo,
+                                "Basural en lugar público",
                                 style: Theme.of(context).textTheme.bodyLarge,
+                              )),
+                          Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).cardColor,
+                                borderRadius: const BorderRadius.only(
+                                    bottomRight: Radius.circular(10.0),
+                                    bottomLeft: Radius.circular(10.0)),
+                              ),
+                              child: Text(
+                                DateFormat.yMd().format(DateTime.now()),
+                                style: Theme.of(context).textTheme.labelMedium,
+                              )),
+                          Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).cardColor,
+                                borderRadius: const BorderRadius.only(
+                                    bottomRight: Radius.circular(10.0),
+                                    bottomLeft: Radius.circular(10.0)),
+                              ),
+                              child: Text(
+                                widget.estado,
+                                style: Theme.of(context).textTheme.labelMedium,
                               ))
                         ],
                       ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sgrsoft/ui/screens/democalendar/calendar.dart';
-import 'package:sgrsoft/ui/screens/demomodal/demomodal.dart';
-import 'package:sgrsoft/ui/screens/demoparams/demoparams.dart';
+import 'package:sgrsoft/ui/view/democalendar/calendar.dart';
+import 'package:sgrsoft/ui/view/demomodal/demomodal.dart';
+import 'package:sgrsoft/ui/view/demoparams/demoparams.dart';
 
 List<Widget> menuInferior(BuildContext context) {
   List<Widget> menu = [

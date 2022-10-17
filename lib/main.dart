@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:sgrsoft/ui/app.dart';
 import 'package:sgrsoft/ui/settings/settings_controller.dart';
 import 'package:sgrsoft/ui/settings/settings_service.dart';
+import 'package:sgrsoft/di/di.dart' as di;
 
 void main() async {
+  // Cargamos get_it
+  // getit nos permite cargar de forma automatica las dependencias.
+  await di.initializeDI();
+
   // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   WidgetsFlutterBinding.ensureInitialized();
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);

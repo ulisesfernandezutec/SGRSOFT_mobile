@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sgrsoft/ui/screens/puntos_recoleccion/listado/tarjeta.dart';
+import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/tarjeta.dart';
 import 'package:sgrsoft/ui/widgets/app_bar.dart';
 import 'package:sgrsoft/ui/widgets/drawer.dart';
 import 'package:sgrsoft/ui/widgets/menu_inferior.dart';
@@ -69,15 +69,9 @@ class _ListadoPuntosRecoleccionState
                 runSpacing: 5,
                 children: const [
                   TarjetaPuntoRecoleccion(
-                      estado: 'Pendiente', titulo: 'Recolección de poda'),
+                      estado: 'Pendiente', titulo: 'Recolección de Basural'),
                   TarjetaPuntoRecoleccion(
-                      estado: 'Terminado', titulo: 'Recolección de poda'),
-                  TarjetaPuntoRecoleccion(
-                      estado: 'Rechazada', titulo: 'Recolección de poda'),
-                  TarjetaPuntoRecoleccion(
-                      estado: 'Pendiente', titulo: 'Recolección de poda'),
-                  TarjetaPuntoRecoleccion(
-                      estado: 'Terminado', titulo: 'Recolección de poda'),
+                      estado: 'Terminado', titulo: 'Recolección de Podas'),
                   TarjetaPuntoRecoleccion(
                       estado: 'Rechazada', titulo: 'Recolección de poda'),
                 ],
