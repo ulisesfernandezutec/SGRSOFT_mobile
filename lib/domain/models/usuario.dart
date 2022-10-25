@@ -10,10 +10,17 @@ class Usuario {
   int id;
   @JsonKey(name: 'usuario')
   String username;
-  @JsonKey(name: 'contraseña')
-  String password;
-  Rol rol;
-  Usuario(this.id, this.username, this.password, this.rol);
+  String? apiId;
+  Rol? rol;
+  String? nombre;
+  String? apellido;
+  String? documento;
+  String? telefono;
+  String? email;
+  String? direccion;
+
+  Usuario(this.id, this.username, this.apiId, this.rol, this.nombre,
+      this.apellido, this.documento, this.telefono, this.email, this.direccion);
 
   factory Usuario.fromJson(Map<String, dynamic> json) =>
       _$UsuarioFromJson(json);

@@ -15,6 +15,13 @@ class HivePuntosRecoleccionDataSource
   }
 
   @override
+  Future<PuntoRecoleccion> getPuntoRecoleccion(int id) async {
+    // PuntoRecoleccion puntoRecoleccion = PuntoRecoleccion();
+    // return db;
+    throw UnimplementedError();
+  }
+
+  @override
   Future<bool> addPuntoRecoleccion(PuntoRecoleccion puntoRecoleccion) async {
     await box.add(puntoRecoleccion);
     return true;

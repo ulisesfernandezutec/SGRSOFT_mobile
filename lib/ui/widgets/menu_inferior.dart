@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sgrsoft/ui/view/democalendar/calendar.dart';
 import 'package:sgrsoft/ui/view/demomodal/demomodal.dart';
 import 'package:sgrsoft/ui/view/demoparams/demoparams.dart';
 
@@ -53,11 +52,13 @@ List<Widget> menuInferior(BuildContext context) {
       },
     ),
     IconButton(
-      icon: const Icon(Icons.calendar_today),
-      tooltip: 'Calendar',
+      icon: const Icon(Icons.map_outlined),
+      tooltip: 'Google Maps',
       onPressed: () {
-        Navigator.pushNamed(context, CalendarWidget.routeName,
-            arguments: const CalendarWidget());
+        Navigator.pushNamed(
+          context,
+          '/google_maps',
+        );
       },
     ),
   ];

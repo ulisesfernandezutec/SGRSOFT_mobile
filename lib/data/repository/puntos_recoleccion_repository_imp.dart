@@ -24,6 +24,11 @@ class PuntosRecoleccionRepository extends AbstractPuntosRecoleccionRepository {
   }
 
   @override
+  Future<PuntoRecoleccion> getPuntoRecoleccion(int id) async {
+    return await _remote.getPuntoRecoleccion(id);
+  }
+
+  @override
   Future<bool> addPuntoRecoleccion(PuntoRecoleccion puntoRecoleccion) async {
     return await _remote.addPuntoRecoleccion(puntoRecoleccion);
   }

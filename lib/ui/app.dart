@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:sgrsoft/ui/view/democalendar/calendar.dart';
+import 'package:sgrsoft/ui/view/demogooglemaps/maps.dart';
 import 'package:sgrsoft/ui/view/demomodal/demomodal.dart';
 import 'package:sgrsoft/ui/view/demoparams/demoparams.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/detalle/detalle.dart';
@@ -10,6 +10,7 @@ import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/listado.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/mapa/mapa.dart';
 import 'package:sgrsoft/ui/settings/settings_controller.dart';
 import 'package:sgrsoft/ui/settings/settings_view.dart';
+import 'package:sgrsoft/ui/view/tipo_de_residuo/listado/listado.dart';
 
 class MainApp extends StatelessWidget {
   const MainApp({
@@ -105,8 +106,9 @@ class MainApp extends StatelessWidget {
                     return const DemoParams();
                   case DemoModal.routeName:
                     return const DemoModal();
-                  case CalendarWidget.routeName:
-                    return const CalendarWidget();
+                  // Tipo de Residuos
+                  case ListadoTipoResiduos.routeName:
+                    return const ListadoTipoResiduos();
                   default:
                     return const ListadoPuntosRecoleccionScreens();
                 }

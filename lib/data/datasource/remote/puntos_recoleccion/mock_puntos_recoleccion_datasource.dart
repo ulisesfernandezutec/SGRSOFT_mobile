@@ -13,6 +13,21 @@ class MockPuntosRecoleccionDataSource
   }
 
   @override
+  Future<PuntoRecoleccion> getPuntoRecoleccion(int id) async {
+    if (db.isNotEmpty) {
+      List<PuntoRecoleccion> puntos =
+          db.where((punto) => punto.id == id).toList();
+      if (puntos.isNotEmpty) {
+        return puntos[0];
+      } else {
+        throw Exception("No se encontró el punto de recolección");
+      }
+    } else {
+      throw Exception("No existen puntos de recolección para consultar");
+    }
+  }
+
+  @override
   Future<bool> addPuntoRecoleccion(PuntoRecoleccion puntoRecoleccion) async {
     db.add(puntoRecoleccion);
     return Future.value(true);

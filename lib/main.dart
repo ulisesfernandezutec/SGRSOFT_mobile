@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sgrsoft/domain/blocs/puntos_recoleccion/detalle/detalle_bloc.dart';
+import 'package:sgrsoft/domain/blocs/puntos_recoleccion/listado/listado_bloc.dart';
+import 'package:sgrsoft/domain/blocs/tipos_residuos/editar/editar_bloc.dart';
+import 'package:sgrsoft/domain/blocs/tipos_residuos/listado/listado_bloc.dart';
+import 'package:sgrsoft/domain/blocs/tipos_residuos/nuevo/nuevo_bloc.dart';
 import 'package:sgrsoft/ui/app.dart';
 import 'package:sgrsoft/ui/settings/settings_controller.dart';
 import 'package:sgrsoft/ui/settings/settings_service.dart';
@@ -23,5 +29,15 @@ void main() async {
   // Run the app and pass in the SettingsController. The app listens to the
   // SettingsController for changes, then passes it further down to the
   // SettingsView.
-  runApp(MainApp(settingsController: settingsController));
+  runApp(MultiBlocProvider(providers: [
+    BlocProvider(
+        create: (BuildContext context) => ListadoPuntosRecoleccionBloc()),
+    BlocProvider(
+        create: (BuildContext context) => DetallePuntosRecoleccionBloc()),
+    BlocProvider(create: (BuildContext context) => EditarTipoDeResiduoBloc()),
+    BlocProvider(
+        create: (BuildContext context) => ListadoTipoDeResiduosBloc()
+          ..add(LoadListadoTiposDeResiduosEvent())),
+    BlocProvider(create: (BuildContext context) => NuevoTipoDeResiduoBloc()),
+  ], child: MainApp(settingsController: settingsController)));
 }

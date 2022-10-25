@@ -1,5 +1,10 @@
 // formluario para agregar un nuevo tipo de residuo
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sgrsoft/domain/blocs/tipos_residuos/listado/listado_bloc.dart';
+import 'package:sgrsoft/domain/blocs/tipos_residuos/nuevo/nuevo_bloc.dart';
+import 'package:sgrsoft/domain/models/tipo_de_residuo.dart';
+import 'package:sgrsoft/ui/view/tipo_de_residuo/listado/listado.dart';
 import 'package:sgrsoft/ui/widgets/app_bar.dart';
 
 class AgregarTipoResiduo extends StatefulWidget {
@@ -39,9 +44,13 @@ class AgregarTipoResiduoState extends State<AgregarTipoResiduo> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    // agregar tipo de residuo
-                  }
+                  BlocProvider.of<NuevoTipoDeResiduoBloc>(context).add(
+                      SaveNuevoTipoDeResiduoEvent(
+                          tipoDeResiduo: TipoDeResiduo(0, nombre)));
+                  Navigator.pushNamed(context, ListadoTipoResiduos.routeName);
+                  // if (_formKey.currentState!.validate()) {
+                  //   // agregar tipo de residuo
+                  // }
                 },
                 child: const Text('Agregar'),
               ),

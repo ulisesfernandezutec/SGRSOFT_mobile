@@ -20,7 +20,7 @@ class PuntoRecoleccionAdapter extends TypeAdapter<PuntoRecoleccion> {
       fields[0] as int,
       fields[1] as double,
       fields[2] as double,
-      fields[3] as String,
+      fields[3] as TipoDeResiduo,
       fields[4] as String,
       fields[5] as String,
       (fields[6] as List?)?.cast<PuntoRecoleccionEstado>(),
@@ -67,7 +67,7 @@ PuntoRecoleccion _$PuntoRecoleccionFromJson(Map<String, dynamic> json) =>
       json['_id'] as int,
       (json['latitud'] as num).toDouble(),
       (json['longitud'] as num).toDouble(),
-      json['tipo'] as String,
+      TipoDeResiduo.fromJson(json['tipo'] as Map<String, dynamic>),
       json['direccion'] as String,
       json['descripcion'] as String,
       (json['estados'] as List<dynamic>?)

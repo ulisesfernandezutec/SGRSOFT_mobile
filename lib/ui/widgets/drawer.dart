@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sgrsoft/ui/settings/settings_view.dart';
+import 'package:sgrsoft/ui/view/tipo_de_residuo/listado/listado.dart';
 
 Drawer appDrawer(BuildContext context) {
   Drawer drawer = Drawer(
@@ -27,6 +28,13 @@ Drawer appDrawer(BuildContext context) {
             title: const Text('Servicios'),
             onTap: () {
               Navigator.restorablePushNamed(context, '/');
+            }),
+        ListTile(
+            leading: const Icon(Icons.class_outlined),
+            title: const Text('Tipo de Residuos'),
+            onTap: () {
+              Navigator.restorablePushNamed(
+                  context, ListadoTipoResiduos.routeName);
             }),
         ListTile(
             leading: const Icon(Icons.map),

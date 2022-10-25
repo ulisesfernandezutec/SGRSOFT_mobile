@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:sgrsoft/domain/models/punto_de_recoleccion.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/detalle/detalle.dart';
 
 class TarjetaPuntoRecoleccion extends StatefulWidget {
-  final String estado;
-  final String titulo;
-  const TarjetaPuntoRecoleccion(
-      {Key? key, required this.estado, required this.titulo})
+  final PuntoRecoleccion puntoRecoleccion;
+  const TarjetaPuntoRecoleccion({Key? key, required this.puntoRecoleccion})
       : super(key: key);
 
   @override
@@ -30,10 +29,11 @@ class _TarjetaPuntoRecoleccionState extends State<TarjetaPuntoRecoleccion> {
         child: Material(
             child: InkWell(
                 highlightColor: Theme.of(context).colorScheme.primary,
-                // splashColor: Theme.of(context).colorScheme.primaryContainer,
                 onTap: () {
-                  Navigator.restorablePushNamed(
-                      context, DetallePuntosRecoleccionScreens.routeName);
+                  Navigator.pushNamed(
+                      context, DetallePuntosRecoleccionScreens.routeName,
+                      arguments: DetallePuntoRecoleccionArguments(
+                          id: widget.puntoRecoleccion.id));
                 },
                 child: Card(
                     elevation: 0,
@@ -54,7 +54,6 @@ class _TarjetaPuntoRecoleccionState extends State<TarjetaPuntoRecoleccion> {
                           Container(
                               padding: const EdgeInsets.all(10),
                               decoration: const BoxDecoration(
-                                // color: Theme.of(context).colorScheme.primaryContainer,
                                 borderRadius: BorderRadius.only(
                                     topRight: Radius.circular(5.0),
                                     topLeft: Radius.circular(5.0)),
@@ -62,7 +61,9 @@ class _TarjetaPuntoRecoleccionState extends State<TarjetaPuntoRecoleccion> {
                               width: double.infinity,
                               child: Row(children: <Widget>[
                                 Center(
-                                  child: Text(widget.titulo.toUpperCase(),
+                                  child: Text(
+                                      widget.puntoRecoleccion.tipo.nombre
+                                          .toUpperCase(),
                                       textAlign: TextAlign.center,
                                       style: Theme.of(context)
                                           .textTheme
@@ -71,8 +72,6 @@ class _TarjetaPuntoRecoleccionState extends State<TarjetaPuntoRecoleccion> {
                                               fontWeight: FontWeight.w600,
                                               letterSpacing: 1.5)),
                                 ),
-                                // const Spacer(),
-                                // EstadoWidget(estado: widget.estado)
                               ])),
                           Container(
                               width: double.infinity,
@@ -84,7 +83,7 @@ class _TarjetaPuntoRecoleccionState extends State<TarjetaPuntoRecoleccion> {
                                     bottomLeft: Radius.circular(10.0)),
                               ),
                               child: Text(
-                                "Basural en lugar público",
+                                widget.puntoRecoleccion.descripcion,
                                 style: Theme.of(context).textTheme.bodyLarge,
                               )),
                           Container(
@@ -97,7 +96,8 @@ class _TarjetaPuntoRecoleccionState extends State<TarjetaPuntoRecoleccion> {
                                     bottomLeft: Radius.circular(10.0)),
                               ),
                               child: Text(
-                                DateFormat.yMd().format(DateTime.now()),
+                                DateFormat.yMd().format(
+                                    widget.puntoRecoleccion.estados![0].fecha),
                                 style: Theme.of(context).textTheme.labelMedium,
                               )),
                           Container(
@@ -110,7 +110,7 @@ class _TarjetaPuntoRecoleccionState extends State<TarjetaPuntoRecoleccion> {
                                     bottomLeft: Radius.circular(10.0)),
                               ),
                               child: Text(
-                                widget.estado,
+                                widget.puntoRecoleccion.estados![0].estado,
                                 style: Theme.of(context).textTheme.labelMedium,
                               ))
                         ],

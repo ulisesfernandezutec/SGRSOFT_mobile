@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:sgrsoft/domain/models/punto_de_recoleccion_estado.dart';
 import 'package:hive/hive.dart';
+import 'package:sgrsoft/domain/models/tipo_de_residuo.dart';
 
 part 'punto_de_recoleccion.g.dart';
 
@@ -18,7 +19,7 @@ class PuntoRecoleccion {
   double longitud;
 
   @HiveField(3)
-  String tipo;
+  TipoDeResiduo tipo;
 
   @HiveField(4)
   String direccion;

@@ -1,5 +1,7 @@
 // Formularo que permite editar un tipo de residuo
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sgrsoft/domain/blocs/tipos_residuos/editar/editar_bloc.dart';
 import 'package:sgrsoft/domain/models/tipo_de_residuo.dart';
 import 'package:sgrsoft/ui/widgets/app_bar.dart';
 
@@ -18,11 +20,13 @@ class EditarTipoResiduo extends StatefulWidget {
 class EditarTipoResiduoState extends State<EditarTipoResiduo> {
   final _formKey = GlobalKey<FormState>();
   final nombreController = TextEditingController();
+  late TipoDeResiduo tipoResiduo;
 
   @override
   void initState() {
     super.initState();
     nombreController.text = widget.tipoResiduo.nombre;
+    tipoResiduo = widget.tipoResiduo;
   }
 
   @override
@@ -48,12 +52,13 @@ class EditarTipoResiduoState extends State<EditarTipoResiduo> {
             ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ListadoTipoResiduos(),
+                  tipoResiduo.nombre = nombreController.text;
+                  BlocProvider.of<EditarTipoDeResiduoBloc>(context).add(
+                    UpdateTipoDeResiduoEvent(
+                      tipoResiduo: tipoResiduo,
                     ),
                   );
+                  Navigator.pop(context);
                 }
               },
               child: const Text('Guardar'),

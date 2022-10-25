@@ -19,30 +19,31 @@ class DetalleTipoResiduo extends StatelessWidget {
           Text(tipoResiduo.nombre),
           ElevatedButton(
             onPressed: () {
-              Navigator.push(
+              Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
                   builder: (context) => EditarTipoResiduo(
                     tipoResiduo: tipoResiduo,
                   ),
                 ),
+                (Route<dynamic> route) => false,
               );
             },
             child: const Text('Editar'),
           ),
-          ElevatedButton(
-            onPressed: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => EliminarTipoResiduo(
-              //       tipoResiduo: tipoResiduo,
-              //     ),
-              //   ),
-              // );
-            },
-            child: const Text('Eliminar'),
-          ),
+          // ElevatedButton(
+          //   onPressed: () {
+          //     // Navigator.push(
+          //     //   context,
+          //     //   MaterialPageRoute(
+          //     //     builder: (context) => EliminarTipoResiduo(
+          //     //       tipoResiduo: tipoResiduo,
+          //     //     ),
+          //     //   ),
+          //     // );
+          //   },
+          //   child: const Text('Eliminar'),
+          // ),
         ],
       ),
     );
