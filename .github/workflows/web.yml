@@ -26,27 +26,27 @@ jobs:
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_HUB_USER }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}        
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
       - name: Build spymovil/sgr_soft_web:latest Docker Image
-        run: docker build -t spymovil/sgr_soft_web:latest .   
+        run: docker build -t spymovil/sgr_soft_web:latest .
       - name: Pull spymovil/sgr_soft_web:latest
         run: docker push spymovil/sgr_soft_web:latest
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0          
+          fetch-depth: 0
       - name: Merge dev with main
         uses: devvspaces/merge-branches@v1
         with:
           token: ${{ github.TOKEN }}
           from_branch: test
-          to_branch: main   
+          to_branch: main
       - name: Create key.pem
-        run: echo "$KEY" | tr -d '\r' > key.pem && chmod 600 key.pem    
+        run: echo "$KEY" | tr -d '\r' > key.pem && chmod 600 key.pem
       - name: Deploy in EC2
-        run:  | 
-            ssh -o StrictHostKeyChecking=no -i key.pem ${USER}@${HOST} '
-                cd /home/ubuntu/SGRSOFT_deploy &&
-                git pull &&
-                docker-compose pull &&
-                docker-compose up -d --build '
+        run: |
+          ssh -o StrictHostKeyChecking=no -i key.pem ${USER}@${HOST} '
+              cd /home/ubuntu/SGRSOFT_deploy &&
+              git pull &&
+              docker-compose pull &&
+              docker-compose up -d --build '
