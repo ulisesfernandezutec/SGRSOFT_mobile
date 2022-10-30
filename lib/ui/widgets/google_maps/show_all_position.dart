@@ -3,20 +3,28 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sgrsoft/domain/models/punto_de_recoleccion.dart';
+import 'package:sgrsoft/ui/view/puntos_recoleccion/detalle/detalle.dart';
 
-class GoogleMapsShowPosition extends StatefulWidget {
+class GoogleMapsShowAllPositions extends StatefulWidget {
   final double latitude;
   final double longitude;
+  final List<PuntoRecoleccion> puntos;
 
-  const GoogleMapsShowPosition(
-      {Key? key, required this.latitude, required this.longitude})
+  const GoogleMapsShowAllPositions(
+      {Key? key,
+      required this.latitude,
+      required this.longitude,
+      required this.puntos})
       : super(key: key);
 
   @override
-  GoogleMapsShowPositionState createState() => GoogleMapsShowPositionState();
+  GoogleMapsShowAllPositionsState createState() =>
+      GoogleMapsShowAllPositionsState();
 }
 
-class GoogleMapsShowPositionState extends State<GoogleMapsShowPosition> {
+class GoogleMapsShowAllPositionsState
+    extends State<GoogleMapsShowAllPositions> {
   late GoogleMapController mapController;
 
   bool loading = true;
@@ -67,18 +75,26 @@ class GoogleMapsShowPositionState extends State<GoogleMapsShowPosition> {
             scrollGesturesEnabled: true,
             initialCameraPosition: CameraPosition(
               target: center,
-              zoom: 18.0,
+              zoom: 15.0,
             ),
             padding: const EdgeInsets.all(8),
-            markers: {
-              Marker(
-                icon: BitmapDescriptor.defaultMarkerWithHue(
-                  BitmapDescriptor.hueGreen,
-                ), //_markerIcon,
-                position: center,
-                markerId: const MarkerId('Punto de Recolección'),
-              )
-            },
+            markers: Set.of(widget.puntos
+                .map((e) => Marker(
+                      markerId: MarkerId(e.id.toString()),
+                      position: LatLng(e.latitud, e.longitud),
+                      infoWindow: InfoWindow(
+                        title: e.tipo.nombre,
+                        snippet: e.direccion,
+                      ),
+                      icon: _markerIcon,
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, DetallePuntosRecoleccionScreens.routeName,
+                            arguments:
+                                DetallePuntoRecoleccionArguments(id: e.id));
+                      },
+                    ))
+                .toList()),
           )
         : Center(
             child: CircularProgressIndicator(

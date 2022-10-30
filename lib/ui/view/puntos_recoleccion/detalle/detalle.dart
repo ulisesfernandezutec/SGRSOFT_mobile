@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:sgrsoft/domain/blocs/puntos_recoleccion/detalle/detalle_bloc.dart';
-import 'package:sgrsoft/ui/view/puntos_recoleccion/widgets/mapa.dart';
 import 'package:sgrsoft/ui/widgets/app_bar.dart';
+import 'package:sgrsoft/ui/widgets/google_maps/show_position.dart';
 
-import '../editar/editar.dart';
+import '../editar/_editar.dart';
 
 class DetallePuntosRecoleccionScreens extends StatefulWidget {
   const DetallePuntosRecoleccionScreens({super.key});
@@ -123,38 +123,41 @@ class DetallePuntosRecoleccionScreenState
                                 height: 300,
                                 constraints:
                                     const BoxConstraints(maxWidth: 900),
-                                child: MapaPuntosRecoleccionWidgets()),
+                                child: GoogleMapsShowPosition(
+                                    latitude: state.puntoRecoleccion.latitud,
+                                    longitude:
+                                        state.puntoRecoleccion.longitud)),
                             const SizedBox(height: 10),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
                                 ButtonBar(
                                   children: <Widget>[
-                                    ElevatedButton.icon(
-                                      icon: const Icon(Icons.edit),
-                                      onPressed: () {
-                                        Navigator.pushNamed(
-                                            context,
-                                            EditarPuntosRecoleccionScreens
-                                                .routeName);
-                                      },
-                                      label: const Text('Editar'),
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                Theme.of(context).primaryColor),
-                                      ),
-                                    ),
-                                    ElevatedButton.icon(
-                                      icon: const Icon(Icons.delete),
-                                      onPressed: () => {},
-                                      label: const Text('Eliminar'),
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                Colors.red),
-                                      ),
-                                    ),
+                                    // ElevatedButton.icon(
+                                    //   icon: const Icon(Icons.edit),
+                                    //   onPressed: () {
+                                    //     Navigator.pushNamed(
+                                    //         context,
+                                    //         EditarPuntosRecoleccionScreens
+                                    //             .routeName);
+                                    //   },
+                                    //   label: const Text('Editar'),
+                                    //   style: ButtonStyle(
+                                    //     backgroundColor:
+                                    //         MaterialStateProperty.all<Color>(
+                                    //             Theme.of(context).primaryColor),
+                                    //   ),
+                                    // ),
+                                    // ElevatedButton.icon(
+                                    //   icon: const Icon(Icons.delete),
+                                    //   onPressed: () => {},
+                                    //   label: const Text('Eliminar'),
+                                    //   style: ButtonStyle(
+                                    //     backgroundColor:
+                                    //         MaterialStateProperty.all<Color>(
+                                    //             Colors.red),
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                               ],

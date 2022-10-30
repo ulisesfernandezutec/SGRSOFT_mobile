@@ -3,30 +3,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/geocoding.dart';
-import 'package:sgrsoft/domain/blocs/puntos_recoleccion/editar/editar_bloc.dart';
+import 'package:sgrsoft/domain/blocs/puntos_recoleccion/listado/listado_bloc.dart';
+// import 'package:sgrsoft/data/api/google_api.dart';
+import 'package:sgrsoft/domain/blocs/puntos_recoleccion/nuevo/nuevo_bloc.dart';
 import 'package:sgrsoft/domain/models/tipo_de_residuo.dart';
 import 'package:sgrsoft/ui/widgets/app_bar.dart';
 import 'package:sgrsoft/ui/widgets/forms.dart';
 import 'package:sgrsoft/ui/widgets/google_maps/select_position.dart';
 import 'package:dio/dio.dart';
 
-class EditarPuntosRecoleccionScreens extends StatefulWidget {
-  const EditarPuntosRecoleccionScreens({super.key});
+class NuevoPuntosRecoleccionScreens extends StatefulWidget {
+  const NuevoPuntosRecoleccionScreens({super.key});
   static const routeName = '/puntos_recoleccion/nuevo';
 
   @override
   // ignore: library_private_types_in_public_api
-  EditarPuntosRecoleccionState createState() => EditarPuntosRecoleccionState();
+  NuevoPuntosRecoleccionState createState() => NuevoPuntosRecoleccionState();
 }
 
-class EditarPuntosRecoleccionState
-    extends State<EditarPuntosRecoleccionScreens> {
+class NuevoPuntosRecoleccionState extends State<NuevoPuntosRecoleccionScreens> {
   final _formKey = GlobalKey<FormState>();
 
+  final _nombreController = TextEditingController();
   final _direccionController = TextEditingController();
   final _descripcionController = TextEditingController();
   final _latitudController = TextEditingController();
   final _longitudController = TextEditingController();
+  final _horarioController = TextEditingController();
 
   double latitud = 0;
   double longitud = 0;
@@ -43,15 +46,15 @@ class EditarPuntosRecoleccionState
 
   GoogleMapController? mapController;
 
-  // void _save() {
-  //   BlocProvider.of<EditarPuntosRecoleccionBloc>(context).add(
-  //       SaveEditarPuntosRecoleccionEvent(
-  //           descripcion: _descripcionController.text,
-  //           direccion: _direccionController.text,
-  //           latitud: latitud,
-  //           longitud: longitud,
-  //           idTipoDeResiduo: _indexTipoDeResiduo ?? 0));
-  // }
+  void _save() {
+    BlocProvider.of<NuevoPuntosRecoleccionBloc>(context).add(
+        SaveNuevoPuntosRecoleccionEvent(
+            descripcion: _descripcionController.text,
+            direccion: _direccionController.text,
+            latitud: latitud,
+            longitud: longitud,
+            idTipoDeResiduo: _indexTipoDeResiduo ?? 0));
+  }
 
   void _onChangeDireccion() async {
     if (direccionControl != _direccionController.text) {
@@ -83,6 +86,7 @@ class EditarPuntosRecoleccionState
 
   void _onSelectPosition(LatLng position) {
     const MarkerId markerId = MarkerId('punto_recoleccion');
+
     final Marker marker = Marker(
       icon: BitmapDescriptor.defaultMarkerWithHue(
         BitmapDescriptor.hueGreen,
@@ -96,8 +100,18 @@ class EditarPuntosRecoleccionState
         }
       },
     );
+
+    Future.delayed(const Duration(milliseconds: 250), () {
+      setState(() {
+        markers[markerId] = marker;
+        mapLoad = true;
+        latitud = position.latitude;
+        longitud = position.longitude;
+      });
+    });
+
     setState(() {
-      markers[markerId] = marker;
+      markers = {};
       mapLoad = true;
       latitud = position.latitude;
       longitud = position.longitude;
@@ -107,8 +121,8 @@ class EditarPuntosRecoleccionState
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<EditarPuntosRecoleccionBloc>(context)
-        .add(LoadEditarPuntosRecoleccionEvent());
+    BlocProvider.of<NuevoPuntosRecoleccionBloc>(context)
+        .add(LoadNuevoPuntosRecoleccionEvent());
   }
 
   DateTime fecha = DateTime.now();
@@ -119,21 +133,13 @@ class EditarPuntosRecoleccionState
     return Builder(builder: (context) {
       return Scaffold(
           appBar: appBar(context),
-          body: SafeArea(child: BlocBuilder<EditarPuntosRecoleccionBloc,
-              EditarPuntosRecoleccionBlocState>(builder: (context, state) {
-            if (state is EditarInitialPuntosRecoleccionBlocState) {
+          body: SafeArea(child: BlocBuilder<NuevoPuntosRecoleccionBloc,
+              NuevoPuntosRecoleccionBlocState>(builder: (context, state) {
+            if (state is NuevoInitialPuntosRecoleccionBlocState) {
               return const Center(child: CircularProgressIndicator());
-            } else if (state is EditarLoaderPuntosRecoleccionBlocState) {
+            } else if (state is NuevoLoaderPuntosRecoleccionBlocState) {
               latitud = state.position.latitude;
               longitud = state.position.longitude;
-              _direccionController.text = state.puntoRecoleccion.direccion;
-              _descripcionController.text = state.puntoRecoleccion.descripcion;
-              _latitudController.text =
-                  state.puntoRecoleccion.latitud.toString();
-              _longitudController.text =
-                  state.puntoRecoleccion.longitud.toString();
-              _indexTipoDeResiduo = state.puntoRecoleccion.tipo.id;
-
               return Center(
                   child: SingleChildScrollView(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -152,7 +158,7 @@ class EditarPuntosRecoleccionState
                         child: Column(children: [
                           const SizedBox(height: 10),
                           const Text(
-                            'Editar de Punto de Recolección',
+                            'Nuevo de Punto de Recolección',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
@@ -235,23 +241,23 @@ class EditarPuntosRecoleccionState
                                               Colors.grey),
                                     ),
                                   ),
-                                  // ElevatedButton.icon(
-                                  //   icon: const Icon(
-                                  //     Icons.save,
-                                  //     color: Colors.white,
-                                  //   ),
-                                  //   // onPressed: () async {
-                                  //   //   _save();
-                                  //   //   Navigator.pop(context);
-                                  //   // },
-                                  //   label: const Text('Guardar',
-                                  //       style: TextStyle(color: Colors.white)),
-                                  //   style: ButtonStyle(
-                                  //     backgroundColor:
-                                  //         MaterialStateProperty.all<Color>(
-                                  //             Theme.of(context).primaryColor),
-                                  //   ),
-                                  // ),
+                                  ElevatedButton.icon(
+                                    icon: const Icon(
+                                      Icons.save,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: () async {
+                                      _save();
+                                      Navigator.pop(context);
+                                    },
+                                    label: const Text('Guardar',
+                                        style: TextStyle(color: Colors.white)),
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              Theme.of(context).primaryColor),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ],

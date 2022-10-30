@@ -1,5 +1,6 @@
 import 'package:sgrsoft/data/datasource/remote/puntos_recoleccion/remote.dart';
 import 'package:sgrsoft/domain/models/punto_de_recoleccion.dart';
+import 'package:sgrsoft/domain/models/punto_de_recoleccion_estado.dart';
 
 class MockPuntosRecoleccionDataSource
     extends RemotePuntosRecoleccionDataSource {
@@ -29,6 +30,11 @@ class MockPuntosRecoleccionDataSource
 
   @override
   Future<bool> addPuntoRecoleccion(PuntoRecoleccion puntoRecoleccion) async {
+    puntoRecoleccion.id = db.length + 1;
+    puntoRecoleccion.estados = <PuntoRecoleccionEstado>[
+      (PuntoRecoleccionEstado(
+          0, DateTime.now(), 1, 'Nuevo', 'Ingresado por el usuario'))
+    ];
     db.add(puntoRecoleccion);
     return Future.value(true);
   }

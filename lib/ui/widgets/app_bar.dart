@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sgrsoft/ui/widgets/google_maps/select_position2.dart';
 
 // function con context como parametro
 AppBar appBar(BuildContext context) {
@@ -40,7 +41,7 @@ AppBar appBar(BuildContext context) {
         onPressed: () {
           Navigator.pushNamed(
             context,
-            '/mapa',
+            GoogleMapsSetPosition2.routeName,
           );
         },
       ),

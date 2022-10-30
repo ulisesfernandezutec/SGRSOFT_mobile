@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sgrsoft/domain/blocs/puntos_recoleccion/detalle/detalle_bloc.dart';
 import 'package:sgrsoft/domain/blocs/puntos_recoleccion/listado/listado_bloc.dart';
+import 'package:sgrsoft/domain/blocs/puntos_recoleccion/nuevo/nuevo_bloc.dart';
 import 'package:sgrsoft/domain/blocs/tipos_residuos/editar/editar_bloc.dart';
 import 'package:sgrsoft/domain/blocs/tipos_residuos/listado/listado_bloc.dart';
 import 'package:sgrsoft/domain/blocs/tipos_residuos/nuevo/nuevo_bloc.dart';
@@ -31,9 +32,12 @@ void main() async {
   // SettingsView.
   runApp(MultiBlocProvider(providers: [
     BlocProvider(
-        create: (BuildContext context) => ListadoPuntosRecoleccionBloc()),
+        create: (BuildContext context) => ListadoPuntosRecoleccionBloc()
+          ..add(LoadListadoPuntosRecoleccionEvent())),
     BlocProvider(
         create: (BuildContext context) => DetallePuntosRecoleccionBloc()),
+    BlocProvider(
+        create: (BuildContext context) => NuevoPuntosRecoleccionBloc()),
     BlocProvider(create: (BuildContext context) => EditarTipoDeResiduoBloc()),
     BlocProvider(
         create: (BuildContext context) => ListadoTipoDeResiduosBloc()

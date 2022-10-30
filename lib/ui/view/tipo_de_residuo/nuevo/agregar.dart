@@ -1,7 +1,6 @@
 // formluario para agregar un nuevo tipo de residuo
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sgrsoft/domain/blocs/tipos_residuos/listado/listado_bloc.dart';
 import 'package:sgrsoft/domain/blocs/tipos_residuos/nuevo/nuevo_bloc.dart';
 import 'package:sgrsoft/domain/models/tipo_de_residuo.dart';
 import 'package:sgrsoft/ui/view/tipo_de_residuo/listado/listado.dart';

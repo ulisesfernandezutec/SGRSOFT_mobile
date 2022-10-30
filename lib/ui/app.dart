@@ -5,12 +5,15 @@ import 'package:sgrsoft/ui/view/demogooglemaps/maps.dart';
 import 'package:sgrsoft/ui/view/demomodal/demomodal.dart';
 import 'package:sgrsoft/ui/view/demoparams/demoparams.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/detalle/detalle.dart';
-import 'package:sgrsoft/ui/view/puntos_recoleccion/editar/editar.dart';
+import 'package:sgrsoft/ui/view/puntos_recoleccion/editar/_editar.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/listado.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/mapa/mapa.dart';
 import 'package:sgrsoft/ui/settings/settings_controller.dart';
 import 'package:sgrsoft/ui/settings/settings_view.dart';
+import 'package:sgrsoft/ui/view/puntos_recoleccion/nuevo/nuevo.dart';
 import 'package:sgrsoft/ui/view/tipo_de_residuo/listado/listado.dart';
+
+import 'widgets/google_maps/select_position2.dart';
 
 class MainApp extends StatelessWidget {
   const MainApp({
@@ -102,13 +105,19 @@ class MainApp extends StatelessWidget {
                     return const DetallePuntosRecoleccionScreens();
                   case EditarPuntosRecoleccionScreens.routeName:
                     return const EditarPuntosRecoleccionScreens();
+                  case NuevoPuntosRecoleccionScreens.routeName:
+                    return const NuevoPuntosRecoleccionScreens();
                   case DemoParams.routeName:
                     return const DemoParams();
                   case DemoModal.routeName:
                     return const DemoModal();
+                  case MyGoogleMaps.routeName:
+                    return const MyGoogleMaps();
                   // Tipo de Residuos
                   case ListadoTipoResiduos.routeName:
                     return const ListadoTipoResiduos();
+                  case GoogleMapsSetPosition2.routeName:
+                    return const GoogleMapsSetPosition2();
                   default:
                     return const ListadoPuntosRecoleccionScreens();
                 }
