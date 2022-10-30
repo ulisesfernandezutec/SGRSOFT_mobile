@@ -42,16 +42,7 @@ class NuevoPuntosRecoleccionBloc
     try {
       final tiposDeResiduos =
           await _tiposDeResiduosRepository.getTiposDeResiduos();
-      // final position = await determinePosition();
-      const Position position = Position(
-          longitude: 0,
-          latitude: 0,
-          accuracy: 0,
-          altitude: 1,
-          heading: 0,
-          speed: 0,
-          speedAccuracy: 0,
-          timestamp: null);
+      final position = await determinePosition();
       emit(NuevoLoaderPuntosRecoleccionBlocState(
           tiposDeResiduos: tiposDeResiduos, position: position));
     } catch (e) {
