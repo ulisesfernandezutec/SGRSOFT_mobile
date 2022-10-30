@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
-
-import 'src/app.dart';
-import 'src/settings/settings_controller.dart';
-import 'src/settings/settings_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sgrsoft/domain/blocs/puntos_recoleccion/detalle/detalle_bloc.dart';
+import 'package:sgrsoft/domain/blocs/puntos_recoleccion/listado/listado_bloc.dart';
+import 'package:sgrsoft/domain/blocs/puntos_recoleccion/nuevo/nuevo_bloc.dart';
+import 'package:sgrsoft/domain/blocs/tipos_residuos/editar/editar_bloc.dart';
+import 'package:sgrsoft/domain/blocs/tipos_residuos/listado/listado_bloc.dart';
+import 'package:sgrsoft/domain/blocs/tipos_residuos/nuevo/nuevo_bloc.dart';
+import 'package:sgrsoft/ui/app.dart';
+import 'package:sgrsoft/ui/settings/settings_controller.dart';
+import 'package:sgrsoft/ui/settings/settings_service.dart';
+import 'package:sgrsoft/di/di.dart' as di;
 
 void main() async {
+  // Cargamos get_it
+  // getit nos permite cargar de forma automatica las dependencias.
+  await di.initializeDI();
+
+  // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
+  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   // Set up the SettingsController, which will glue user settings to multiple
   // Flutter Widgets.
   final settingsController = SettingsController(SettingsService());
@@ -16,5 +30,18 @@ void main() async {
   // Run the app and pass in the SettingsController. The app listens to the
   // SettingsController for changes, then passes it further down to the
   // SettingsView.
-  runApp(MyApp(settingsController: settingsController));
+  runApp(MultiBlocProvider(providers: [
+    BlocProvider(
+        create: (BuildContext context) => ListadoPuntosRecoleccionBloc()
+          ..add(LoadListadoPuntosRecoleccionEvent())),
+    BlocProvider(
+        create: (BuildContext context) => DetallePuntosRecoleccionBloc()),
+    BlocProvider(
+        create: (BuildContext context) => NuevoPuntosRecoleccionBloc()),
+    BlocProvider(create: (BuildContext context) => EditarTipoDeResiduoBloc()),
+    BlocProvider(
+        create: (BuildContext context) => ListadoTipoDeResiduosBloc()
+          ..add(LoadListadoTiposDeResiduosEvent())),
+    BlocProvider(create: (BuildContext context) => NuevoTipoDeResiduoBloc()),
+  ], child: MainApp(settingsController: settingsController)));
 }

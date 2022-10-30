@@ -1,0 +1,6 @@
+{
+  "appTitle": "sgrsoft",
+  "@appTitle": {
+    "description": "Titulo de la application"
+  }
+}
