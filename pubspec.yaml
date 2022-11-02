@@ -40,6 +40,9 @@ dependencies:
   flutter_map: ^3.0.0
   geolocator_linux: ^0.1.2
   decorated_icon: ^1.2.1
+  google_sign_in: ^5.4.2
+  flutter_signin_button: ^2.0.0
+  font_awesome_flutter: ^9.2.0
 
 dev_dependencies:
   flutter_test:

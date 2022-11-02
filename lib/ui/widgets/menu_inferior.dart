@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sgrsoft/ui/view/login/google.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/listado.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/mapa/mapa.dart';
 
@@ -80,6 +81,14 @@ List<Widget> menuInferior(BuildContext context) {
           context,
           '/puntos_recoleccion/nuevo',
         );
+      },
+    ),
+    IconButton(
+      icon: const Icon(Icons.login),
+      tooltip: 'Google',
+      color: Theme.of(context).primaryColor,
+      onPressed: () {
+        Navigator.pushNamed(context, SignInGoogle.routeName);
       },
     ),
   ];

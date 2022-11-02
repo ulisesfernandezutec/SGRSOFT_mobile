@@ -4,6 +4,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:sgrsoft/ui/view/demogooglemaps/maps.dart';
 import 'package:sgrsoft/ui/view/demomodal/demomodal.dart';
 import 'package:sgrsoft/ui/view/demoparams/demoparams.dart';
+import 'package:sgrsoft/ui/view/login/google.dart';
+import 'package:sgrsoft/ui/view/login/login.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/detalle/detalle.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/editar/_editar.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/listado.dart';
@@ -12,6 +14,7 @@ import 'package:sgrsoft/ui/settings/settings_controller.dart';
 import 'package:sgrsoft/ui/settings/settings_view.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/nuevo/nuevo.dart';
 import 'package:sgrsoft/ui/view/tipo_de_residuo/listado/listado.dart';
+import 'package:sgrsoft/ui/widgets/custom_error.dart';
 
 import 'widgets/google_maps/select_position2.dart';
 
@@ -33,6 +36,12 @@ class MainApp extends StatelessWidget {
       animation: settingsController,
       builder: (BuildContext context, Widget? child) {
         return MaterialApp(
+          builder: (BuildContext context, Widget? widget) {
+            ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
+              return CustomError(errorDetails: errorDetails);
+            };
+            return widget!;
+          },
           // Providing a restorationScopeId allows the Navigator built by the
           // MaterialApp to restore the navigation stack when a user leaves and
           // returns to the app after it has been killed while running in the
@@ -118,8 +127,10 @@ class MainApp extends StatelessWidget {
                     return const ListadoTipoResiduos();
                   case GoogleMapsSetPosition2.routeName:
                     return const GoogleMapsSetPosition2();
+                  case SignInGoogle.routeName:
+                    return const SignInGoogle();
                   default:
-                    return const ListadoPuntosRecoleccionScreens();
+                    return const LoginScreen();
                 }
               },
             );

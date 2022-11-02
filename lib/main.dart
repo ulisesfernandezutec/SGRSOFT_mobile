@@ -30,18 +30,24 @@ void main() async {
   // Run the app and pass in the SettingsController. The app listens to the
   // SettingsController for changes, then passes it further down to the
   // SettingsView.
-  runApp(MultiBlocProvider(providers: [
-    BlocProvider(
-        create: (BuildContext context) => ListadoPuntosRecoleccionBloc()
-          ..add(LoadListadoPuntosRecoleccionEvent())),
-    BlocProvider(
-        create: (BuildContext context) => DetallePuntosRecoleccionBloc()),
-    BlocProvider(
-        create: (BuildContext context) => NuevoPuntosRecoleccionBloc()),
-    BlocProvider(create: (BuildContext context) => EditarTipoDeResiduoBloc()),
-    BlocProvider(
-        create: (BuildContext context) => ListadoTipoDeResiduosBloc()
-          ..add(LoadListadoTiposDeResiduosEvent())),
-    BlocProvider(create: (BuildContext context) => NuevoTipoDeResiduoBloc()),
-  ], child: MainApp(settingsController: settingsController)));
+  runApp(MultiBlocProvider(
+      providers: [
+        BlocProvider(
+            create: (BuildContext context) => ListadoPuntosRecoleccionBloc()
+              ..add(LoadListadoPuntosRecoleccionEvent())),
+        BlocProvider(
+            create: (BuildContext context) => DetallePuntosRecoleccionBloc()),
+        BlocProvider(
+            create: (BuildContext context) => NuevoPuntosRecoleccionBloc()),
+        BlocProvider(
+            create: (BuildContext context) => EditarTipoDeResiduoBloc()),
+        BlocProvider(
+            create: (BuildContext context) => ListadoTipoDeResiduosBloc()
+              ..add(LoadListadoTiposDeResiduosEvent())),
+        BlocProvider(
+            create: (BuildContext context) => NuevoTipoDeResiduoBloc()),
+      ],
+      child: MainApp(
+        settingsController: settingsController,
+      )));
 }
