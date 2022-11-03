@@ -8,24 +8,24 @@ class MockLocalPuntosRecoleccionDataSource
   MockLocalPuntosRecoleccionDataSource({required this.db});
 
   @override
-  Future<List<PuntoRecoleccion>> getPuntosRecoleccion() async {
+  Future<List<PuntoRecoleccion>> getList() async {
     return db;
   }
 
   @override
-  Future<bool> addPuntoRecoleccion(PuntoRecoleccion puntoRecoleccion) async {
+  Future<bool> add(PuntoRecoleccion puntoRecoleccion) async {
     db.add(puntoRecoleccion);
     return Future.value(true);
   }
 
   @override
-  Future<bool> deletePuntoRecoleccion(PuntoRecoleccion puntoRecoleccion) {
+  Future<bool> delete(PuntoRecoleccion puntoRecoleccion) {
     db.remove(puntoRecoleccion);
     return Future.value(true);
   }
 
   @override
-  Future<bool> updatePuntoRecoleccion(PuntoRecoleccion puntoRecoleccion) {
+  Future<bool> update(PuntoRecoleccion puntoRecoleccion) {
     db[db.indexWhere((punto) => punto.id == puntoRecoleccion.id)] =
         puntoRecoleccion;
     return Future.value(true);

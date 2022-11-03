@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:sgrsoft/ui/asset_store/image_store.dart';
 import 'package:sgrsoft/ui/widgets/google_maps/select_position2.dart';
 
 // function con context como parametro
 AppBar appBar(BuildContext context) {
   return AppBar(
-    title: const Image(image: AssetImage('assets/images/logo.png'), height: 50),
+    title: ImageStore().logo,
     actions: <Widget>[
       IconButton(
         icon: const Icon(Icons.add_alert),

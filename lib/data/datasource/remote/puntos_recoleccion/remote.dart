@@ -1,9 +1,9 @@
 import 'package:sgrsoft/domain/models/punto_de_recoleccion.dart';
 
 abstract class RemotePuntosRecoleccionDataSource {
-  Future<List<PuntoRecoleccion>> getPuntosRecoleccion();
-  Future<PuntoRecoleccion> getPuntoRecoleccion(int id);
-  Future<bool> addPuntoRecoleccion(PuntoRecoleccion puntoRecoleccion);
-  Future<bool> updatePuntoRecoleccion(PuntoRecoleccion puntoRecoleccion);
-  Future<bool> deletePuntoRecoleccion(PuntoRecoleccion puntoRecoleccion);
+  Future<List<PuntoRecoleccion>> getList();
+  Future<PuntoRecoleccion> get(int id);
+  Future<bool> add(PuntoRecoleccion puntoRecoleccion);
+  Future<bool> update(PuntoRecoleccion puntoRecoleccion);
+  Future<bool> delete(PuntoRecoleccion puntoRecoleccion);
 }

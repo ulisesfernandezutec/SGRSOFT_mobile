@@ -26,7 +26,14 @@ class LoginScreen extends StatefulWidget {
 class LoginScreenState extends State<LoginScreen> {
   Future<void> _handleSignIn(context) async {
     try {
-      await _googleSignIn.signIn();
+      final result = await _googleSignIn.signIn();
+      final GoogleSignInAuthentication ggAuth = await result!.authentication;
+      if (kDebugMode) {
+        print(ggAuth.idToken);
+        print(ggAuth.accessToken);
+        print(_googleSignIn.currentUser);
+      }
+
       Navigator.pushNamed(context, ListadoPuntosRecoleccionScreens.routeName);
     } catch (error) {
       if (kDebugMode) {

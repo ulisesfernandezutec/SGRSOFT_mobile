@@ -28,7 +28,7 @@ class ListadoPuntosRecoleccionBloc
       {required ListadoPuntosRecoleccionEvent event,
       required Emitter<ListadoPuntosRecoleccionState> emit}) async {
     try {
-      final puntos = await _puntoRecoleccionRespository.getPuntosRecoleccion();
+      final puntos = await _puntoRecoleccionRespository.getList();
       emit(ListadoSuccessPuntosRecoleccionState(puntosRecoleccion: puntos));
     } catch (e) {
       emit(ListadoErrorPuntosRecoleccionState());

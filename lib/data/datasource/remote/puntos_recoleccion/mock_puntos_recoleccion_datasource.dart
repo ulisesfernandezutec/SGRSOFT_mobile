@@ -9,12 +9,12 @@ class MockPuntosRecoleccionDataSource
   MockPuntosRecoleccionDataSource({required this.db});
 
   @override
-  Future<List<PuntoRecoleccion>> getPuntosRecoleccion() async {
+  Future<List<PuntoRecoleccion>> getList() async {
     return db;
   }
 
   @override
-  Future<PuntoRecoleccion> getPuntoRecoleccion(int id) async {
+  Future<PuntoRecoleccion> get(int id) async {
     if (db.isNotEmpty) {
       List<PuntoRecoleccion> puntos =
           db.where((punto) => punto.id == id).toList();
@@ -29,7 +29,7 @@ class MockPuntosRecoleccionDataSource
   }
 
   @override
-  Future<bool> addPuntoRecoleccion(PuntoRecoleccion puntoRecoleccion) async {
+  Future<bool> add(PuntoRecoleccion puntoRecoleccion) async {
     puntoRecoleccion.id = db.length + 1;
     puntoRecoleccion.estados = <PuntoRecoleccionEstado>[
       (PuntoRecoleccionEstado(
@@ -40,13 +40,13 @@ class MockPuntosRecoleccionDataSource
   }
 
   @override
-  Future<bool> deletePuntoRecoleccion(PuntoRecoleccion puntoRecoleccion) {
+  Future<bool> delete(PuntoRecoleccion puntoRecoleccion) {
     db.remove(puntoRecoleccion);
     return Future.value(true);
   }
 
   @override
-  Future<bool> updatePuntoRecoleccion(PuntoRecoleccion puntoRecoleccion) {
+  Future<bool> update(PuntoRecoleccion puntoRecoleccion) {
     db[db.indexWhere((punto) => punto.id == puntoRecoleccion.id)] =
         puntoRecoleccion;
     return Future.value(true);

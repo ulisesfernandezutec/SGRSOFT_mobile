@@ -19,6 +19,4 @@ void domain() async {
   _l.registerLazySingleton(() => _l<GetIt>());
 }
 
-void view() async {
-  // _l.registerFactory(() => ListadoPuntosRecoleccionModel(_l()));
-}
+void view() async {}

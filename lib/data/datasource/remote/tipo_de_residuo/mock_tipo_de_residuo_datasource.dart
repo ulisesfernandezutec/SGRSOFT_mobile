@@ -7,12 +7,12 @@ class MockTiposDeResiduosDataSource extends RemoteTiposDeResiduosDataSource {
   MockTiposDeResiduosDataSource({required this.db});
 
   @override
-  Future<List<TipoDeResiduo>> getTiposDeResiduos() async {
+  Future<List<TipoDeResiduo>> getList() async {
     return db;
   }
 
   @override
-  Future<TipoDeResiduo> getTipoDeResiduo(int id) async {
+  Future<TipoDeResiduo> get(int id) async {
     if (db.isNotEmpty) {
       List<TipoDeResiduo> puntos = db.where((punto) => punto.id == id).toList();
       if (puntos.isNotEmpty) {
@@ -26,20 +26,20 @@ class MockTiposDeResiduosDataSource extends RemoteTiposDeResiduosDataSource {
   }
 
   @override
-  Future<bool> addTipoDeResiduo(TipoDeResiduo tipoResiduo) async {
+  Future<bool> add(TipoDeResiduo tipoResiduo) async {
     tipoResiduo.id = db.length + 1;
     db.add(tipoResiduo);
     return Future.value(true);
   }
 
   @override
-  Future<bool> deleteTipoDeResiduo(TipoDeResiduo tipoResiduo) {
+  Future<bool> delete(TipoDeResiduo tipoResiduo) {
     db.remove(tipoResiduo);
     return Future.value(true);
   }
 
   @override
-  Future<bool> updateTipoDeResiduo(TipoDeResiduo tipoResiduo) {
+  Future<bool> update(TipoDeResiduo tipoResiduo) {
     db[db.indexWhere((punto) => punto.id == tipoResiduo.id)] = tipoResiduo;
     return Future.value(true);
   }

@@ -15,16 +15,16 @@ class EditarTipoDeResiduoBloc
   final TiposDeResiduosRepository _tiposDeResiduosRespository = getIt();
 
   EditarTipoDeResiduoBloc() : super(const EditarTipoDeResiduoInitial()) {
-    on<UpdateTipoDeResiduoEvent>((event, emit) async {
+    on<updateEvent>((event, emit) async {
       await _updateTipo(event: event, emit: emit);
     });
   }
 
   Future<void> _updateTipo(
-      {required UpdateTipoDeResiduoEvent event,
+      {required updateEvent event,
       required Emitter<EditarTipoDeResiduoState> emit}) async {
     try {
-      await _tiposDeResiduosRespository.updateTipoDeResiduo(event.tipoResiduo);
+      await _tiposDeResiduosRespository.update(event.tipoResiduo);
       emit(EditarTipoDeResiduoSuccess(
           tipoResiduo: event.tipoResiduo, isEditing: true));
     } catch (e) {

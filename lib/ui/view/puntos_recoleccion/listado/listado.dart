@@ -19,6 +19,13 @@ class ListadoPuntosRecoleccionScreens extends StatefulWidget {
 class _ListadoPuntosRecoleccionState
     extends State<ListadoPuntosRecoleccionScreens> {
   @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<ListadoPuntosRecoleccionBloc>(context)
+        .add(LoadListadoPuntosRecoleccionEvent());
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: appBar(context),

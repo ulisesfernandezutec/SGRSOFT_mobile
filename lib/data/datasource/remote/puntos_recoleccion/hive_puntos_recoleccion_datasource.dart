@@ -9,33 +9,33 @@ class HivePuntosRecoleccionDataSource
   HivePuntosRecoleccionDataSource({required this.box});
 
   @override
-  Future<List<PuntoRecoleccion>> getPuntosRecoleccion() async {
+  Future<List<PuntoRecoleccion>> getList() async {
     List<PuntoRecoleccion> list = [];
     return list;
   }
 
   @override
-  Future<PuntoRecoleccion> getPuntoRecoleccion(int id) async {
+  Future<PuntoRecoleccion> get(int id) async {
     // PuntoRecoleccion puntoRecoleccion = PuntoRecoleccion();
     // return db;
     throw UnimplementedError();
   }
 
   @override
-  Future<bool> addPuntoRecoleccion(PuntoRecoleccion puntoRecoleccion) async {
+  Future<bool> add(PuntoRecoleccion puntoRecoleccion) async {
     await box.add(puntoRecoleccion);
     return true;
   }
 
   @override
-  Future<bool> deletePuntoRecoleccion(PuntoRecoleccion puntoRecoleccion) {
-    // TODO: implement deletePuntoRecoleccion
+  Future<bool> delete(PuntoRecoleccion puntoRecoleccion) {
+    // TODO: implement delete
     throw UnimplementedError();
   }
 
   @override
-  Future<bool> updatePuntoRecoleccion(PuntoRecoleccion puntoRecoleccion) {
-    // TODO: implement updatePuntoRecoleccion
+  Future<bool> update(PuntoRecoleccion puntoRecoleccion) {
+    // TODO: implement update
     throw UnimplementedError();
   }
 }

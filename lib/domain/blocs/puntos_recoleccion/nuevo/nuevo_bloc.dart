@@ -40,8 +40,7 @@ class NuevoPuntosRecoleccionBloc
   Future<void> _load(
       {required Emitter<NuevoPuntosRecoleccionBlocState> emit}) async {
     try {
-      final tiposDeResiduos =
-          await _tiposDeResiduosRepository.getTiposDeResiduos();
+      final tiposDeResiduos = await _tiposDeResiduosRepository.getList();
       final position = await determinePosition();
       emit(NuevoLoaderPuntosRecoleccionBlocState(
           tiposDeResiduos: tiposDeResiduos, position: position));
@@ -59,7 +58,7 @@ class NuevoPuntosRecoleccionBloc
       required int idTipoDeResiduo}) async {
     try {
       TipoDeResiduo tipoDeResiduo =
-          await _tiposDeResiduosRepository.getTipoDeResiduo(idTipoDeResiduo);
+          await _tiposDeResiduosRepository.get(idTipoDeResiduo);
 
       PuntoRecoleccion puntoDeRecoleccion = PuntoRecoleccion(
           0,
@@ -69,8 +68,7 @@ class NuevoPuntosRecoleccionBloc
           direccion,
           descripcion, <PuntoRecoleccionEstado>[]);
 
-      await _puntosRecoleccionRepository
-          .addPuntoRecoleccion(puntoDeRecoleccion);
+      await _puntosRecoleccionRepository.add(puntoDeRecoleccion);
       final position = await determinePosition();
 
       emit(NuevoLoaderPuntosRecoleccionBlocState(

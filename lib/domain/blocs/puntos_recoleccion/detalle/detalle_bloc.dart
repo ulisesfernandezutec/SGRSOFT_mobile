@@ -27,8 +27,7 @@ class DetallePuntosRecoleccionBloc
       {required GetDetallePuntosRecoleccionEvent event,
       required Emitter<DetallePuntosRecoleccionState> emit}) async {
     try {
-      final punto =
-          await _puntoRecoleccionRespository.getPuntoRecoleccion(event.id);
+      final punto = await _puntoRecoleccionRespository.get(event.id);
       emit(DetalleSuccessPuntosRecoleccionState(puntoRecoleccion: punto));
     } catch (e) {
       emit(DetalleErrorPuntosRecoleccionState(message: e.toString()));

@@ -130,7 +130,7 @@ class DetallePuntosRecoleccionScreenState
                             const SizedBox(height: 10),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
+                              children: const <Widget>[
                                 ButtonBar(
                                   children: <Widget>[
                                     // ElevatedButton.icon(

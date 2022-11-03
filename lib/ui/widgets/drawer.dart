@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sgrsoft/ui/asset_store/image_store.dart';
 import 'package:sgrsoft/ui/settings/settings_view.dart';
+import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/listado.dart';
 import 'package:sgrsoft/ui/view/tipo_de_residuo/listado/listado.dart';
 
 Drawer appDrawer(BuildContext context) {
@@ -15,19 +17,14 @@ Drawer appDrawer(BuildContext context) {
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.primary,
           ),
-          child: const Text(
-            'Drawer Header',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-            ),
-          ),
+          child: ImageStore().logo,
         ),
         ListTile(
             leading: const Icon(Icons.list),
             title: const Text('Servicios'),
             onTap: () {
-              Navigator.restorablePushNamed(context, '/');
+              Navigator.restorablePushNamed(
+                  context, ListadoPuntosRecoleccionScreens.routeName);
             }),
         ListTile(
             leading: const Icon(Icons.class_outlined),

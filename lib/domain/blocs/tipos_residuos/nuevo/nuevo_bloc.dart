@@ -24,7 +24,7 @@ class NuevoTipoDeResiduoBloc
       Emitter<NuevoTipoDeResiduoState> emit) async {
     emit(NuevoTipoDeResiduoLoadingState());
     try {
-      await _tiposDeResiduosRespository.addTipoDeResiduo(tipoDeResiduo);
+      await _tiposDeResiduosRespository.add(tipoDeResiduo);
       emit(NuevoTipoDeResiduoSuccessState(tipoDeResiduo: tipoDeResiduo));
     } catch (e) {
       emit(NuevoTipoDeResiduoErrorState(message: e.toString()));

@@ -12,34 +12,33 @@ class PuntosRecoleccionRepository extends AbstractPuntosRecoleccionRepository {
   PuntosRecoleccionRepository(this._remote, this._local);
 
   @override
-  Future<List<PuntoRecoleccion>> getPuntosRecoleccion(
-      {bool updateLocal = false}) async {
+  Future<List<PuntoRecoleccion>> getList({bool updateLocal = false}) async {
     // if(updateLocal){
     //   await _local.clear();
-    //   await _local.addPuntosRecoleccion(await _remote.getPuntosRecoleccion());
+    //   await _local.addPuntosRecoleccion(await _remote.getList());
     // }
-    List<PuntoRecoleccion> listRemote = await _remote.getPuntosRecoleccion();
-    // List<PuntoRecoleccion> listLocal = await _local.getPuntosRecoleccion();
+    List<PuntoRecoleccion> listRemote = await _remote.getList();
+    // List<PuntoRecoleccion> listLocal = await _local.getList();
     return listRemote;
   }
 
   @override
-  Future<PuntoRecoleccion> getPuntoRecoleccion(int id) async {
-    return await _remote.getPuntoRecoleccion(id);
+  Future<PuntoRecoleccion> get(int id) async {
+    return await _remote.get(id);
   }
 
   @override
-  Future<bool> addPuntoRecoleccion(PuntoRecoleccion puntoRecoleccion) async {
-    return await _remote.addPuntoRecoleccion(puntoRecoleccion);
+  Future<bool> add(PuntoRecoleccion puntoRecoleccion) async {
+    return await _remote.add(puntoRecoleccion);
   }
 
   @override
-  Future<bool> updatePuntoRecoleccion(PuntoRecoleccion puntoRecoleccion) async {
-    return await _remote.updatePuntoRecoleccion(puntoRecoleccion);
+  Future<bool> update(PuntoRecoleccion puntoRecoleccion) async {
+    return await _remote.update(puntoRecoleccion);
   }
 
   @override
-  Future<bool> deletePuntoRecoleccion(PuntoRecoleccion puntoRecoleccion) async {
-    return await _remote.deletePuntoRecoleccion(puntoRecoleccion);
+  Future<bool> delete(PuntoRecoleccion puntoRecoleccion) async {
+    return await _remote.delete(puntoRecoleccion);
   }
 }
