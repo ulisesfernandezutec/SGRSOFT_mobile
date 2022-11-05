@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/geocoding.dart';
 import 'package:sgrsoft/domain/blocs/puntos_recoleccion/listado/listado_bloc.dart';
@@ -24,12 +25,10 @@ class NuevoPuntosRecoleccionScreens extends StatefulWidget {
 class NuevoPuntosRecoleccionState extends State<NuevoPuntosRecoleccionScreens> {
   final _formKey = GlobalKey<FormState>();
 
-  final _nombreController = TextEditingController();
   final _direccionController = TextEditingController();
   final _descripcionController = TextEditingController();
   final _latitudController = TextEditingController();
   final _longitudController = TextEditingController();
-  final _horarioController = TextEditingController();
 
   double latitud = 0;
   double longitud = 0;

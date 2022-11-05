@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 class NetConts {
+  static const int REFRESH_TIME = 30;
   static const String API_URL = "https://api.karaiguazu.com/";
   static const String API_BASIC_USER = "dev";
   static const String API_BASIC_PASS = "dev";

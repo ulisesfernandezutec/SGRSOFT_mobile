@@ -2,23 +2,27 @@ part of 'listado_bloc.dart';
 
 abstract class ListadoPuntosRecoleccionState {
   List<PuntoRecoleccion> puntosRecoleccion;
+  String search;
 
-  ListadoPuntosRecoleccionState({required this.puntosRecoleccion});
+  ListadoPuntosRecoleccionState(
+      {this.puntosRecoleccion = const <PuntoRecoleccion>[], this.search = ''});
 }
 
 class ListadoInitialPuntosRecoleccionState
     extends ListadoPuntosRecoleccionState {
-  ListadoInitialPuntosRecoleccionState() : super(puntosRecoleccion: []);
+  ListadoInitialPuntosRecoleccionState();
 }
 
 class ListadoSuccessPuntosRecoleccionState
     extends ListadoPuntosRecoleccionState {
   ListadoSuccessPuntosRecoleccionState(
-      {required List<PuntoRecoleccion> puntosRecoleccion})
-      : super(puntosRecoleccion: puntosRecoleccion);
+      {puntosRecoleccion = const <PuntoRecoleccion>[], search = ''})
+      : super(puntosRecoleccion: puntosRecoleccion, search: search);
 }
 
 // ListadoErrorPuntosRecoleccionState
 class ListadoErrorPuntosRecoleccionState extends ListadoPuntosRecoleccionState {
-  ListadoErrorPuntosRecoleccionState() : super(puntosRecoleccion: []);
+  ListadoErrorPuntosRecoleccionState(
+      {puntosRecoleccion = const <PuntoRecoleccion>[], search = ''})
+      : super(puntosRecoleccion: puntosRecoleccion, search: search);
 }

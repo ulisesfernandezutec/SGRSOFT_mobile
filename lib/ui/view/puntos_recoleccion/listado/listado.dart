@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sgrsoft/domain/blocs/puntos_recoleccion/listado/listado_bloc.dart';
@@ -18,11 +20,24 @@ class ListadoPuntosRecoleccionScreens extends StatefulWidget {
 
 class _ListadoPuntosRecoleccionState
     extends State<ListadoPuntosRecoleccionScreens> {
+  final TextEditingController _buscarControl = TextEditingController();
+  late Bloc bloc;
+
   @override
   void initState() {
     super.initState();
+    _buscarControl.text =
+        BlocProvider.of<ListadoPuntosRecoleccionBloc>(context).getSearch;
     BlocProvider.of<ListadoPuntosRecoleccionBloc>(context)
         .add(LoadListadoPuntosRecoleccionEvent());
+    bloc = BlocProvider.of<ListadoPuntosRecoleccionBloc>(context);
+  }
+
+  @override
+  void dispose() {
+    _buscarControl.dispose();
+    bloc.close();
+    super.dispose();
   }
 
   @override
@@ -48,14 +63,21 @@ class _ListadoPuntosRecoleccionState
                       children: <Widget>[
                         Icon(Icons.search,
                             color: Theme.of(context).colorScheme.primary),
-                        const Expanded(
-                          child: TextField(
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Buscar',
-                            ),
+                        Expanded(
+                            child: TextField(
+                          controller: _buscarControl,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Buscar',
                           ),
-                        ),
+                          onChanged: (String e) {
+                            log('onChanged $e');
+                            BlocProvider.of<ListadoPuntosRecoleccionBloc>(
+                                    context)
+                                .add(FiltedListadoPuntosRecoleccionEvent(
+                                    search: e));
+                          },
+                        )),
                         // const Spacer(),
                         IconButton(
                           onPressed: () => {},

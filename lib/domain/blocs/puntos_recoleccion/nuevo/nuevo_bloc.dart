@@ -5,6 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sgrsoft/data/repository/puntos_recoleccion_repository_imp.dart';
 import 'package:sgrsoft/data/repository/tipos_de_residuos.dart';
+import 'package:sgrsoft/data/streams/puntos_recoleccion/listado.dart';
 import 'package:sgrsoft/device/dev_geolocator.dart';
 import 'package:sgrsoft/domain/blocs/puntos_recoleccion/listado/listado_bloc.dart';
 import 'package:sgrsoft/domain/models/punto_de_recoleccion.dart';
@@ -69,10 +70,10 @@ class NuevoPuntosRecoleccionBloc
           descripcion, <PuntoRecoleccionEstado>[]);
 
       await _puntosRecoleccionRepository.add(puntoDeRecoleccion);
-      final position = await determinePosition();
+      StreamListadoPuntosRecoleccion streamListadoPuntosRecoleccion = getIt();
+      streamListadoPuntosRecoleccion.refresh();
 
-      emit(NuevoLoaderPuntosRecoleccionBlocState(
-          position: position, tiposDeResiduos: const []));
+      emit(const NuevoSuccessPuntosRecoleccionBlocState());
     } catch (e) {
       emit(NuevoErrorPuntosRecoleccionBlocState(message: e.toString()));
     }
