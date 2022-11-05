@@ -6,10 +6,24 @@ import 'package:sgrsoft/ui/widgets/app_bar.dart';
 
 import '../detalle/detalle.dart';
 
-class ListadoTipoResiduos extends StatelessWidget {
+class ListadoTipoResiduos extends StatefulWidget {
   const ListadoTipoResiduos({Key? key}) : super(key: key);
 
   static const routeName = '/tipos_de_residuos/listado';
+
+  @override
+  State<StatefulWidget> createState() {
+    return ListadoTipoResiduosState();
+  }
+}
+
+class ListadoTipoResiduosState extends State<ListadoTipoResiduos> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<ListadoTipoDeResiduosBloc>(context)
+        .add(LoadListadoTiposDeResiduosEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,24 +43,30 @@ class ListadoTipoResiduos extends StatelessWidget {
       ),
       body: BlocBuilder<ListadoTipoDeResiduosBloc, ListadoTiposDeResiduosState>(
           builder: (context, state) {
-        return ListView.builder(
-          itemCount: state.tiposDeResiduos.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(state.tiposDeResiduos[index].nombre),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DetalleTipoResiduo(
-                      tipoResiduo: state.tiposDeResiduos[index],
+        if (state is ListadoInitialTiposDeResiduosState) {
+          return Center(
+              child: CircularProgressIndicator(
+                  color: Theme.of(context).primaryColor));
+        } else {
+          return ListView.builder(
+            itemCount: state.tiposDeResiduos.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(state.tiposDeResiduos[index].nombre),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetalleTipoResiduo(
+                        tipoResiduo: state.tiposDeResiduos[index],
+                      ),
                     ),
-                  ),
-                );
-              },
-            );
-          },
-        );
+                  );
+                },
+              );
+            },
+          );
+        }
       }),
     );
   }

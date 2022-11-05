@@ -52,11 +52,12 @@ class EditarTipoResiduoState extends State<EditarTipoResiduo> {
                 if (_formKey.currentState!.validate()) {
                   tipoResiduo.nombre = nombreController.text;
                   BlocProvider.of<EditarTipoDeResiduoBloc>(context).add(
-                    UpdateTipoDeResiduoEvent(
+                    updateEvent(
                       tipoResiduo: tipoResiduo,
                     ),
                   );
-                  Navigator.pop(context);
+                  // Puedo mandar un nuevo tipoResiduo a la pantalla anterior
+                  Navigator.pop(context, tipoResiduo);
                 }
               },
               child: const Text('Guardar'),

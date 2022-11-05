@@ -27,7 +27,7 @@ class ListadoTipoDeResiduosBloc
       {required ListadoTiposDeResiduosEvent event,
       required Emitter<ListadoTiposDeResiduosState> emit}) async {
     try {
-      final tipos = await _tiposDeResiduosRespository.getTiposDeResiduos();
+      final tipos = await _tiposDeResiduosRespository.getList();
       emit(ListadoSuccessTiposDeResiduosState(tiposDeResiduos: tipos));
     } catch (e) {
       emit(ListadoErrorTiposDeResiduosState());

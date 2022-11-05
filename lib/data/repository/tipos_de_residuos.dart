@@ -9,34 +9,33 @@ class TiposDeResiduosRepository extends AbstractTiposDeResiduosRepository {
   TiposDeResiduosRepository(this._remote);
 
   @override
-  Future<List<TipoDeResiduo>> getTiposDeResiduos(
-      {bool updateLocal = false}) async {
+  Future<List<TipoDeResiduo>> getList({bool updateLocal = false}) async {
     // if(updateLocal){
     //   await _local.clear();
-    //   await _local.addTiposDeResiduos(await _remote.getTiposDeResiduos());
+    //   await _local.addTiposDeResiduos(await _remote.getList());
     // }
-    List<TipoDeResiduo> listRemote = await _remote.getTiposDeResiduos();
-    // List<TipoDeResiduo> listLocal = await _local.getTiposDeResiduos();
+    List<TipoDeResiduo> listRemote = await _remote.getList();
+    // List<TipoDeResiduo> listLocal = await _local.getList();
     return listRemote;
   }
 
   @override
-  Future<TipoDeResiduo> getTipoDeResiduo(int id) async {
-    return await _remote.getTipoDeResiduo(id);
+  Future<TipoDeResiduo> get(int id) async {
+    return await _remote.get(id);
   }
 
   @override
-  Future<bool> addTipoDeResiduo(TipoDeResiduo puntoRecoleccion) async {
-    return await _remote.addTipoDeResiduo(puntoRecoleccion);
+  Future<bool> add(TipoDeResiduo puntoRecoleccion) async {
+    return await _remote.add(puntoRecoleccion);
   }
 
   @override
-  Future<bool> updateTipoDeResiduo(TipoDeResiduo puntoRecoleccion) async {
-    return await _remote.updateTipoDeResiduo(puntoRecoleccion);
+  Future<bool> update(TipoDeResiduo puntoRecoleccion) async {
+    return await _remote.update(puntoRecoleccion);
   }
 
   @override
-  Future<bool> deleteTipoDeResiduo(TipoDeResiduo puntoRecoleccion) async {
-    return await _remote.deleteTipoDeResiduo(puntoRecoleccion);
+  Future<bool> delete(TipoDeResiduo puntoRecoleccion) async {
+    return await _remote.delete(puntoRecoleccion);
   }
 }

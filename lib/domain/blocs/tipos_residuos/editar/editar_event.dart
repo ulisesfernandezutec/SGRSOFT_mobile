@@ -5,8 +5,8 @@ abstract class EditarTipoDeResiduoEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class UpdateTipoDeResiduoEvent extends EditarTipoDeResiduoEvent {
+class updateEvent extends EditarTipoDeResiduoEvent {
   final TipoDeResiduo tipoResiduo;
 
-  UpdateTipoDeResiduoEvent({required this.tipoResiduo});
+  updateEvent({required this.tipoResiduo});
 }

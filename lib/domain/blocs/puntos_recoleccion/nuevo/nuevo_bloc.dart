@@ -5,6 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sgrsoft/data/repository/puntos_recoleccion_repository_imp.dart';
 import 'package:sgrsoft/data/repository/tipos_de_residuos.dart';
+import 'package:sgrsoft/data/streams/puntos_recoleccion/listado.dart';
 import 'package:sgrsoft/device/dev_geolocator.dart';
 import 'package:sgrsoft/domain/blocs/puntos_recoleccion/listado/listado_bloc.dart';
 import 'package:sgrsoft/domain/models/punto_de_recoleccion.dart';
@@ -40,8 +41,7 @@ class NuevoPuntosRecoleccionBloc
   Future<void> _load(
       {required Emitter<NuevoPuntosRecoleccionBlocState> emit}) async {
     try {
-      final tiposDeResiduos =
-          await _tiposDeResiduosRepository.getTiposDeResiduos();
+      final tiposDeResiduos = await _tiposDeResiduosRepository.getList();
       final position = await determinePosition();
       emit(NuevoLoaderPuntosRecoleccionBlocState(
           tiposDeResiduos: tiposDeResiduos, position: position));
@@ -59,7 +59,7 @@ class NuevoPuntosRecoleccionBloc
       required int idTipoDeResiduo}) async {
     try {
       TipoDeResiduo tipoDeResiduo =
-          await _tiposDeResiduosRepository.getTipoDeResiduo(idTipoDeResiduo);
+          await _tiposDeResiduosRepository.get(idTipoDeResiduo);
 
       PuntoRecoleccion puntoDeRecoleccion = PuntoRecoleccion(
           0,
@@ -69,12 +69,11 @@ class NuevoPuntosRecoleccionBloc
           direccion,
           descripcion, <PuntoRecoleccionEstado>[]);
 
-      await _puntosRecoleccionRepository
-          .addPuntoRecoleccion(puntoDeRecoleccion);
-      final position = await determinePosition();
+      await _puntosRecoleccionRepository.add(puntoDeRecoleccion);
+      StreamListadoPuntosRecoleccion streamListadoPuntosRecoleccion = getIt();
+      streamListadoPuntosRecoleccion.refresh();
 
-      emit(NuevoLoaderPuntosRecoleccionBlocState(
-          position: position, tiposDeResiduos: const []));
+      emit(const NuevoSuccessPuntosRecoleccionBlocState());
     } catch (e) {
       emit(NuevoErrorPuntosRecoleccionBlocState(message: e.toString()));
     }

@@ -42,10 +42,10 @@ class EditarPuntosRecoleccionBloc extends Bloc<EditarPuntosRecoleccionEvent,
   //     required puntoRecoleccion}) async {
   //   try {
   //     final tiposDeResiduos =
-  //         await _tiposDeResiduosRepository.getTiposDeResiduos();
+  //         await _tiposDeResiduosRepository.getList();
   //     final PuntoRecoleccion puntoRecoleccion =
   //         await _puntosRecoleccionRepository
-  //             .getPuntoRecoleccion(puntoRecoleccion);
+  //             .get(puntoRecoleccion);
   //     final position = await determinePosition();
   //     emit(EditarLoaderPuntosRecoleccionBlocState(
   //         tiposDeResiduos: tiposDeResiduos,
@@ -65,7 +65,7 @@ class EditarPuntosRecoleccionBloc extends Bloc<EditarPuntosRecoleccionEvent,
       required int idTipoDeResiduo}) async {
     try {
       TipoDeResiduo tipoDeResiduo =
-          await _tiposDeResiduosRepository.getTipoDeResiduo(idTipoDeResiduo);
+          await _tiposDeResiduosRepository.get(idTipoDeResiduo);
 
       PuntoRecoleccion puntoDeRecoleccion = PuntoRecoleccion(
           0,
@@ -75,8 +75,7 @@ class EditarPuntosRecoleccionBloc extends Bloc<EditarPuntosRecoleccionEvent,
           direccion,
           descripcion, <PuntoRecoleccionEstado>[]);
 
-      await _puntosRecoleccionRepository
-          .addPuntoRecoleccion(puntoDeRecoleccion);
+      await _puntosRecoleccionRepository.add(puntoDeRecoleccion);
       final position = await determinePosition();
 
       // emit(EditarLoaderPuntosRecoleccionBlocState(

@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:sgrsoft/data/datasource/local/puntos_recoleccion/local.dart';
 import 'package:sgrsoft/data/datasource/local/puntos_recoleccion/mock_puntos_recoleccion_datasource.dart';
+import 'package:sgrsoft/data/datasource/remote/puntos_recoleccion/api_puntos_recoleccion_datasource.dart';
 import 'package:sgrsoft/data/datasource/remote/puntos_recoleccion/mock_puntos_recoleccion_datasource.dart';
 import 'package:sgrsoft/data/datasource/remote/puntos_recoleccion/remote.dart';
 import 'package:sgrsoft/data/repository/puntos_recoleccion_repository_imp.dart';
@@ -42,7 +43,7 @@ void puntosRecoleccionGetIt(GetIt gi) async {
     ]),
   ];
   RemotePuntosRecoleccionDataSource remotePuntosRecoleccionDataSource =
-      MockPuntosRecoleccionDataSource(db: list);
+      ApiPuntosRecoleccionDataSource(db: <PuntoRecoleccion>[]);
   LocalPuntosRecoleccionDataSource localPuntosRecoleccionDataSource =
       MockLocalPuntosRecoleccionDataSource(db: list);
 
