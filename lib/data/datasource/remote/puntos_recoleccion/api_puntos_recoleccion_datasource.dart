@@ -18,8 +18,8 @@ class ApiPuntosRecoleccionDataSource extends RemotePuntosRecoleccionDataSource {
   @override
   Future<List<PuntoRecoleccion>> getList() async {
     List<PuntoRecoleccion> ndb = [];
-    var response =
-        await http.get(Uri.parse(url), headers: {'Authorization': basicAuth});
+    var response = await http.get(Uri.parse(url),
+        headers: {'Accept': '*/*', 'Authorization': basicAuth});
     if (response.statusCode == 200) {
       if (kDebugMode) {
         print('response.body: ${response.body}');

@@ -32,7 +32,7 @@ jobs:
       - name: Pull spymovil/sgr_soft_web:latest
         run: docker push spymovil/sgr_soft_web:latest
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Merge dev with main
