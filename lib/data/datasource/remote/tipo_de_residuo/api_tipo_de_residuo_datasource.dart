@@ -17,8 +17,8 @@ class ApiTiposDeResiduosDataSource extends RemoteTiposDeResiduosDataSource {
   @override
   Future<List<TipoDeResiduo>> getList() async {
     List<TipoDeResiduo> ndb = [];
-    var response =
-        await http.get(Uri.parse(url), headers: {'Authorization': basicAuth});
+    var response = await http.get(Uri.parse(url),
+        headers: {'Accept': '*/*', 'Authorization': basicAuth});
     if (response.statusCode == 200) {
       (jsonDecode(utf8.decode(response.bodyBytes))).forEach((element) {
         ndb.add(TipoDeResiduo.fromJson(element));
