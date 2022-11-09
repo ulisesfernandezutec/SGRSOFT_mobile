@@ -7,9 +7,8 @@ part 'usuario.g.dart';
 @JsonSerializable()
 class Usuario {
   @JsonKey(name: '_id')
-  int id;
-  @JsonKey(name: 'usuario')
-  String username;
+  int? id;
+  String? username;
   String? apiId;
   Rol? rol;
   String? nombre;
@@ -19,8 +18,17 @@ class Usuario {
   String? email;
   String? direccion;
 
-  Usuario(this.id, this.username, this.apiId, this.rol, this.nombre,
-      this.apellido, this.documento, this.telefono, this.email, this.direccion);
+  Usuario(
+      {this.id,
+      this.username,
+      this.apiId,
+      this.rol,
+      this.nombre,
+      this.apellido,
+      this.documento,
+      this.telefono,
+      this.email,
+      this.direccion});
 
   factory Usuario.fromJson(Map<String, dynamic> json) =>
       _$UsuarioFromJson(json);

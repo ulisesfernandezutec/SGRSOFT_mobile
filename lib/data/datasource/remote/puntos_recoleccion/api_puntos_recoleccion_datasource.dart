@@ -21,9 +21,6 @@ class ApiPuntosRecoleccionDataSource extends RemotePuntosRecoleccionDataSource {
     var response = await http.get(Uri.parse(url),
         headers: {'Accept': '*/*', 'Authorization': basicAuth});
     if (response.statusCode == 200) {
-      if (kDebugMode) {
-        print('response.body: ${response.body}');
-      }
       (jsonDecode(utf8.decode(response.bodyBytes))).forEach((element) {
         ndb.add(PuntoRecoleccion.fromJson(element));
       });

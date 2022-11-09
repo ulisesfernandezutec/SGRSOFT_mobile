@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sgrsoft/ui/asset_store/image_store.dart';
 import 'package:sgrsoft/ui/settings/settings_view.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/listado.dart';
+import 'package:sgrsoft/ui/view/rol/listado/listado.dart';
 import 'package:sgrsoft/ui/view/tipo_de_residuo/listado/listado.dart';
+import 'package:sgrsoft/ui/view/vehiculo/listado/listado.dart';
 
 Drawer appDrawer(BuildContext context) {
   Drawer drawer = Drawer(
@@ -20,6 +22,13 @@ Drawer appDrawer(BuildContext context) {
           child: ImageStore().logo,
         ),
         ListTile(
+            leading: const Icon(Icons.class_outlined),
+            title: const Text('Rol de Usuario'),
+            onTap: () {
+              Navigator.restorablePushNamed(
+                  context, ListadoRolScreen.routeName);
+            }),
+        ListTile(
             leading: const Icon(Icons.list),
             title: const Text('Servicios'),
             onTap: () {
@@ -32,6 +41,13 @@ Drawer appDrawer(BuildContext context) {
             onTap: () {
               Navigator.restorablePushNamed(
                   context, ListadoTipoResiduos.routeName);
+            }),
+        ListTile(
+            leading: const Icon(Icons.car_crash_outlined),
+            title: const Text('Vehiculos'),
+            onTap: () {
+              Navigator.restorablePushNamed(
+                  context, ListadoVehiculoScreen.routeName);
             }),
         ListTile(
             leading: const Icon(Icons.map),

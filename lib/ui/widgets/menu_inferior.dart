@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sgrsoft/ui/view/login/google.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/listado.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/mapa/mapa.dart';
+import 'package:sgrsoft/ui/view/ruta/add/add.dart';
+import 'package:sgrsoft/ui/widgets/google_maps/test.dart';
 
 List<Widget> menuInferior(BuildContext context) {
   List<Widget> menu = [
@@ -14,15 +16,13 @@ List<Widget> menuInferior(BuildContext context) {
     //     );
     //   },
     // ),
-    // IconButton(
-    //   icon: const Icon(Icons.numbers),
-    //   tooltip: 'Next page',
-    //   onPressed: () {
-    //     Navigator.pushNamed(context, DemoParams.routeName,
-    //         arguments: DemoParamsArguments(
-    //             titulo: 'titulo1', subtitulo: 'subtitulo1', id: 1));
-    //   },
-    // ),
+    IconButton(
+      icon: const Icon(Icons.numbers),
+      tooltip: 'Next page',
+      onPressed: () {
+        Navigator.pushNamed(context, PolylineMap.routeName);
+      },
+    ),
     // IconButton(
     //   icon: const Icon(Icons.navigate_next),
     //   tooltip: 'Next page',
@@ -42,16 +42,16 @@ List<Widget> menuInferior(BuildContext context) {
     //     );
     //   },
     // ),
-    // IconButton(
-    //   icon: const Icon(Icons.map_outlined),
-    //   tooltip: 'Mapa',
-    //   onPressed: () {
-    //     Navigator.pushNamed(
-    //       context,
-    //       '/mapa',
-    //     );
-    //   },
-    // ),
+    IconButton(
+      icon: const Icon(Icons.map_outlined),
+      tooltip: 'AddRutaScreen',
+      onPressed: () {
+        Navigator.pushNamed(
+          context,
+          AddRutaScreen.routeName,
+        );
+      },
+    ),
     IconButton(
       icon: const Icon(Icons.list),
       tooltip: 'Listado',

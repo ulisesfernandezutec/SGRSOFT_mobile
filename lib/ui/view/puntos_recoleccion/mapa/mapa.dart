@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sgrsoft/domain/blocs/puntos_recoleccion/listado/listado_bloc.dart';
 import 'package:sgrsoft/ui/widgets/app_bar.dart';
 import 'package:sgrsoft/ui/widgets/drawer.dart';
-import 'package:sgrsoft/ui/widgets/map/map.dart';
+import 'package:sgrsoft/ui/widgets/google_maps/show_all_position.dart';
 import 'package:sgrsoft/ui/widgets/menu_inferior.dart';
 
 class MapaPuntosRecoleccion extends StatefulWidget {
@@ -22,8 +22,6 @@ class _MapaPuntosRecoleccionState extends State<MapaPuntosRecoleccion> {
         appBar: appBar(context),
         drawer: appDrawer(context),
         body: SafeArea(
-            child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 70),
           child: Column(children: <Widget>[
             Center(
               child: Card(
@@ -63,28 +61,31 @@ class _MapaPuntosRecoleccionState extends State<MapaPuntosRecoleccion> {
                     ),
                   )),
             ),
-            Center(
+            const SizedBox(height: 10),
+            Expanded(
               child: BlocBuilder<ListadoPuntosRecoleccionBloc,
                   ListadoPuntosRecoleccionState>(
                 builder: (context, state) {
                   return (Container(
+                      width: double.infinity,
+                      height: double.infinity,
                       constraints: const BoxConstraints(
-                          minWidth: 200,
+                          // minWidth: 200,
                           maxWidth: 1200,
-                          minHeight: 200,
+                          // minHeight: 200,
                           maxHeight: 800),
                       padding: const EdgeInsets.all(0),
-                      child: MapWidget(
+                      child: GoogleMapsShowAllPositions(
                         key: const Key('mapa_puntos_recoleccion'),
-                        edit: false,
                         puntos: state.puntosRecoleccion,
-                        center: null,
+                        latitude: state.puntosRecoleccion[0].latitud,
+                        longitude: state.puntosRecoleccion[0].longitud,
                       )));
                 },
               ),
             )
           ]),
-        )),
+        ),
         persistentFooterButtons: menuInferior(context));
   }
 }
