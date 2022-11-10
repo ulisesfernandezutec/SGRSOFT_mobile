@@ -5,8 +5,8 @@ import 'package:sgrsoft/domain/models/punto_de_recoleccion.dart';
 
 class FlutterMapSelectRouteMap extends StatefulWidget {
   final List<PuntoRecoleccion> puntos;
-  final Set<Polyline> polylines;
-  final Set<Marker> markers;
+  final List<Polyline> polylines;
+  final List<Marker> markers;
 
   const FlutterMapSelectRouteMap(
       {Key? key,
@@ -44,38 +44,30 @@ class FlutterMapSelectRouteMapState extends State<FlutterMapSelectRouteMap> {
     return FlutterMap(
       mapController: mapController,
       options: MapOptions(
-        center: LatLng(0.0, 0.0),
+        center: LatLng(-34.734501, -56.229366),
         zoom: 13.0,
         maxZoom: 19.0,
-        bounds: LatLngBounds(
-          LatLng(51.74920, -0.56741),
-          LatLng(51.25709, 0.34018),
-        ),
-        maxBounds: LatLngBounds(
-          LatLng(-90, -180.0),
-          LatLng(90.0, 180.0),
-        ),
-        rotation: 180.0,
+        // bounds: LatLngBounds(
+        //   LatLng(51.74920, -0.56741),
+        //   LatLng(51.25709, 0.34018),
+        // ),
+        // maxBounds: LatLngBounds(
+        //   LatLng(-90, -180.0),
+        //   LatLng(90.0, 180.0),
+        // ),
         keepAlive: true,
       ),
       children: [
         TileLayer(
-            urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-            userAgentPackageName: 'dev.fleaflet.flutter_map.example',
-            retinaMode: MediaQuery.of(context).devicePixelRatio > 1.0),
+          urlTemplate: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+          userAgentPackageName: 'dev.fleaflet.flutter_map.example',
+          // retinaMode: MediaQuery.of(context).devicePixelRatio > 1.0
+        ),
         PolylineLayer(
           polylineCulling: false,
-          polylines: [
-            Polyline(
-              points: [
-                LatLng(30, 40),
-                LatLng(20, 50),
-                LatLng(25, 45),
-              ],
-              color: Colors.blue,
-            ),
-          ],
+          polylines: widget.polylines,
         ),
+        MarkerLayer(markers: widget.markers)
       ],
     );
   }

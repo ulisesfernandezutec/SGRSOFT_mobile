@@ -7,8 +7,8 @@ import 'package:sgrsoft/ui/widgets/google_maps/route_select_map3.dart';
 
 class StepMap extends StatelessWidget {
   final List<PuntoRecoleccion> puntos;
-  final Set<Polyline> polylines;
-  final Set<Marker> markers;
+  final List<Polyline> polylines;
+  final List<Marker> markers;
   const StepMap(
       {Key? key,
       required this.puntos,

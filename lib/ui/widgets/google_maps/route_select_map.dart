@@ -70,16 +70,16 @@ class GoogleSelectRouteMapState extends State<GoogleSelectRouteMap> {
   }
 
   void _setPolylines(List<PuntoRecoleccion> puntos) async {
-    polylines = await getPolylines(puntos);
+    // polylines = await getPolylines(puntos);
 
-    if (kDebugMode) {
-      print('====> polylines.length: ${polylines.length}');
-    }
+    // if (kDebugMode) {
+    //   print('====> polylines.length: ${polylines.length}');
+    // }
 
-    setState(() {
-      polylines = polylines;
-      loadPolyLines = true;
-    });
+    // setState(() {
+    //   polylines = polylines;
+    //   loadPolyLines = true;
+    // });
   }
 
   @override
