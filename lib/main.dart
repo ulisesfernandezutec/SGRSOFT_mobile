@@ -5,6 +5,7 @@ import 'package:sgrsoft/domain/blocs/puntos_recoleccion/listado/listado_bloc.dar
 import 'package:sgrsoft/domain/blocs/puntos_recoleccion/nuevo/nuevo_bloc.dart';
 import 'package:sgrsoft/domain/blocs/rol/listado/listado_bloc.dart';
 import 'package:sgrsoft/domain/blocs/rol/nuevo/nuevo_bloc.dart';
+import 'package:sgrsoft/domain/blocs/ruta/add/bloc.dart';
 import 'package:sgrsoft/domain/blocs/tipos_residuos/editar/editar_bloc.dart';
 import 'package:sgrsoft/domain/blocs/tipos_residuos/listado/listado_bloc.dart';
 import 'package:sgrsoft/domain/blocs/tipos_residuos/nuevo/nuevo_bloc.dart';
@@ -60,6 +61,7 @@ void main() async {
                 ListadoVehiculoBloc()..add(LoadListadoVehiculoEvent())),
         BlocProvider(create: (BuildContext context) => NuevoVehiculoBloc()),
         BlocProvider(create: (BuildContext context) => EditarVehiculoBloc()),
+        BlocProvider(create: (BuildContext context) => AddRutaBloc()),
         // BlocProvider(create: (BuildContext context) => DetalleVehiculoBloc()),
       ],
       child: MainApp(

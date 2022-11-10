@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 import 'dart:math';
 
@@ -125,14 +124,14 @@ class GoogleSelectRouteMapState extends State<GoogleSelectRouteMap> {
     return !loading && loadPolyLines && loadIcon
         ? GoogleMap(
             onMapCreated: _onMapCreated,
-            polylines: Set<Polyline>.of(polylines.values),
-            // polylines: <Polyline>{
-            //   Polyline(
-            //       polylineId: const PolylineId("PolylineId"),
-            //       points: <LatLng>[origen, destino],
-            //       color: Colors.greenAccent,
-            //       width: 5)
-            // },
+            // polylines: Set<Polyline>.of(polylines.values),
+            polylines: <Polyline>{
+              Polyline(
+                  polylineId: const PolylineId("PolylineId"),
+                  points: <LatLng>[origen, destino],
+                  color: Colors.greenAccent,
+                  width: 5)
+            },
             mapType: MapType.normal,
             myLocationEnabled: false,
             zoomGesturesEnabled: true,

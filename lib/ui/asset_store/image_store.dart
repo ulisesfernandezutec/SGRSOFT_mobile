@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ImageStore {
   final Widget logo =
@@ -6,4 +7,6 @@ class ImageStore {
 
   final Widget logoLogin = const Image(
       image: AssetImage('assets/images/logo.png'), width: 167, height: 58);
+
+  final markerIcon = BitmapDescriptor.defaultMarker;
 }

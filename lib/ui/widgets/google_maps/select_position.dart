@@ -50,33 +50,10 @@ class GoogleMapsSetPositionState extends State<GoogleMapsSetPosition> {
     });
   }
 
-  final Set<Polygon> _polygon = HashSet<Polygon>();
-
-  // created list of locations to display polygon
-  List<LatLng> points = [
-    const LatLng(19.0759837, 72.8776559),
-    const LatLng(28.679079, 77.069710),
-    const LatLng(26.850000, 80.949997),
-    const LatLng(19.0759837, 72.8776559),
-  ];
-
   @override
   void initState() {
     super.initState();
     _setMarkerIcon();
-    _polygon.add(Polygon(
-      // given polygonId
-      polygonId: const PolygonId('1'),
-      // initialize the list of points to display polygon
-      points: points,
-      // given color to polygon
-      fillColor: Colors.green.withOpacity(0.3),
-      // given border color to polygon
-      strokeColor: Colors.green,
-      geodesic: true,
-      // given width of border
-      strokeWidth: 4,
-    ));
   }
 
   @override
@@ -103,7 +80,6 @@ class GoogleMapsSetPositionState extends State<GoogleMapsSetPosition> {
             scrollGesturesEnabled: true,
             rotateGesturesEnabled: true,
             tiltGesturesEnabled: true,
-            polygons: _polygon,
             initialCameraPosition: CameraPosition(
               target: center,
               zoom: 18.0,
@@ -115,9 +91,9 @@ class GoogleMapsSetPositionState extends State<GoogleMapsSetPosition> {
                 print(argument.toJson().toString());
               }
 
-              setState(() {});
-              mapController.setMapStyle("[]");
-              Timer(const Duration(seconds: 2), () {});
+              // setState(() {});
+              // mapController.setMapStyle("[]");
+              // Timer(const Duration(seconds: 1), () {});
 
               widget.onSelectPosition(
                   LatLng(argument.latitude, argument.longitude));
@@ -130,7 +106,7 @@ class GoogleMapsSetPositionState extends State<GoogleMapsSetPosition> {
                   position: argument,
                   markerId: const MarkerId('Punto de Recolección')));
 
-              mapController.setMapStyle("[]");
+              // mapController.setMapStyle("[]");
             },
           )
         : Center(
