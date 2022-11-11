@@ -8,5 +8,5 @@ class ImageStore {
   final Widget logoLogin = const Image(
       image: AssetImage('assets/images/logo.png'), width: 167, height: 58);
 
-  final markerIcon = BitmapDescriptor.defaultMarker;
+  static const markerIcon = BitmapDescriptor.defaultMarker;
 }

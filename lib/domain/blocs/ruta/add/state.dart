@@ -11,8 +11,8 @@ class AddRutaInitialState extends AddRutaState {}
 
 class AddRutaReadyState extends AddRutaState {
   final List<PuntoRecoleccion> puntosRecoleccion;
-  final List<Polyline> polylines;
-  final List<Marker> markers;
+  final Map<PolylineId, Polyline> polylines;
+  final Set<Marker> markers;
 
   const AddRutaReadyState(
       {required this.puntosRecoleccion,

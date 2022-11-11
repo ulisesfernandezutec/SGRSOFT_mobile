@@ -2,12 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sgrsoft/data/const/netconsts.dart';
 import 'package:sgrsoft/domain/models/punto_de_recoleccion.dart';
 
-Future<List<Polyline>> getPolylines(List<PuntoRecoleccion> puntos) async {
+Future<Map<PolylineId, Polyline>> getPolylines(
+    List<PuntoRecoleccion> puntos) async {
   NetConts netConts = NetConts();
   // Object for PolylinePoints
   PolylinePoints polylinePoints = PolylinePoints();
@@ -15,47 +15,43 @@ Future<List<Polyline>> getPolylines(List<PuntoRecoleccion> puntos) async {
   List<LatLng> polylineCoordinates = [];
 
 // Map storing polylines created by connecting two points
-  List<Polyline> polylines = [];
+  Map<PolylineId, Polyline> polylines = {};
 
   PuntoRecoleccion? last;
   for (PuntoRecoleccion p in puntos) {
     log(p.direccion);
     if (last != null) {
       // Create the list of coordinates to join
-
       PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
         netConts.getGoogleAPIKey(),
         PointLatLng(last.latitud, last.longitud),
         PointLatLng(p.latitud, p.longitud),
         travelMode: TravelMode.transit,
       );
-      log('result ${result.toString()}');
+      // log('result ${result.toString()}');
 
       if (result.points.isNotEmpty) {
         // loop through all PointLatLng points and convert them
         // to a list of LatLng, required by the Polyline
         for (var point in result.points) {
-          log('latlon: ${point.latitude}, ${point.longitude}');
-          log('point: ${point.toString()}');
-          try {
-            polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-          } catch (e) {
-            log('error');
-            log('e.lat ${point.latitude}');
-            log('e.lng ${point.longitude}');
-          }
+          // log('${point.latitude}, ${point.longitude}');
+          polylineCoordinates.add(LatLng(point.latitude, point.longitude));
         }
       }
     }
     last = p;
   }
+  // Defining an ID
+  PolylineId id = const PolylineId('ruta');
   // Initializing Polyline
   Polyline polyline = Polyline(
-    color: Colors.greenAccent,
+    polylineId: id,
+    color: Colors.red,
     points: polylineCoordinates,
-    strokeWidth: 3,
+    width: 3,
   );
-  polylines.add(polyline);
+
   // Adding the polyline to the map
+  polylines[id] = polyline;
   return polylines;
 }

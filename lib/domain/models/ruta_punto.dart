@@ -6,11 +6,11 @@ part 'ruta_punto.g.dart';
 @JsonSerializable()
 class RutaPunto {
   @JsonKey(name: '_id')
-  int id;
+  int? id;
   int orden;
   PuntoRecoleccion punto;
 
-  RutaPunto(this.id, this.orden, this.punto);
+  RutaPunto({this.id, required this.orden, required this.punto});
 
   factory RutaPunto.fromJson(Map<String, dynamic> json) =>
       _$RutaPuntoFromJson(json);

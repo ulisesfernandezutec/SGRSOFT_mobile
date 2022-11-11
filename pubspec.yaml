@@ -44,6 +44,7 @@ dependencies:
   flutter_signin_button: ^2.0.0
   font_awesome_flutter: ^9.2.0
   flutter_polyline_points: ^1.0.0
+  custom_info_window: ^1.0.1
 
 dev_dependencies:
   flutter_test:

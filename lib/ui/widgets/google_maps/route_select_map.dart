@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sgrsoft/domain/models/punto_de_recoleccion.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/detalle/detalle.dart';
-import 'package:sgrsoft/ui/widgets/google_maps/lineas.dart';
 
 class GoogleSelectRouteMap extends StatefulWidget {
   final double latitude;

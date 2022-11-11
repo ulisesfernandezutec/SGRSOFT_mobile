@@ -7,9 +7,9 @@ part of 'ruta_punto.dart';
 // **************************************************************************
 
 RutaPunto _$RutaPuntoFromJson(Map<String, dynamic> json) => RutaPunto(
-      json['_id'] as int,
-      json['orden'] as int,
-      PuntoRecoleccion.fromJson(json['punto'] as Map<String, dynamic>),
+      id: json['_id'] as int?,
+      orden: json['orden'] as int,
+      punto: PuntoRecoleccion.fromJson(json['punto'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$RutaPuntoToJson(RutaPunto instance) => <String, dynamic>{
