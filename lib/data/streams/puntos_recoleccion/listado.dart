@@ -9,6 +9,9 @@ class StreamListadoPuntosRecoleccion {
   late Timer _timer;
   bool _timerStarted = false;
   bool _refresh = false;
+  List<PuntoRecoleccion> puntosRecoleccion = [];
+
+  get puntos => puntosRecoleccion;
 
   final _streamController =
       StreamController<List<PuntoRecoleccion>>.broadcast();
@@ -34,8 +37,7 @@ class StreamListadoPuntosRecoleccion {
   void refresh() async {
     if (!_refresh) {
       _refresh = true;
-      List<PuntoRecoleccion> puntosRecoleccion =
-          await _puntoRecoleccionRespository.getList();
+      puntosRecoleccion = await _puntoRecoleccionRespository.getList();
       _streamController.sink.add(puntosRecoleccion);
       _refresh = false;
     }

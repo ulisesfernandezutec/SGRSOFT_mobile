@@ -1,6 +1,9 @@
+// ignore_for_file: unnecessary_new
+
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -65,6 +68,11 @@ class GoogleMapsShowPositionState extends State<GoogleMapsShowPosition> {
             zoomGesturesEnabled: true,
             zoomControlsEnabled: true,
             scrollGesturesEnabled: true,
+            gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+              new Factory<OneSequenceGestureRecognizer>(
+                () => new EagerGestureRecognizer(),
+              ),
+            },
             initialCameraPosition: CameraPosition(
               target: center,
               zoom: 18.0,

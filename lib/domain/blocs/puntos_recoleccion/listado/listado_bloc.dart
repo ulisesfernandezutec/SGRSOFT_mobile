@@ -46,11 +46,11 @@ class ListadoPuntosRecoleccionBloc
   Future<void> _getPuntos(
       {required ListadoPuntosRecoleccionEvent event,
       required Emitter<ListadoPuntosRecoleccionState> emit}) async {
-    log('_getPuntos 1');
+    // log('_getPuntos 1');
     await emit.forEach(_streamListadoPuntosRecoleccion.stream,
         onData: (List<PuntoRecoleccion> puntos) {
       _puntos = puntos;
-      log('_getPuntos 2');
+      // log('_getPuntos 2');
       _filtered = searchFilter(puntos, _search);
 
       return ListadoSuccessPuntosRecoleccionState(
@@ -65,24 +65,24 @@ class ListadoPuntosRecoleccionBloc
       required List<PuntoRecoleccion> puntos}) async {
     _search = search;
     _filtered = searchFilter(puntos, search);
-    log('_filterPuntos: $search');
+    // log('_filterPuntos: $search');
     emit(ListadoSuccessPuntosRecoleccionState(
         puntosRecoleccion: _filtered, search: search));
   }
 
   List<PuntoRecoleccion> searchFilter(
       List<PuntoRecoleccion> puntos, String search) {
-    log('searchFilter: $search');
+    // log('searchFilter: $search');
 
     if (search.isNotEmpty) {
-      log('search not empy: $search');
+      // log('search not empy: $search');
       return puntos.where((element) {
         return element.direccion.toLowerCase().contains(search.toLowerCase()) ||
             element.descripcion.toLowerCase().contains(search.toLowerCase()) ||
             element.tipo.nombre.toLowerCase().contains(search.toLowerCase());
       }).toList();
     } else {
-      log('search empy: $search');
+      // log('search empy: $search');
       return puntos;
     }
   }

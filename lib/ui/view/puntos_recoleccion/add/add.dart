@@ -1,10 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/geocoding.dart';
-import 'package:sgrsoft/domain/blocs/puntos_recoleccion/listado/listado_bloc.dart';
 // import 'package:sgrsoft/data/api/google_api.dart';
 import 'package:sgrsoft/domain/blocs/puntos_recoleccion/nuevo/nuevo_bloc.dart';
 import 'package:sgrsoft/domain/models/tipo_de_residuo.dart';

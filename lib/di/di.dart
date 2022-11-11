@@ -1,7 +1,10 @@
 import 'package:get_it/get_it.dart';
 import 'package:sgrsoft/data/streams/puntos_recoleccion/listado.dart';
-import 'package:sgrsoft/di/puntos_recoleccion.dart';
-import 'package:sgrsoft/di/tipos_de_residuos.dart';
+
+import 'puntos_recoleccion.dart';
+import 'rol.dart';
+import 'tipos_de_residuos.dart';
+import 'vehiculo.dart';
 
 final GetIt _l = GetIt.instance;
 
@@ -15,6 +18,8 @@ Future<void> initializeDI() async {
 void data() async {
   puntosRecoleccionGetIt(_l);
   tiposDeResiduosGetIt(_l);
+  rolGetIt(_l);
+  vehiculoGetIt(_l);
 }
 
 void domain() async {
