@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:sgrsoft/data/const/netconsts.dart';
 import 'package:sgrsoft/data/datasource/remote/puntos_recoleccion/remote.dart';
-import 'package:sgrsoft/domain/models/punto_de_recoleccion.dart';
+import 'package:sgrsoft/domain/models/punto_recoleccion.dart';
 import 'package:http/http.dart' as http;
-import 'package:sgrsoft/domain/models/punto_de_recoleccion_estado.dart';
+import 'package:sgrsoft/domain/models/punto_recoleccion_estado.dart';
 
 class ApiPuntosRecoleccionDataSource extends RemotePuntosRecoleccionDataSource {
   List<PuntoRecoleccion> db = [];

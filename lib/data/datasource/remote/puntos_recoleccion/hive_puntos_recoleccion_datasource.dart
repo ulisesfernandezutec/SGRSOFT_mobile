@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:sgrsoft/data/datasource/remote/puntos_recoleccion/remote.dart';
-import 'package:sgrsoft/domain/models/punto_de_recoleccion.dart';
+import 'package:sgrsoft/domain/models/punto_recoleccion.dart';
 
 class HivePuntosRecoleccionDataSource
     extends RemotePuntosRecoleccionDataSource {

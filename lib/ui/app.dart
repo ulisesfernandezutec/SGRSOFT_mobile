@@ -6,6 +6,7 @@ import 'package:sgrsoft/ui/view/demomodal/demomodal.dart';
 import 'package:sgrsoft/ui/view/demoparams/demoparams.dart';
 import 'package:sgrsoft/ui/view/login/google.dart';
 import 'package:sgrsoft/ui/view/login/login.dart';
+import 'package:sgrsoft/ui/view/punto_salida/listado/listado.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/detalle/detalle.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/editar/_editar.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/listado.dart';
@@ -20,6 +21,7 @@ import 'package:sgrsoft/ui/view/vehiculo/listado/listado.dart';
 import 'package:sgrsoft/ui/widgets/custom_error.dart';
 import 'package:sgrsoft/ui/widgets/google_maps/test.dart';
 
+import 'view/punto_salida/nuevo/nuevo.dart';
 import 'widgets/google_maps/select_position2.dart';
 
 class MainApp extends StatelessWidget {
@@ -141,6 +143,10 @@ class MainApp extends StatelessWidget {
                     return const SignInGoogle();
                   case PolylineMap.routeName:
                     return const PolylineMap();
+                  case ListadoPuntoSalidaScreen.routeName:
+                    return const ListadoPuntoSalidaScreen();
+                  case NuevoPuntoSalidaScreen.routeName:
+                    return NuevoPuntoSalidaScreen();
                   default:
                     return const LoginScreen();
                 }

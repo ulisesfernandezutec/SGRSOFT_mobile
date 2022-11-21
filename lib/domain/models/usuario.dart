@@ -10,10 +10,11 @@ class Usuario {
   int? id;
   String? username;
   String? apiId;
+  String? documento;
+
   Rol? rol;
   String? nombre;
   String? apellido;
-  String? documento;
   String? telefono;
   String? email;
   String? direccion;

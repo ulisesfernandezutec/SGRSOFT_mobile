@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sgrsoft/data/const/netconsts.dart';
-import 'package:sgrsoft/domain/models/punto_de_recoleccion.dart';
+import 'package:sgrsoft/domain/models/punto_recoleccion.dart';
 
 Future<Map<PolylineId, Polyline>> getPolylines(
     List<PuntoRecoleccion> puntos) async {
-  NetConts netConts = NetConts();
   // Object for PolylinePoints
   PolylinePoints polylinePoints = PolylinePoints();
   // List of coordinates to join
@@ -23,7 +22,7 @@ Future<Map<PolylineId, Polyline>> getPolylines(
     if (last != null) {
       // Create the list of coordinates to join
       PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-        netConts.getGoogleAPIKey(),
+        NetConts.getGoogleAPIKey(),
         PointLatLng(last.latitud, last.longitud),
         PointLatLng(p.latitud, p.longitud),
         travelMode: TravelMode.transit,

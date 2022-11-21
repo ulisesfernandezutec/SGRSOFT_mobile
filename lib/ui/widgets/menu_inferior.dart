@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sgrsoft/ui/view/demomodal/demomodal.dart';
 import 'package:sgrsoft/ui/view/login/google.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/listado.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/mapa/mapa.dart';
@@ -32,19 +34,20 @@ List<Widget> menuInferior(BuildContext context) {
     //             titulo: 'titulo2', subtitulo: 'subtitulo2', id: 2));
     //   },
     // ),
-    // IconButton(
-    //   icon: const Icon(Icons.screen_lock_landscape),
-    //   tooltip: 'Modal',
-    //   onPressed: () {
-    //     Navigator.pushNamed(
-    //       context,
-    //       DemoModal.routeName,
-    //     );
-    //   },
-    // ),
     IconButton(
-      icon: const Icon(Icons.map_outlined),
+      icon: const Icon(Icons.screen_lock_landscape),
+      tooltip: 'Modal',
+      onPressed: () {
+        Navigator.pushNamed(
+          context,
+          DemoModal.routeName,
+        );
+      },
+    ),
+    IconButton(
+      icon: const Icon(FontAwesomeIcons.route),
       tooltip: 'AddRutaScreen',
+      // color: Theme.of(context).primaryColor,
       onPressed: () {
         Navigator.pushNamed(
           context,

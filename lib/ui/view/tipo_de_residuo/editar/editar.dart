@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sgrsoft/domain/blocs/tipos_residuos/editar/editar_bloc.dart';
-import 'package:sgrsoft/domain/models/tipo_de_residuo.dart';
+import 'package:sgrsoft/domain/models/tipo_residuo.dart';
 import 'package:sgrsoft/ui/widgets/app_bar.dart';
 
 class EditarTipoResiduo extends StatefulWidget {

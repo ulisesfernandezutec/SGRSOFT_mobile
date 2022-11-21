@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sgrsoft/ui/asset_store/image_store.dart';
+import 'package:sgrsoft/ui/view/demoparams/demoparams.dart';
 import 'package:sgrsoft/ui/widgets/google_maps/select_position2.dart';
 
 // function con context como parametro
@@ -20,19 +21,11 @@ AppBar appBar(BuildContext context) {
         icon: const Icon(Icons.navigate_next),
         tooltip: 'Next page',
         onPressed: () {
-          Navigator.push(
+          Navigator.pushNamed(
             context,
-            MaterialPageRoute<void>(
-              builder: (BuildContext context) => Scaffold(
-                appBar: AppBar(title: const Text('Next page')),
-                body: const Center(
-                  child: Text(
-                    'This is the next page',
-                    style: TextStyle(fontSize: 24),
-                  ),
-                ),
-              ),
-            ),
+            DemoParams.routeName,
+            arguments: DemoParamsArguments(
+                titulo: 'Demo de parametros', subtitulo: 'subtitulo', id: 1),
           );
         },
       ),

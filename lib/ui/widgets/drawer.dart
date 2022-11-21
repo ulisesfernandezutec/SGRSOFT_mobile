@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sgrsoft/ui/asset_store/image_store.dart';
 import 'package:sgrsoft/ui/settings/settings_view.dart';
+import 'package:sgrsoft/ui/view/punto_salida/listado/listado.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/listado.dart';
 import 'package:sgrsoft/ui/view/rol/listado/listado.dart';
 import 'package:sgrsoft/ui/view/tipo_de_residuo/listado/listado.dart';
@@ -34,6 +35,13 @@ Drawer appDrawer(BuildContext context) {
             onTap: () {
               Navigator.restorablePushNamed(
                   context, ListadoPuntosRecoleccionScreens.routeName);
+            }),
+        ListTile(
+            leading: const Icon(Icons.home),
+            title: const Text('Puntos de Salida'),
+            onTap: () {
+              Navigator.restorablePushNamed(
+                  context, ListadoPuntoSalidaScreen.routeName);
             }),
         ListTile(
             leading: const Icon(Icons.class_outlined),

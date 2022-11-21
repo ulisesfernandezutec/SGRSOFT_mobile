@@ -1,5 +1,5 @@
 import 'package:sgrsoft/data/datasource/local/puntos_recoleccion/local.dart';
-import 'package:sgrsoft/domain/models/punto_de_recoleccion.dart';
+import 'package:sgrsoft/domain/models/punto_recoleccion.dart';
 
 class MockLocalPuntosRecoleccionDataSource
     extends LocalPuntosRecoleccionDataSource {

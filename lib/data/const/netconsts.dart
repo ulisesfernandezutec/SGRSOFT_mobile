@@ -17,7 +17,14 @@ class NetConts {
 
   static const String API_URL_USUARIO = "${API_URL}usuario/";
 
-  String getGoogleAPIKey() {
+  static const String GOOGLE_URL_DIRECTIONS =
+      "https://maps.googleapis.com/maps/api/directions/json";
+  static const String GOOGLE_URL_GEOCODING =
+      "https://maps.googleapis.com/maps/api/geocode/json";
+  static const String GOOGLE_URL_PLACES =
+      "https://maps.googleapis.com/maps/api/place/findplacefromtext/json";
+
+  static String getGoogleAPIKey() {
     const String googleMapsApiKey = kIsWeb
         ? "AIzaSyC-ojOj6y2NTYM0TlP2-MSw4QURB9bUUUg"
         : "AIzaSyDMvkrYjb61DJSifnEeyweDn41tEi_0B2U";

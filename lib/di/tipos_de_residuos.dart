@@ -1,9 +1,9 @@
 import 'package:get_it/get_it.dart';
-import 'package:sgrsoft/data/datasource/remote/tipo_de_residuo/api_tipo_de_residuo_datasource.dart';
-import 'package:sgrsoft/data/datasource/remote/tipo_de_residuo/mock_tipo_de_residuo_datasource.dart';
-import 'package:sgrsoft/data/datasource/remote/tipo_de_residuo/remote.dart';
-import 'package:sgrsoft/data/repository/tipos_de_residuos.dart';
-import 'package:sgrsoft/domain/models/tipo_de_residuo.dart';
+import 'package:sgrsoft/data/datasource/remote/tipo_residuo/api_tipo_residuo_datasource.dart';
+import 'package:sgrsoft/data/datasource/remote/tipo_residuo/mock_tipo_residuo_datasource.dart';
+import 'package:sgrsoft/data/datasource/remote/tipo_residuo/remote.dart';
+import 'package:sgrsoft/data/repository/tipos_residuos.dart';
+import 'package:sgrsoft/domain/models/tipo_residuo.dart';
 
 void tiposDeResiduosGetIt(GetIt gi) async {
   List<TipoDeResiduo> list = [
@@ -14,7 +14,7 @@ void tiposDeResiduosGetIt(GetIt gi) async {
   // RemoteTiposDeResiduosDataSource remotePuntosRecoleccionDataSource =
   //     MockTiposDeResiduosDataSource(db: list);
   RemoteTiposDeResiduosDataSource remotePuntosRecoleccionDataSource =
-      ApiTiposDeResiduosDataSource(db: <TipoDeResiduo>[]);
+      MockTiposDeResiduosDataSource(db: list);
   gi.registerSingleton<TiposDeResiduosRepository>(
       TiposDeResiduosRepository(remotePuntosRecoleccionDataSource));
 }

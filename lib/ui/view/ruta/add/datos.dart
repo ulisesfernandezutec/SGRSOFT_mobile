@@ -9,7 +9,7 @@ class StepDatos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
-      const AppTextForm(hintText: 'Nombre', labelText: 'Nombre'),
+      AppTextForm(hintText: 'Nombre', labelText: 'Nombre'),
       CalendarWidget(
         selectDateFunction: (DateTime? date) {},
       ),

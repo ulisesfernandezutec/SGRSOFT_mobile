@@ -1,6 +1,6 @@
 import 'package:sgrsoft/data/datasource/local/puntos_recoleccion/local.dart';
 import 'package:sgrsoft/data/datasource/remote/puntos_recoleccion/remote.dart';
-import 'package:sgrsoft/domain/models/punto_de_recoleccion.dart';
+import 'package:sgrsoft/domain/models/punto_recoleccion.dart';
 import 'package:sgrsoft/domain/repositories/puntos_recoleccion_repository.dart';
 
 // Implemento el Punto de Recoleccion Repository.

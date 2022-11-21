@@ -4,13 +4,13 @@ import 'package:equatable/equatable.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sgrsoft/data/repository/puntos_recoleccion_repository_imp.dart';
-import 'package:sgrsoft/data/repository/tipos_de_residuos.dart';
+import 'package:sgrsoft/data/repository/tipos_residuos.dart';
 import 'package:sgrsoft/data/streams/puntos_recoleccion/listado.dart';
 import 'package:sgrsoft/device/dev_geolocator.dart';
 import 'package:sgrsoft/domain/blocs/puntos_recoleccion/listado/listado_bloc.dart';
-import 'package:sgrsoft/domain/models/punto_de_recoleccion.dart';
-import 'package:sgrsoft/domain/models/punto_de_recoleccion_estado.dart';
-import 'package:sgrsoft/domain/models/tipo_de_residuo.dart';
+import 'package:sgrsoft/domain/models/punto_recoleccion.dart';
+import 'package:sgrsoft/domain/models/punto_recoleccion_estado.dart';
+import 'package:sgrsoft/domain/models/tipo_residuo.dart';
 
 part 'nuevo_event.dart';
 part 'nuevo_state.dart';
@@ -62,12 +62,13 @@ class NuevoPuntosRecoleccionBloc
           await _tiposDeResiduosRepository.get(idTipoDeResiduo);
 
       PuntoRecoleccion puntoDeRecoleccion = PuntoRecoleccion(
-          0,
-          latitud,
-          longitud,
-          tipoDeResiduo,
-          direccion,
-          descripcion, <PuntoRecoleccionEstado>[]);
+          id: 0,
+          latitud: latitud,
+          longitud: longitud,
+          tipo: tipoDeResiduo,
+          direccion: direccion,
+          descripcion: descripcion,
+          estados: const <PuntoRecoleccionEstado>[]);
 
       await _puntosRecoleccionRepository.add(puntoDeRecoleccion);
       StreamListadoPuntosRecoleccion streamListadoPuntosRecoleccion = getIt();

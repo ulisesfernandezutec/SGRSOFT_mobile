@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class AppTextForm extends StatelessWidget {
   final String hintText;
   final String labelText;
+  final String? initialValue;
+  int maxLines = 1;
+  TextEditingController? controller;
 
-  const AppTextForm(
-      {super.key, required this.labelText, required this.hintText});
+  AppTextForm(
+      {super.key,
+      required this.labelText,
+      required this.hintText,
+      this.initialValue,
+      maxLines,
+      controller});
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +22,9 @@ class AppTextForm extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
         child: TextFormField(
             autofocus: true,
-            // maxLines: 10,
-            // controller: _descripcionController,
+            maxLines: maxLines,
+            controller: controller,
+            initialValue: initialValue,
             decoration: InputDecoration(
                 labelText: labelText,
                 hintText: hintText,

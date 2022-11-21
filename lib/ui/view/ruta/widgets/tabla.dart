@@ -1,31 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:sgrsoft/domain/models/punto_de_recoleccion.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sgrsoft/domain/blocs/ruta/add/bloc.dart';
+import 'package:sgrsoft/domain/models/ruta.dart';
 
 import 'dart:ui';
 
 import 'package:sgrsoft/domain/models/ruta_punto.dart';
 
-class RutasTabla extends StatefulWidget {
-  final List<PuntoRecoleccion> rutas;
-  const RutasTabla({super.key, required this.rutas});
-
-  @override
-  State<RutasTabla> createState() => _RutasTablaState();
-}
-
-class _RutasTablaState extends State<RutasTabla> {
-  List<RutaPunto> rutas = [];
-
-  @override
-  void initState() {
-    super.initState();
-    for (int index = 0; index < widget.rutas.length; index += 1) {
-      rutas.add(RutaPunto(orden: index, punto: widget.rutas[index]));
-    }
-    setState(() {
-      rutas = rutas;
-    });
-  }
+class RutasTabla extends StatelessWidget {
+  Ruta ruta;
+  RutasTabla({super.key, required this.ruta});
 
   @override
   Widget build(BuildContext context) {
@@ -57,32 +42,38 @@ class _RutasTablaState extends State<RutasTabla> {
       // padding: const EdgeInsets.symmetric(horizontal: 40),
       proxyDecorator: proxyDecorator,
       children: <Widget>[
-        for (int index = 0; index < rutas.length; index += 1)
-          // ListTile(
-          //     key: Key('$index'),
-          //     title: Row(children: <Widget>[
-          // IconButton(
-          //   onPressed: () {},
-          //   icon: const Icon(Icons.delete),
-          //   color: Colors.red,
-          // ),
+        for (int index = 0; index < ruta.puntos.length; index += 1)
           ListTile(
             key: Key('$index'),
             tileColor: index.isOdd ? oddItemColor : evenItemColor,
-            title: Text(rutas[index].punto.direccion),
-            subtitle: Text(rutas[index].punto.tipo.nombre),
+            title: Text(ruta.puntos[index].punto.direccion.toString()),
+            subtitle: Row(children: <Widget>[
+              Text(
+                  "${ruta.puntos[index].googleDistance?.text ?? ""} | ${ruta.puntos[index].googleDuration?.text ?? ""}"),
+              const Spacer(),
+              const Icon(FontAwesomeIcons.truck),
+            ]),
+            leading: IconButton(
+              onPressed: () {
+                ruta.puntos.removeAt(index);
+                BlocProvider.of<AddRutaBloc>(context)
+                    .add(ActualizarAddRutaEvent(puntos: ruta.puntos));
+              },
+              icon: const Icon(Icons.delete),
+              color: Colors.red,
+            ),
+            // trailing: Text('ss'),
           )
         // ])),
       ],
       onReorder: (int oldIndex, int newIndex) {
-        // rutas.sort((a, b) => a.orden.compareTo(b.orden));
-        setState(() {
-          if (oldIndex < newIndex) {
-            newIndex -= 1;
-          }
-          final RutaPunto item = rutas.removeAt(oldIndex);
-          rutas.insert(newIndex, item);
-        });
+        if (oldIndex < newIndex) {
+          newIndex -= 1;
+        }
+        final RutaPunto item = ruta.puntos.removeAt(oldIndex);
+        ruta.puntos.insert(newIndex, item);
+        BlocProvider.of<AddRutaBloc>(context)
+            .add(ActualizarAddRutaEvent(puntos: ruta.puntos));
       },
     );
   }

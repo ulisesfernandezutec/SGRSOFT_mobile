@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:sgrsoft/data/const/netconsts.dart';
 import 'package:sgrsoft/data/repository/puntos_recoleccion_repository_imp.dart';
-import 'package:sgrsoft/domain/models/punto_de_recoleccion.dart';
+import 'package:sgrsoft/domain/models/punto_recoleccion.dart';
 
 class StreamListadoPuntosRecoleccion {
   final PuntosRecoleccionRepository _puntoRecoleccionRespository;
