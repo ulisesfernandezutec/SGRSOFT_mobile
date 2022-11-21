@@ -1,4 +1,4 @@
-import 'package:sgrsoft/domain/models/tipo_de_residuo.dart';
+import 'package:sgrsoft/domain/models/tipo_residuo.dart';
 
 abstract class AbstractTiposDeResiduosRepository {
   Future<List<TipoDeResiduo>> getList({bool updateLocal = false});

@@ -25,7 +25,6 @@ class _PolylineMapState extends State<PolylineMap> {
   Map<PolylineId, Polyline> polylines = {};
   List<LatLng> polylineCoordinates = [];
   PolylinePoints polylinePoints = PolylinePoints();
-  NetConts netConts = NetConts();
   late String googleAPiKey;
 
   LatLng origen = const LatLng(-34.734501, -56.229366);
@@ -39,7 +38,7 @@ class _PolylineMapState extends State<PolylineMap> {
       print('initState()');
     }
     setState(() {
-      googleAPiKey = netConts.getGoogleAPIKey();
+      googleAPiKey = NetConts.getGoogleAPIKey();
     });
 
     /// origin marker
@@ -150,7 +149,7 @@ class _PolylineMapState extends State<PolylineMap> {
   _getPolyline() async {
     log('_getPolyline()');
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      netConts.getGoogleAPIKey(),
+      NetConts.getGoogleAPIKey(),
       const PointLatLng(_originLatitude, _originLongitude),
       const PointLatLng(_destLatitude, _destLongitude),
       travelMode: TravelMode.driving,

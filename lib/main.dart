@@ -17,6 +17,8 @@ import 'package:sgrsoft/ui/settings/settings_controller.dart';
 import 'package:sgrsoft/ui/settings/settings_service.dart';
 import 'package:sgrsoft/di/di.dart' as di;
 
+import 'domain/blocs/punto_salida/add/nuevo_bloc.dart';
+
 void main() async {
   // Cargamos get_it
   // getit nos permite cargar de forma automatica las dependencias.
@@ -62,6 +64,7 @@ void main() async {
         BlocProvider(create: (BuildContext context) => NuevoVehiculoBloc()),
         BlocProvider(create: (BuildContext context) => EditarVehiculoBloc()),
         BlocProvider(create: (BuildContext context) => AddRutaBloc()),
+        BlocProvider(create: (BuildContext context) => NuevoPuntoSalidaBloc()),
         // BlocProvider(create: (BuildContext context) => DetalleVehiculoBloc()),
       ],
       child: MainApp(

@@ -1,5 +1,9 @@
 // pagina de demostracion de parametros de entrada
+import 'dart:developer';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:sgrsoft/domain/models/google_directions/google_direction.dart';
 
 class DemoParams extends StatefulWidget {
   const DemoParams({super.key});
@@ -11,6 +15,18 @@ class DemoParams extends StatefulWidget {
 }
 
 class DemoParamsState extends State<DemoParams> {
+  void testDio() {
+    Dio dio = Dio();
+    dio
+        .get(
+            'https://maps.googleapis.com/maps/api/directions/json?origin=las+piedras+canelones+juan+ortiz+esquina+danton&destination=utec+durazno&language=es&key=AIzaSyC-ojOj6y2NTYM0TlP2-MSw4QURB9bUUUg&waypoints=plaza+independecia+montevideo|intendencia+montevideo')
+        .then((value) {
+      log("value.data: ${value.data}");
+      GoogleDirection googleDirection = GoogleDirection.fromJson(value.data);
+      log("googleDirection.toString(): ${googleDirection.toString()}");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final args =
@@ -29,6 +45,7 @@ class DemoParamsState extends State<DemoParams> {
             Text(
               args.id.toString(),
             ),
+            ElevatedButton(onPressed: testDio, child: const Text('Test Dio'))
           ],
         ),
       ),

@@ -2,8 +2,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
-import 'package:sgrsoft/data/repository/tipos_de_residuos.dart';
-import 'package:sgrsoft/domain/models/tipo_de_residuo.dart';
+import 'package:sgrsoft/data/repository/tipos_residuos.dart';
+import 'package:sgrsoft/domain/models/tipo_residuo.dart';
 
 part 'nuevo_event.dart';
 part 'nuevo_state.dart';

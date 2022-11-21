@@ -5,7 +5,7 @@ import 'package:bloc/bloc.dart';
 
 import 'package:get_it/get_it.dart';
 import 'package:sgrsoft/data/repository/puntos_recoleccion_repository_imp.dart';
-import 'package:sgrsoft/domain/models/punto_de_recoleccion.dart';
+import 'package:sgrsoft/domain/models/punto_recoleccion.dart';
 
 part 'detalle_event.dart';
 part 'detalle_state.dart';

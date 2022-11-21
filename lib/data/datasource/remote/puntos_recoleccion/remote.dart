@@ -1,4 +1,4 @@
-import 'package:sgrsoft/domain/models/punto_de_recoleccion.dart';
+import 'package:sgrsoft/domain/models/punto_recoleccion.dart';
 
 abstract class RemotePuntosRecoleccionDataSource {
   Future<List<PuntoRecoleccion>> getList();

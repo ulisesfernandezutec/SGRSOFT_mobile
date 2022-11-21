@@ -5,8 +5,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
-import 'package:sgrsoft/data/repository/tipos_de_residuos.dart';
-import 'package:sgrsoft/domain/models/tipo_de_residuo.dart';
+import 'package:sgrsoft/data/repository/tipos_residuos.dart';
+import 'package:sgrsoft/domain/models/tipo_residuo.dart';
 
 part 'listado_event.dart';
 part 'listado_state.dart';

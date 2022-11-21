@@ -5,7 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/geocoding.dart';
 // import 'package:sgrsoft/data/api/google_api.dart';
 import 'package:sgrsoft/domain/blocs/puntos_recoleccion/nuevo/nuevo_bloc.dart';
-import 'package:sgrsoft/domain/models/tipo_de_residuo.dart';
+import 'package:sgrsoft/domain/models/tipo_residuo.dart';
 import 'package:sgrsoft/ui/widgets/app_bar.dart';
 import 'package:sgrsoft/ui/widgets/forms.dart';
 import 'package:sgrsoft/ui/widgets/google_maps/select_position.dart';
@@ -109,9 +109,9 @@ class NuevoPuntosRecoleccionState extends State<NuevoPuntosRecoleccionScreens> {
 
     setState(() {
       markers = {};
-      mapLoad = true;
-      latitud = position.latitude;
-      longitud = position.longitude;
+      // mapLoad = true;
+      // latitud = position.latitude;
+      // longitud = position.longitude;
     });
   }
 
@@ -120,6 +120,16 @@ class NuevoPuntosRecoleccionState extends State<NuevoPuntosRecoleccionScreens> {
     super.initState();
     BlocProvider.of<NuevoPuntosRecoleccionBloc>(context)
         .add(LoadNuevoPuntosRecoleccionEvent());
+  }
+
+  @override
+  void dispose() {
+    _direccionController.dispose();
+    _descripcionController.dispose();
+    _latitudController.dispose();
+    _longitudController.dispose();
+    _formKey.currentState?.dispose();
+    super.dispose();
   }
 
   DateTime fecha = DateTime.now();

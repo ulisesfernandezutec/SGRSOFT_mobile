@@ -62,13 +62,19 @@ class DemoModalState extends State<DemoModal> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            contentPadding: EdgeInsets.zero,
+                            contentPadding: const EdgeInsets.all(10),
                             content: Container(
+                              constraints: BoxConstraints(
+                                  maxHeight:
+                                      MediaQuery.of(context).size.height * 0.5,
+                                  maxWidth: MediaQuery.of(context).size.width *
+                                      0.5 // 80% of screen height
+                                  ),
                               clipBehavior: Clip.none,
                               child: Column(children: <Widget>[
-                                Positioned(
-                                  right: -15.0,
-                                  top: -15.0,
+                                Center(
+                                  // right: -15.0,
+                                  // top: -15.0,
                                   child: InkResponse(
                                     onTap: () {
                                       Navigator.of(context).pop();
@@ -230,8 +236,8 @@ class DemoModalState extends State<DemoModal> {
                             Animation animation, Animation secondaryAnimation) {
                           return Center(
                             child: Container(
-                              width: MediaQuery.of(context).size.width - 10,
-                              height: MediaQuery.of(context).size.height - 10,
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height,
                               padding: const EdgeInsets.all(20),
                               color: Colors.white,
                               child: Column(

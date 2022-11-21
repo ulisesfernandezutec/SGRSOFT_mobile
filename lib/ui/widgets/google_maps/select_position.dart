@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:collection';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -80,6 +80,12 @@ class GoogleMapsSetPositionState extends State<GoogleMapsSetPosition> {
             scrollGesturesEnabled: true,
             rotateGesturesEnabled: true,
             tiltGesturesEnabled: true,
+            // gestureRecognizers permite que el mapa se pueda arrastrar y hacer zoom sobre todo cuando hay un scrollview
+            gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+              Factory<OneSequenceGestureRecognizer>(
+                () => EagerGestureRecognizer(),
+              ),
+            },
             initialCameraPosition: CameraPosition(
               target: center,
               zoom: 18.0,
@@ -91,10 +97,6 @@ class GoogleMapsSetPositionState extends State<GoogleMapsSetPosition> {
                 print(argument.toJson().toString());
               }
 
-              // setState(() {});
-              // mapController.setMapStyle("[]");
-              // Timer(const Duration(seconds: 1), () {});
-
               widget.onSelectPosition(
                   LatLng(argument.latitude, argument.longitude));
 
@@ -105,8 +107,6 @@ class GoogleMapsSetPositionState extends State<GoogleMapsSetPosition> {
                   icon: _markerIcon,
                   position: argument,
                   markerId: const MarkerId('Punto de Recolección')));
-
-              // mapController.setMapStyle("[]");
             },
           )
         : Center(

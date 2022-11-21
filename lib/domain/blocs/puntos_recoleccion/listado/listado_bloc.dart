@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
 import 'package:sgrsoft/data/streams/puntos_recoleccion/listado.dart';
-import 'package:sgrsoft/domain/models/punto_de_recoleccion.dart';
+import 'package:sgrsoft/domain/models/punto_recoleccion.dart';
 
 part 'listado_event.dart';
 part 'listado_state.dart';

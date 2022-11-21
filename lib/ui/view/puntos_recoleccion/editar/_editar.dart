@@ -6,7 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 // ignore: implementation_imports
 import 'package:google_maps_webservice/src/geocoding.dart';
 import 'package:sgrsoft/data/api/google_api.dart';
-import 'package:sgrsoft/domain/models/tipo_de_residuo.dart';
+import 'package:sgrsoft/domain/models/tipo_residuo.dart';
 import 'package:sgrsoft/ui/widgets/app_bar.dart';
 import 'package:sgrsoft/ui/widgets/calendario.dart';
 import 'package:sgrsoft/ui/widgets/forms.dart';

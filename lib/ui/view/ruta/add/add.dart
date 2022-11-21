@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sgrsoft/domain/blocs/ruta/add/bloc.dart';
+import 'package:sgrsoft/domain/models/punto_recoleccion.dart';
+import 'package:sgrsoft/domain/models/punto_recoleccion_estado.dart';
+import 'package:sgrsoft/domain/models/ruta.dart';
+import 'package:sgrsoft/domain/models/tipo_residuo.dart';
 import 'package:sgrsoft/ui/view/ruta/add/datos.dart';
 import 'package:sgrsoft/ui/view/ruta/add/mapa.dart';
-import 'package:sgrsoft/ui/widgets/menu_inferior.dart';
 
 class AddRutaScreen extends StatefulWidget {
   const AddRutaScreen({super.key});
@@ -16,6 +20,9 @@ class AddRutaScreen extends StatefulWidget {
 
 class AddRutaScreenState extends State<AddRutaScreen> {
   int selectedStep = 0;
+  Ruta ruta = Ruta(puntos: []);
+  Map<PolylineId, Polyline> polylines = {};
+  Set<Marker> markers = {};
 
   @override
   void initState() {
@@ -80,9 +87,34 @@ class AddRutaScreenState extends State<AddRutaScreen> {
                               builder: (context, state) {
                             if (state is AddRutaReadyState) {
                               return StepMap(
-                                  puntos: state.puntosRecoleccion,
+                                  ruta: state.ruta,
                                   polylines: state.polylines,
                                   markers: state.markers);
+                            } else if (state is AddRutaInitialState) {
+                              return Container(
+                                  width: double.infinity,
+                                  constraints: const BoxConstraints(
+                                    maxWidth: 600,
+                                  ),
+                                  child: Column(children: <Widget>[
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          BlocProvider.of<AddRutaBloc>(context)
+                                              .add(AgregarPuntoAddRutaEvent(
+                                                  puntoRecoleccion:
+                                                      PuntoRecoleccion(
+                                                          id: 0,
+                                                          latitud: 0.0,
+                                                          longitud: 0.0,
+                                                          tipo: TipoDeResiduo(
+                                                              0, ""),
+                                                          direccion: "",
+                                                          descripcion: "",
+                                                          estados: const <
+                                                              PuntoRecoleccionEstado>[])));
+                                        },
+                                        child: const Text('Agregar'))
+                                  ]));
                             } else {
                               return const Center(
                                   child: CircularProgressIndicator(
