@@ -103,8 +103,17 @@ class NuevoPuntoSalidaScreenState extends State<NuevoPuntoSalidaScreen> {
                   } else {
                     BlocProvider.of<NuevoPuntoSalidaBloc>(context)
                         .add(NuevoPuntoSalidaEventSave());
-                    Navigator.pushNamed(
+                    // Navigator.pushReplacementNamed(
+                    //     context, ListadoPuntoSalidaScreen.routeName);
+                    // Navigator.pop(context, true);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    Navigator.pushReplacementNamed(
                         context, ListadoPuntoSalidaScreen.routeName);
+                    // Navigator.pushReplacement(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (BuildContext context) => super.widget));
                   }
                 },
                 onStepCancel: () {

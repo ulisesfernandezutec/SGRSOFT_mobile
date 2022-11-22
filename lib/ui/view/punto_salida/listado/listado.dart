@@ -18,7 +18,7 @@ class ListadoPuntoSalidaScreen extends StatelessWidget {
       appBar: appBar(context),
       // boton para agregar tipo de residuo
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () async {
           showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -37,8 +37,6 @@ class ListadoPuntoSalidaScreen extends StatelessWidget {
                             maxWidth: 700),
                         child: const NuevoPuntoSalidaScreen()));
               });
-
-          // Navigator.pushNamed(context, NuevoPuntoSalidaScreen.routeName);
         },
         child: const Icon(Icons.add),
       ),
