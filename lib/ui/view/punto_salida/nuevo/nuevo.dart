@@ -107,7 +107,6 @@ class NuevoPuntoSalidaScreenState extends State<NuevoPuntoSalidaScreen> {
                     //     context, ListadoPuntoSalidaScreen.routeName);
                     // Navigator.pop(context, true);
                     Navigator.pop(context);
-                    Navigator.pop(context);
                     Navigator.pushReplacementNamed(
                         context, ListadoPuntoSalidaScreen.routeName);
                     // Navigator.pushReplacement(

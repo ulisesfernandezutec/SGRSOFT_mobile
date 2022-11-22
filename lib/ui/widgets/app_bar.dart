@@ -1,45 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:sgrsoft/ui/asset_store/image_store.dart';
-import 'package:sgrsoft/ui/view/demoparams/demoparams.dart';
-import 'package:sgrsoft/ui/widgets/google_maps/select_position2.dart';
 
 // function con context como parametro
 AppBar appBar(BuildContext context) {
   return AppBar(
     title: ImageStore().logo,
-    actions: <Widget>[
-      IconButton(
-        icon: const Icon(Icons.add_alert),
-        tooltip: 'Show Snackbar',
-        onPressed: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('This is a snackbar')),
-          );
-        },
-      ),
-      IconButton(
-        icon: const Icon(Icons.navigate_next),
-        tooltip: 'Next page',
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            DemoParams.routeName,
-            arguments: DemoParamsArguments(
-                titulo: 'Demo de parametros', subtitulo: 'subtitulo', id: 1),
-          );
-        },
-      ),
-      IconButton(
-        icon: const Icon(Icons.map_outlined),
-        tooltip: 'Mapa',
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            GoogleMapsSetPosition2.routeName,
-          );
-        },
-      ),
-    ],
+    // actions: <Widget>[
+    //   IconButton(
+    //     icon: const Icon(Icons.add_alert),
+    //     tooltip: 'Show Snackbar',
+    //     onPressed: () {
+    //       ScaffoldMessenger.of(context).showSnackBar(
+    //         const SnackBar(content: Text('This is a snackbar')),
+    //       );
+    //     },
+    //   ),
+    //   IconButton(
+    //     icon: const Icon(Icons.navigate_next),
+    //     tooltip: 'Next page',
+    //     onPressed: () {
+    //       Navigator.pushNamed(
+    //         context,
+    //         DemoParams.routeName,
+    //         arguments: DemoParamsArguments(
+    //             titulo: 'Demo de parametros', subtitulo: 'subtitulo', id: 1),
+    //       );
+    //     },
+    //   ),
+    //   IconButton(
+    //     icon: const Icon(Icons.map_outlined),
+    //     tooltip: 'Mapa',
+    //     onPressed: () {
+    //       Navigator.pushNamed(
+    //         context,
+    //         GoogleMapsSetPosition2.routeName,
+    //       );
+    //     },
+    //   ),
+    // ],
   );
 }
 
