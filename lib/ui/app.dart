@@ -146,7 +146,7 @@ class MainApp extends StatelessWidget {
                   case ListadoPuntoSalidaScreen.routeName:
                     return const ListadoPuntoSalidaScreen();
                   case NuevoPuntoSalidaScreen.routeName:
-                    return NuevoPuntoSalidaScreen();
+                    return const NuevoPuntoSalidaScreen();
                   default:
                     return const LoginScreen();
                 }

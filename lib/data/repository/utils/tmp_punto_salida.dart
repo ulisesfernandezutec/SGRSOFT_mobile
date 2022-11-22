@@ -2,7 +2,12 @@ import 'package:sgrsoft/domain/models/punto_salida.dart';
 
 class TmpPuntoSalidaRepository {
   PuntoSalida _punto = PuntoSalida(
-      id: 0, descripcion: '', direccion: '', latitud: 0, longitud: 0);
+      id: 0,
+      nombre: '',
+      descripcion: '',
+      direccion: '',
+      latitud: 0,
+      longitud: 0);
 
   TmpPuntoSalidaRepository();
 
@@ -14,6 +19,11 @@ class TmpPuntoSalidaRepository {
 
   void clear() {
     _punto = PuntoSalida(
-        id: 0, descripcion: '', direccion: '', latitud: 0, longitud: 0);
+        id: 0,
+        nombre: '',
+        descripcion: '',
+        direccion: '',
+        latitud: 0,
+        longitud: 0);
   }
 }

@@ -13,11 +13,14 @@ class NuevoPuntoSalidaEventSave extends NuevoPuntoSalidaEvent {
 }
 
 class NuevoPuntoSalidaEventToMapa extends NuevoPuntoSalidaEvent {
+  final String nombre;
   final String direccion;
   final String descripcion;
 
   const NuevoPuntoSalidaEventToMapa(
-      {required this.direccion, required this.descripcion});
+      {required this.nombre,
+      required this.direccion,
+      required this.descripcion});
 
   @override
   List<Object> get props => [direccion, descripcion];
