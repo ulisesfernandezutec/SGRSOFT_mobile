@@ -13,6 +13,7 @@ PuntoSalida _$PuntoSalidaFromJson(Map<String, dynamic> json) => PuntoSalida(
       direccion: json['direccion'] as String,
       descripcion: json['descripcion'] as String,
       enRuta: json['en_ruta'] as bool?,
+      nombre: json['nombre'] as String,
     );
 
 Map<String, dynamic> _$PuntoSalidaToJson(PuntoSalida instance) =>
@@ -23,4 +24,5 @@ Map<String, dynamic> _$PuntoSalidaToJson(PuntoSalida instance) =>
       'direccion': instance.direccion,
       'descripcion': instance.descripcion,
       'en_ruta': instance.enRuta,
+      'nombre': instance.nombre,
     };

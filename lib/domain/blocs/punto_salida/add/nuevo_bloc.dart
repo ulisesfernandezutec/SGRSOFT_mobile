@@ -33,6 +33,7 @@ class NuevoPuntoSalidaBloc
       emit(NuevoPuntoSalidaLoading());
       await _toMapa(
           emit: emit,
+          nombre: event.nombre,
           direccion: event.direccion,
           descripcion: event.descripcion);
     });
@@ -47,6 +48,7 @@ class NuevoPuntoSalidaBloc
       emit(NuevoPuntoSalidaMapa(
           puntoSalida: PuntoSalida(
               id: puntoSalida.id,
+              nombre: puntoSalida.nombre,
               descripcion: puntoSalida.descripcion,
               direccion: puntoSalida.direccion,
               latitud: event.latitud,
@@ -56,6 +58,7 @@ class NuevoPuntoSalidaBloc
 
   Future<void> _toMapa(
       {required Emitter<NuevoPuntoSalidaState> emit,
+      required String nombre,
       required String direccion,
       required String descripcion}) async {
     ApiGoogleGeoCode apiGoogleGeoCode = ApiGoogleGeoCode();
@@ -70,7 +73,8 @@ class NuevoPuntoSalidaBloc
         log(e.toString());
       }
     }
-    PuntoSalida puntoSalida = PuntoSalida(
+    puntoSalida = PuntoSalida(
+        nombre: nombre,
         direccion: direccion,
         descripcion: descripcion,
         latitud: coordenadas.latitude,

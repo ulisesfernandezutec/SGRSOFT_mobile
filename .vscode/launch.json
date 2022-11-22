@@ -1,10 +1,21 @@
 {   
  "version": "0.2.0",
  "configurations": [{
-        "name": "Flutter",
+        "name": "Chrome",
         "request": "launch",
         "type": "dart",
         "args": ["-d", "chrome","--web-port", "8000"],
+    },{
+        "name": "Android 9 (API 28)",
+        "request": "launch",
+        "type": "dart",
+        "args": ["-d", "emulator-5554", "--hot", "--debug" ],
+    },{
+        "name": "Redmi 6",
+        "request": "launch",
+        "type": "dart",
+        "args": ["-d", "efb768cf7d2b", "--hot", "--debug"],
     }
+
 ]}
 

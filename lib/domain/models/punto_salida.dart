@@ -6,6 +6,7 @@ part 'punto_salida.g.dart';
 @JsonSerializable()
 // ignore: must_be_immutable
 class PuntoSalida extends PuntoMapa {
+  String nombre;
   PuntoSalida({
     required super.id,
     required super.latitud,
@@ -13,6 +14,7 @@ class PuntoSalida extends PuntoMapa {
     required super.direccion,
     required super.descripcion,
     super.enRuta,
+    required this.nombre,
   });
 
   factory PuntoSalida.fromJson(Map<String, dynamic> json) =>
