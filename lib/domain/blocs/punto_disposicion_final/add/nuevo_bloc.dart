@@ -35,15 +35,32 @@ class NuevoPuntoDisposicionFinalBloc extends Bloc<
       descripcion: '',
       tipos: const []);
 
+  List<TipoDeResiduo> tiposDeResiduos = [];
+
   NuevoPuntoDisposicionFinalBloc()
-      : super(NuevoPuntoDisposicionFinalInitial()) {
+      : super(NuevoPuntoDisposicionFinalInitial(
+            tiposDeResiduos: const [],
+            puntoDisposicionFinal: PuntoDisposicionFinal(
+                id: 0,
+                nombre: '',
+                latitud: 0,
+                longitud: 0,
+                direccion: '',
+                descripcion: '',
+                tipos: const []))) {
     on<NuevoPuntoDisposicionFinalEventSave>((event, emit) {
-      emit(NuevoPuntoDisposicionFinalLoading());
+      emit(NuevoPuntoDisposicionFinalLoading(
+          tiposDeResiduos: tiposDeResiduos,
+          puntoDisposicionFinal: puntoDisposicionFinal));
       _puntoDisposicionFinalRespository.add(puntoDisposicionFinal);
-      emit(NuevoPuntoDisposicionFinalSuccess());
+      emit(NuevoPuntoDisposicionFinalSuccess(
+          tiposDeResiduos: tiposDeResiduos,
+          puntoDisposicionFinal: puntoDisposicionFinal));
     });
     on<NuevoPuntoDisposicionFinalEventToMapa>((event, emit) async {
-      emit(NuevoPuntoDisposicionFinalLoading());
+      emit(NuevoPuntoDisposicionFinalLoading(
+          tiposDeResiduos: tiposDeResiduos,
+          puntoDisposicionFinal: puntoDisposicionFinal));
       await _toMapa(
           emit: emit,
           nombre: event.nombre,
@@ -53,7 +70,7 @@ class NuevoPuntoDisposicionFinalBloc extends Bloc<
     on<NuevoPuntoDisposicionFinalEventToData>((event, emit) async {
       emit(NuevoPuntoDisposicionFinalDatos(
           puntoDisposicionFinal: event.punto,
-          tiposResiduos: await _tiposDeResiduosRepository.getList()));
+          tiposDeResiduos: await _tiposDeResiduosRepository.getList()));
     });
     on<NuevoPuntoDisposicionFinalEventSelectPoint>((event, emit) async {
       puntoDisposicionFinal = event.punto;
@@ -68,10 +85,13 @@ class NuevoPuntoDisposicionFinalBloc extends Bloc<
               direccion: puntoDisposicionFinal.direccion,
               latitud: event.latitud,
               longitud: event.longitud,
-              tipos: puntoDisposicionFinal.tipos)));
+              tipos: puntoDisposicionFinal.tipos),
+          tiposDeResiduos: const []));
     });
     on<NuevoPuntoDisposicionFinalEventLoad>((event, emit) async {
-      emit(NuevoPuntoDisposicionFinalLoading());
+      emit(NuevoPuntoDisposicionFinalLoading(
+          tiposDeResiduos: tiposDeResiduos,
+          puntoDisposicionFinal: puntoDisposicionFinal));
       puntoDisposicionFinal = PuntoDisposicionFinal(
           id: 0,
           nombre: '',
@@ -80,11 +100,13 @@ class NuevoPuntoDisposicionFinalBloc extends Bloc<
           latitud: 0,
           longitud: 0,
           tipos: const []);
+      tiposDeResiduos = await _tiposDeResiduosRepository.getList();
       emit(NuevoPuntoDisposicionFinalDatos(
           puntoDisposicionFinal: puntoDisposicionFinal,
-          tiposResiduos: await _tiposDeResiduosRepository.getList()));
+          tiposDeResiduos: tiposDeResiduos));
     });
     on<NuevoPuntoDisposicionFinalEventSelectTipos>((event, emit) async {
+      tiposDeResiduos = await _tiposDeResiduosRepository.getList();
       List<TipoDeResiduo> tipos =
           await _tiposDeResiduosRepository.getListByIds(event.puntosIds);
       PuntoDisposicionFinal punto = PuntoDisposicionFinal(
@@ -97,8 +119,7 @@ class NuevoPuntoDisposicionFinalBloc extends Bloc<
           nombre: puntoDisposicionFinal.nombre);
       puntoDisposicionFinal = punto;
       emit(NuevoPuntoDisposicionFinalDatos(
-          puntoDisposicionFinal: punto,
-          tiposResiduos: await _tiposDeResiduosRepository.getList()));
+          puntoDisposicionFinal: punto, tiposDeResiduos: tiposDeResiduos));
     });
   }
 
@@ -130,6 +151,7 @@ class NuevoPuntoDisposicionFinalBloc extends Bloc<
     puntoDisposicionFinal = punto;
 
     emit(NuevoPuntoDisposicionFinalMapa(
-        puntoDisposicionFinal: puntoDisposicionFinal));
+        puntoDisposicionFinal: puntoDisposicionFinal,
+        tiposDeResiduos: tiposDeResiduos));
   }
 }

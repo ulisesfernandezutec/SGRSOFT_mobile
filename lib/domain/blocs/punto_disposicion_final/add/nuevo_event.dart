@@ -31,7 +31,7 @@ class NuevoPuntoDisposicionFinalEventToMapa
       required this.descripcion});
 
   @override
-  List<Object> get props => [direccion, descripcion];
+  List<Object> get props => [nombre, direccion, descripcion];
 }
 
 class NuevoPuntoDisposicionFinalEventSelectPoint
