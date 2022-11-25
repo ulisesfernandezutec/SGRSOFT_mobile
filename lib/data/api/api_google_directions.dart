@@ -42,9 +42,14 @@ class ApiGoogleDirections {
         queryParameters['waypoints'] = waypointsString.join('|');
       }
 
+      print(Uri.https(url.host, url.path, queryParameters)
+          .toString()
+          .replaceAll("%2C", ","));
       Dio dio = Dio();
       await dio
-          .get(Uri.https(url.host, url.path, queryParameters).toString())
+          .get(Uri.https(url.host, url.path, queryParameters)
+              .toString()
+              .replaceAll("%2C", ","))
           .then((value) {
         log("value.data: ${value.data}");
         googleDirection = GoogleDirection.fromJson(value.data);
