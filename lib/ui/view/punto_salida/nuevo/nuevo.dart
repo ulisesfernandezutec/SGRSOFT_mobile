@@ -58,10 +58,15 @@ class NuevoPuntoSalidaScreenState extends State<NuevoPuntoSalidaScreen> {
                     alignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton.icon(
-                        icon: const Icon(Icons.arrow_back, color: Colors.white),
+                        icon: Icon(
+                            control.currentStep == 0
+                                ? Icons.close
+                                : Icons.arrow_back,
+                            color: Colors.white),
                         onPressed: control.onStepCancel,
-                        label: const Text("Cancelar",
-                            style: TextStyle(color: Colors.white)),
+                        label: Text(
+                            control.currentStep == 0 ? "Salir" : "Atras",
+                            style: const TextStyle(color: Colors.white)),
                         style: ElevatedButton.styleFrom(
                           padding: FormConst.buttonPadding,
                           backgroundColor: Colors.grey,

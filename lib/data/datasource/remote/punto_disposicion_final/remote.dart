@@ -6,4 +6,5 @@ abstract class RemotePuntoDisposicionFinalDataSource {
   Future<bool> add(PuntoDisposicionFinal puntoDisposicionFinal);
   Future<bool> update(PuntoDisposicionFinal puntoDisposicionFinal);
   Future<bool> delete(PuntoDisposicionFinal puntoDisposicionFinal);
+  Future<List<PuntoDisposicionFinal>> getListByIds(List<int> list);
 }

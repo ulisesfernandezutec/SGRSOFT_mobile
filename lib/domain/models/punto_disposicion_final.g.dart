@@ -18,6 +18,7 @@ PuntoDisposicionFinal _$PuntoDisposicionFinalFromJson(
       tipos: (json['tipos'] as List<dynamic>)
           .map((e) => TipoDeResiduo.fromJson(e as Map<String, dynamic>))
           .toList(),
+      nombre: json['nombre'] as String,
     );
 
 Map<String, dynamic> _$PuntoDisposicionFinalToJson(
@@ -30,4 +31,5 @@ Map<String, dynamic> _$PuntoDisposicionFinalToJson(
       'descripcion': instance.descripcion,
       'en_ruta': instance.enRuta,
       'tipos': instance.tipos,
+      'nombre': instance.nombre,
     };

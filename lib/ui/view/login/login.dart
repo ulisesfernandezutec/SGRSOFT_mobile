@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/listado.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:http/http.dart' as http;
 
 GoogleSignIn _googleSignIn = GoogleSignIn(
   // Optional clientId
@@ -34,7 +33,8 @@ class LoginScreenState extends State<LoginScreen> {
         print(_googleSignIn.currentUser);
       }
 
-      Navigator.pushNamed(context, ListadoPuntosRecoleccionScreens.routeName);
+      Navigator.pushReplacementNamed(
+          context, ListadoPuntosRecoleccionScreens.routeName);
     } catch (error) {
       if (kDebugMode) {
         print(error);
