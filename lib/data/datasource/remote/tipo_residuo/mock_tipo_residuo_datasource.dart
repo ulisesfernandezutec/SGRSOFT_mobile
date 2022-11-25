@@ -43,4 +43,9 @@ class MockTiposDeResiduosDataSource extends RemoteTiposDeResiduosDataSource {
     db[db.indexWhere((punto) => punto.id == tipoResiduo.id)] = tipoResiduo;
     return Future.value(true);
   }
+
+  @override
+  Future<List<TipoDeResiduo>> getListByIds(List<int> list) {
+    return Future.value(db.where((punto) => list.contains(punto.id)).toList());
+  }
 }

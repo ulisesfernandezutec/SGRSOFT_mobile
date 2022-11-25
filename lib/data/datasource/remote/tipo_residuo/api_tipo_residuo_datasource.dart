@@ -152,4 +152,9 @@ class ApiTiposDeResiduosDataSource extends RemoteTiposDeResiduosDataSource {
       return false;
     }
   }
+
+  @override
+  Future<List<TipoDeResiduo>> getListByIds(List<int> list) {
+    return Future.value(db.where((punto) => list.contains(punto.id)).toList());
+  }
 }

@@ -4,6 +4,7 @@ import 'package:sgrsoft/data/repository/utils/tmp_punto_salida.dart';
 import 'package:sgrsoft/data/streams/puntos_recoleccion/listado.dart';
 import 'package:sgrsoft/domain/models/ruta.dart';
 
+import 'puntos_disposicion_final.dart';
 import 'puntos_recoleccion.dart';
 import 'puntos_salida.dart';
 import 'rol.dart';
@@ -22,6 +23,7 @@ Future<void> initializeDI() async {
 void data() async {
   puntosRecoleccionGetIt(_l);
   puntosSalidaGetIt(_l);
+  puntosDisposicionFinalGetIt(_l);
   tiposDeResiduosGetIt(_l);
   rolGetIt(_l);
   vehiculoGetIt(_l);

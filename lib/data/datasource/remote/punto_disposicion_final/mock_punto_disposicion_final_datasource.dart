@@ -47,4 +47,11 @@ class MockPuntoDisposicionFinalDataSource
         puntoDisposicionFinal;
     return Future.value(true);
   }
+
+  @override
+  Future<List<PuntoDisposicionFinal>> getListByIds(List<int> list) async {
+    List<PuntoDisposicionFinal> puntos =
+        db.where((punto) => list.contains(punto.id)).toList();
+    return Future<List<PuntoDisposicionFinal>>.value(puntos);
+  }
 }

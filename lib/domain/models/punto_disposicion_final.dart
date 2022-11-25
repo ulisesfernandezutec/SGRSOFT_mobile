@@ -8,6 +8,7 @@ part 'punto_disposicion_final.g.dart';
 // ignore: must_be_immutable
 class PuntoDisposicionFinal extends PuntoMapa {
   final List<TipoDeResiduo> tipos;
+  final String nombre;
 
   PuntoDisposicionFinal(
       {required super.id,
@@ -16,7 +17,8 @@ class PuntoDisposicionFinal extends PuntoMapa {
       required super.direccion,
       required super.descripcion,
       super.enRuta,
-      required this.tipos});
+      required this.tipos,
+      required this.nombre});
 
   factory PuntoDisposicionFinal.fromJson(Map<String, dynamic> json) =>
       _$PuntoDisposicionFinalFromJson(json);

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sgrsoft/ui/const/web.dart';
 
 class AppHeadModal extends StatelessWidget {
   final String title;
@@ -24,7 +23,7 @@ class AppHeadModal extends StatelessWidget {
         title.toUpperCase(),
         style: Theme.of(context)
             .textTheme
-            .headline5
+            .headline6
             ?.copyWith(color: Colors.white),
       ),
     );

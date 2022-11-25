@@ -40,4 +40,9 @@ class PuntoDisposicionFinalRepository
   Future<bool> delete(PuntoDisposicionFinal puntoDisposicionFinal) async {
     return await _remote.delete(puntoDisposicionFinal);
   }
+
+  @override
+  Future<List<PuntoDisposicionFinal>> getListByIds(List<int> list) {
+    return _remote.getListByIds(list);
+  }
 }

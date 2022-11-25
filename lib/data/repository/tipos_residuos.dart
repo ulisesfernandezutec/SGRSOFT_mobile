@@ -38,4 +38,9 @@ class TiposDeResiduosRepository extends AbstractTiposDeResiduosRepository {
   Future<bool> delete(TipoDeResiduo puntoRecoleccion) async {
     return await _remote.delete(puntoRecoleccion);
   }
+
+  @override
+  Future<List<TipoDeResiduo>> getListByIds(List<int> list) async {
+    return await _remote.getListByIds(list);
+  }
 }

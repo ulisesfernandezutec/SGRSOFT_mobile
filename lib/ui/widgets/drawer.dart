@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sgrsoft/ui/asset_store/image_store.dart';
 import 'package:sgrsoft/ui/settings/settings_view.dart';
+import 'package:sgrsoft/ui/view/punto_disposicion_final/listado/listado.dart';
 import 'package:sgrsoft/ui/view/punto_salida/listado/listado.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/listado.dart';
 import 'package:sgrsoft/ui/view/rol/listado/listado.dart';
@@ -37,11 +39,17 @@ Drawer appDrawer(BuildContext context) {
                   context, ListadoPuntosRecoleccionScreens.routeName);
             }),
         ListTile(
-            leading: const Icon(Icons.home),
+            leading: const Icon(FontAwesomeIcons.home),
             title: const Text('Puntos de Salida'),
             onTap: () {
-              Navigator.restorablePushNamed(
-                  context, ListadoPuntoSalidaScreen.routeName);
+              Navigator.pushNamed(context, ListadoPuntoSalidaScreen.routeName);
+            }),
+        ListTile(
+            leading: const Icon(FontAwesomeIcons.trash),
+            title: const Text('Puntos de Disposición Final'),
+            onTap: () {
+              Navigator.pushNamed(
+                  context, ListadoPuntoDisposicionFinalScreen.routeName);
             }),
         ListTile(
             leading: const Icon(Icons.class_outlined),

@@ -6,4 +6,5 @@ abstract class AbstractTiposDeResiduosRepository {
   Future<bool> add(TipoDeResiduo puntoRecoleccion);
   Future<bool> update(TipoDeResiduo puntoRecoleccion);
   Future<bool> delete(TipoDeResiduo puntoRecoleccion);
+  Future<List<TipoDeResiduo>> getListByIds(List<int> list);
 }

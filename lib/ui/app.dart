@@ -6,6 +6,7 @@ import 'package:sgrsoft/ui/view/demomodal/demomodal.dart';
 import 'package:sgrsoft/ui/view/demoparams/demoparams.dart';
 import 'package:sgrsoft/ui/view/login/google.dart';
 import 'package:sgrsoft/ui/view/login/login.dart';
+import 'package:sgrsoft/ui/view/punto_disposicion_final/listado/listado.dart';
 import 'package:sgrsoft/ui/view/punto_salida/listado/listado.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/detalle/detalle.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/editar/_editar.dart';
@@ -147,6 +148,8 @@ class MainApp extends StatelessWidget {
                     return const ListadoPuntoSalidaScreen();
                   case NuevoPuntoSalidaScreen.routeName:
                     return const NuevoPuntoSalidaScreen();
+                  case ListadoPuntoDisposicionFinalScreen.routeName:
+                    return const ListadoPuntoDisposicionFinalScreen();
                   default:
                     return const LoginScreen();
                 }

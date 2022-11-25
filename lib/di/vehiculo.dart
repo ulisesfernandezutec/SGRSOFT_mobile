@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:sgrsoft/data/datasource/remote/vehiculo/api_vehiculo_datasource.dart';
+import 'package:sgrsoft/data/datasource/remote/vehiculo/mock_vehiculo_datasource.dart';
 import 'package:sgrsoft/data/datasource/remote/vehiculo/remote.dart';
 import 'package:sgrsoft/data/repository/vehiculo.dart';
 import 'package:sgrsoft/domain/models/vehiculo.dart';
@@ -15,7 +16,7 @@ void vehiculoGetIt(GetIt gi) async {
         chofer: 0),
   ];
   RemoteVehiculoDataSource remoteVehiculoDataSource =
-      ApiVehiculoDataSource(db: <Vehiculo>[]);
+      MockVehiculoDataSource(db: list);
   gi.registerSingleton<VehiculoRepository>(
       VehiculoRepository(remoteVehiculoDataSource));
 }
