@@ -4,49 +4,44 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sgrsoft/data/repository/tipos_residuos.dart';
-import 'package:sgrsoft/domain/blocs/punto_disposicion_final/add/nuevo_bloc.dart';
+import 'package:sgrsoft/domain/blocs/puntos_recoleccion/nuevo/nuevo_bloc.dart';
 import 'package:sgrsoft/domain/models/tipo_residuo.dart';
 import 'package:sgrsoft/ui/const/forms.dart';
 import 'package:sgrsoft/ui/const/web.dart';
-import 'package:sgrsoft/ui/view/punto_disposicion_final/listado/listado.dart';
 import 'package:sgrsoft/ui/widgets/google_maps/position_select.dart';
 import 'package:sgrsoft/ui/widgets/google_maps/select_position.dart';
-import 'package:multiselect_formfield/multiselect_formfield.dart';
 
 typedef ValueChanged<T> = void Function(T value);
 
-class NuevoPuntoDisposicionFinalScreen extends StatefulWidget {
-  const NuevoPuntoDisposicionFinalScreen({Key? key}) : super(key: key);
+class NuevoPuntosRecoleccionScreens extends StatefulWidget {
+  const NuevoPuntosRecoleccionScreens({Key? key}) : super(key: key);
 
   static const routeName = '/puntos_disposicion_final/nuevo';
 
   @override
-  State<NuevoPuntoDisposicionFinalScreen> createState() =>
-      NuevoPuntoDisposicionFinalScreenState();
+  State<NuevoPuntosRecoleccionScreens> createState() =>
+      NuevoPuntosRecoleccionScreensState();
 }
 
-class NuevoPuntoDisposicionFinalScreenState
-    extends State<NuevoPuntoDisposicionFinalScreen> {
+class NuevoPuntosRecoleccionScreensState
+    extends State<NuevoPuntosRecoleccionScreens> {
   final getIt = GetIt.instance;
   late TiposDeResiduosRepository _tiposDeResiduosRepository;
 
-  final nombreController = TextEditingController();
   final direccionController = TextEditingController();
   final descripcionController = TextEditingController();
   List<TipoDeResiduo> tiposResiduos = [];
-  List<TipoDeResiduo> selectedTiposResiduos = [];
+  int? _indexTipoDeResiduo;
+
+  int selectedStep = 0;
+  final _formKey = GlobalKey<FormState>(debugLabel: '_nuevoPuntoRecoleccion');
+
   double latitud = 0;
   double longitud = 0;
 
-  int selectedStep = 0;
-  final _formKey =
-      GlobalKey<FormState>(debugLabel: '_nuevoPuntoDisposicionFinal');
-
-  void funSelectTiposResiduos(List<int> tipos) async {
-    selectedTiposResiduos =
-        await _tiposDeResiduosRepository.getListByIds(tipos);
+  void funSelectTipoResiduo(int? tipo) async {
     setState(() {
-      selectedTiposResiduos = selectedTiposResiduos;
+      _indexTipoDeResiduo = tipo;
     });
   }
 
@@ -72,7 +67,6 @@ class NuevoPuntoDisposicionFinalScreenState
 
   @override
   void dispose() {
-    nombreController.dispose();
     direccionController.dispose();
     descripcionController.dispose();
     super.dispose();
@@ -81,13 +75,14 @@ class NuevoPuntoDisposicionFinalScreenState
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => NuevoPuntoDisposicionFinalBloc()
-          ..add(NuevoPuntoDisposicionFinalEventLoad()),
-        child: BlocBuilder<NuevoPuntoDisposicionFinalBloc,
-            NuevoPuntoDisposicionFinalState>(builder: (context, state) {
-          latitud = state.puntoDisposicionFinal.latitud;
-          longitud = state.puntoDisposicionFinal.longitud;
-          if (state is NuevoPuntoDisposicionFinalLoading) {
+        create: (context) =>
+            NuevoPuntoRecoleccionBloc()..add(NuevoPuntoRecoleccionEventLoad()),
+        child:
+            BlocBuilder<NuevoPuntoRecoleccionBloc, NuevoPuntoRecoleccionState>(
+                builder: (context, state) {
+          longitud = state.puntoRecoleccion.longitud;
+          latitud = state.puntoRecoleccion.latitud;
+          if (state is NuevoPuntoRecoleccionLoading) {
             return Center(
                 child: CircularProgressIndicator(
                     color: Theme.of(context).primaryColor));
@@ -152,18 +147,14 @@ class NuevoPuntoDisposicionFinalScreenState
                               if (selectedStep == 0) {
                                 if (_formKey.currentState!.validate()) {
                                   _focusClear();
-                                  BlocProvider.of<
-                                              NuevoPuntoDisposicionFinalBloc>(
+                                  BlocProvider.of<NuevoPuntoRecoleccionBloc>(
                                           context)
-                                      .add(
-                                          NuevoPuntoDisposicionFinalEventToMapa(
-                                              nombre: nombreController.text,
-                                              descripcion:
-                                                  descripcionController.text,
-                                              direccion:
-                                                  direccionController.text,
-                                              selectedTiposResiduos:
-                                                  selectedTiposResiduos));
+                                      .add(NuevoPuntoRecoleccionEventToMapa(
+                                          descripcion:
+                                              descripcionController.text,
+                                          direccion: direccionController.text,
+                                          indexTipoDeResiduo:
+                                              _indexTipoDeResiduo));
                                   setState(() {
                                     if (selectedStep < 1) {
                                       selectedStep = selectedStep + 1;
@@ -171,14 +162,14 @@ class NuevoPuntoDisposicionFinalScreenState
                                   });
                                 }
                               } else {
-                                BlocProvider.of<NuevoPuntoDisposicionFinalBloc>(
+                                BlocProvider.of<NuevoPuntoRecoleccionBloc>(
                                         context)
-                                    .add(NuevoPuntoDisposicionFinalEventSave());
+                                    .add(NuevoPuntoRecoleccionEventSave());
                                 Navigator.pop(context);
-                                Navigator.pushReplacementNamed(
-                                    context,
-                                    ListadoPuntoDisposicionFinalScreen
-                                        .routeName);
+                                // Navigator.pushReplacementNamed(
+                                //     context,
+                                //     ListadoPuntoRecoleccionScreen
+                                //         .routeName);
                               }
                             },
                             onStepCancel: () {
@@ -194,18 +185,14 @@ class NuevoPuntoDisposicionFinalScreenState
                               if (selectedStep == 0) {
                                 _focusClear();
                                 if (_formKey.currentState!.validate()) {
-                                  BlocProvider.of<
-                                              NuevoPuntoDisposicionFinalBloc>(
+                                  BlocProvider.of<NuevoPuntoRecoleccionBloc>(
                                           context)
-                                      .add(
-                                          NuevoPuntoDisposicionFinalEventToMapa(
-                                              nombre: nombreController.text,
-                                              descripcion:
-                                                  descripcionController.text,
-                                              direccion:
-                                                  direccionController.text,
-                                              selectedTiposResiduos:
-                                                  selectedTiposResiduos));
+                                      .add(NuevoPuntoRecoleccionEventToMapa(
+                                          descripcion:
+                                              descripcionController.text,
+                                          direccion: direccionController.text,
+                                          indexTipoDeResiduo:
+                                              _indexTipoDeResiduo));
                                 } else {
                                   return;
                                 }
@@ -227,27 +214,25 @@ class NuevoPuntoDisposicionFinalScreenState
                                       child: Container(
                                           margin: EdgeInsets.zero,
                                           child: selectedStep == 0 &&
-                                                  (state is NuevoPuntoDisposicionFinalDatos ||
+                                                  (state is NuevoPuntoRecoleccionDatos ||
                                                       state
-                                                          is NuevoPuntoDisposicionFinalMapa)
+                                                          is NuevoPuntoRecoleccionMapa)
                                               ? StepDatos(
-                                                  nombreController:
-                                                      nombreController,
                                                   descripcionController:
                                                       descripcionController,
                                                   direccionController:
                                                       direccionController,
                                                   formKey: _formKey,
-                                                  selectedTiposResiduos:
-                                                      selectedTiposResiduos,
+                                                  indexTipoDeResiduo:
+                                                      _indexTipoDeResiduo,
                                                   tiposResiduos: tiposResiduos,
                                                   updateSeleced:
-                                                      funSelectTiposResiduos)
+                                                      funSelectTipoResiduo)
                                               : Container()))),
                               Step(
                                 isActive: selectedStep >= 1,
                                 title: const Text("Ubicación"),
-                                content: state is NuevoPuntoDisposicionFinalMapa
+                                content: state is NuevoPuntoRecoleccionMapa
                                     ? Container(
                                         padding: const EdgeInsets.all(0),
                                         margin: const EdgeInsets.all(0),
@@ -260,23 +245,22 @@ class NuevoPuntoDisposicionFinalScreenState
                                                         .height -
                                                     240),
                                         child: GoogleMapsSetPosition(
-                                            latitude: state
-                                                .puntoDisposicionFinal.latitud,
-                                            longitude: state
-                                                .puntoDisposicionFinal.longitud,
+                                            latitude:
+                                                state.puntoRecoleccion.latitud,
+                                            longitude:
+                                                state.puntoRecoleccion.longitud,
                                             markers: {
                                               const MarkerId('markerd'): createDragMarker(
                                                   latitude: state
-                                                      .puntoDisposicionFinal
-                                                      .latitud,
+                                                      .puntoRecoleccion.latitud,
                                                   longitude: state
-                                                      .puntoDisposicionFinal
+                                                      .puntoRecoleccion
                                                       .longitud,
                                                   onSelectPosition: (position) =>
-                                                      BlocProvider.of<NuevoPuntoDisposicionFinalBloc>(context).add(
-                                                          NuevoPuntoDisposicionFinalEventSelectPoint(
+                                                      BlocProvider.of<NuevoPuntoRecoleccionBloc>(context).add(
+                                                          NuevoPuntoRecoleccionEventSelectPoint(
                                                               punto: state
-                                                                  .puntoDisposicionFinal,
+                                                                  .puntoRecoleccion,
                                                               latitud: position
                                                                   .latitude,
                                                               longitud: position
@@ -284,12 +268,11 @@ class NuevoPuntoDisposicionFinalScreenState
                                             },
                                             onSelectPosition: (position) {
                                               BlocProvider.of<
-                                                          NuevoPuntoDisposicionFinalBloc>(
+                                                          NuevoPuntoRecoleccionBloc>(
                                                       context)
                                                   .add(
-                                                      NuevoPuntoDisposicionFinalEventSelectPoint(
-                                                punto:
-                                                    state.puntoDisposicionFinal,
+                                                      NuevoPuntoRecoleccionEventSelectPoint(
+                                                punto: state.puntoRecoleccion,
                                                 latitud: position.latitude,
                                                 longitud: position.longitude,
                                               ));
@@ -304,20 +287,18 @@ class NuevoPuntoDisposicionFinalScreenState
 }
 
 class StepDatos extends StatelessWidget {
-  final TextEditingController nombreController;
   final TextEditingController direccionController;
   final TextEditingController descripcionController;
   final GlobalKey<FormState> formKey;
-  final List<TipoDeResiduo> selectedTiposResiduos;
+  final int? indexTipoDeResiduo;
   final List<TipoDeResiduo> tiposResiduos;
-  final ValueChanged<List<int>> updateSeleced;
+  final ValueChanged<int?> updateSeleced;
   const StepDatos(
       {super.key,
-      required this.nombreController,
       required this.descripcionController,
       required this.direccionController,
       required this.formKey,
-      required this.selectedTiposResiduos,
+      required this.indexTipoDeResiduo,
       required this.tiposResiduos,
       required this.updateSeleced});
 
@@ -326,20 +307,40 @@ class StepDatos extends StatelessWidget {
     return Form(
         key: formKey,
         child: Column(children: [
-          Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-              child: TextFormField(
-                  validator: ((value) =>
-                      value!.isEmpty ? "El nombre no puede estar vacío" : null),
-                  maxLines: 1,
-                  controller: nombreController,
-                  keyboardType: TextInputType.text,
-                  textInputAction: TextInputAction.next,
-                  decoration: const InputDecoration(
-                    labelText: 'Nombre',
-                    hintText: 'Ingrese un nombre',
-                    border: OutlineInputBorder(),
-                  ))),
+          tiposResiduos.isNotEmpty
+              ? Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                  child: DropdownButtonFormField(
+                      decoration: InputDecoration(
+                        // enabledBorder: OutlineInputBorder(
+                        //   borderRadius: BorderRadius.circular(10),
+                        // ),
+                        border: OutlineInputBorder(
+                          // borderSide:
+                          //     BorderSide(color: Colors.blue, width: 2),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        filled: true,
+                        contentPadding: const EdgeInsets.all(16),
+                        // fillColor: Colors.blueAccent,
+                      ),
+                      validator: (value) => value == null
+                          ? 'Seleccione un tipo de residuo'
+                          : null,
+                      value: indexTipoDeResiduo,
+                      hint: const Text("Seleccione un tipo de residuo"),
+                      items: tiposResiduos
+                          .map((e) => DropdownMenuItem(
+                              value: e.id, child: Text(e.nombre)))
+                          .toList(),
+                      onChanged: (int? value) {
+                        updateSeleced(value);
+                      }),
+                )
+              : Container(
+                  padding: const EdgeInsets.all(5),
+                  child: const Text(
+                      "No se pudieron cargar los tipos de residuos")),
           Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
               child: TextFormField(
@@ -366,49 +367,6 @@ class StepDatos extends StatelessWidget {
                     hintText: 'Ingrese una descripción',
                     border: OutlineInputBorder()),
               )),
-          tiposResiduos.isNotEmpty
-              ? Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                  child: MultiSelectFormField(
-                    autovalidate: AutovalidateMode.onUserInteraction,
-                    chipBackGroundColor: Theme.of(context).primaryColor,
-                    chipLabelStyle: const TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white),
-                    // dialogTextStyle: const TextStyle(fontWeight: FontWeight.bold),
-                    checkBoxActiveColor: Theme.of(context).primaryColor,
-                    checkBoxCheckColor: Colors.white,
-                    dialogShapeBorder: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(12.0))),
-                    title: const Text(
-                      "Tipos de Residuos",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.length == 0) {
-                        return 'Por favor seleccione al menos un tipo de residuo';
-                      }
-                      return null;
-                    },
-                    dataSource: tiposResiduos
-                        .map((e) => {"nombre": e.nombre, "id": e.id.toInt()})
-                        .toList(),
-                    textField: 'nombre',
-                    valueField: 'id',
-                    okButtonLabel: 'SELECCIONAR',
-                    cancelButtonLabel: 'CANCELAR',
-                    hintWidget: const Text('Por favor seleccione uno o más'),
-                    initialValue:
-                        selectedTiposResiduos.map((e) => e.id.toInt()).toList(),
-                    onSaved: (value) {
-                      if (value == null) return;
-                      List<int> iDs = List<int>.from(value);
-                      updateSeleced(iDs);
-                    },
-                  ))
-              : Container(
-                  padding: const EdgeInsets.all(5),
-                  child:
-                      const Text("No se pudieron cargar los tipos de residuos"))
         ]));
   }
 }

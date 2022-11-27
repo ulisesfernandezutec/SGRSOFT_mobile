@@ -24,11 +24,13 @@ class NuevoPuntoDisposicionFinalEventToMapa
   final String nombre;
   final String direccion;
   final String descripcion;
+  final List<TipoDeResiduo> selectedTiposResiduos;
 
   const NuevoPuntoDisposicionFinalEventToMapa(
       {required this.nombre,
       required this.direccion,
-      required this.descripcion});
+      required this.descripcion,
+      required this.selectedTiposResiduos});
 
   @override
   List<Object> get props => [nombre, direccion, descripcion];

@@ -44,179 +44,205 @@ class NuevoPuntoSalidaScreenState extends State<NuevoPuntoSalidaScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Container(
-            constraints: const BoxConstraints(
-                maxWidth: AppWebStyles.pageMaxWidthConstrain),
-            child: Stepper(
-                currentStep: selectedStep,
-                margin: EdgeInsets.zero,
-                physics: const ClampingScrollPhysics(),
-                elevation: 2,
-                controlsBuilder: (context, ControlsDetails control) {
-                  return ButtonBar(
-                    alignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton.icon(
-                        icon: Icon(
-                            control.currentStep == 0
-                                ? Icons.close
-                                : Icons.arrow_back,
-                            color: Colors.white),
-                        onPressed: control.onStepCancel,
-                        label: Text(
-                            control.currentStep == 0 ? "Salir" : "Atras",
-                            style: const TextStyle(color: Colors.white)),
-                        style: ElevatedButton.styleFrom(
-                          padding: FormConst.buttonPadding,
-                          backgroundColor: Colors.grey,
-                        ),
-                      ),
-                      ElevatedButton.icon(
-                        icon: Icon(
-                            control.currentStep == 0
-                                ? Icons.arrow_forward
-                                : Icons.save,
-                            color: Colors.white),
-                        onPressed: control.onStepContinue,
-                        label: Text(
-                            control.currentStep == 0 ? "Siguiente" : "Guardar",
-                            style: const TextStyle(color: Colors.white)),
-                        style: ElevatedButton.styleFrom(
-                          padding: FormConst.buttonPadding,
-                          backgroundColor: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                    ],
-                  );
-                },
-                onStepContinue: () {
-                  if (selectedStep == 0) {
-                    if (_formKey.currentState!.validate()) {
-                      _focusClear();
-                      BlocProvider.of<NuevoPuntoSalidaBloc>(context).add(
-                          NuevoPuntoSalidaEventToMapa(
-                              nombre: nombreController.text,
-                              descripcion: descripcionController.text,
-                              direccion: direccionController.text));
-                      setState(() {
-                        if (selectedStep < 1) {
-                          selectedStep = selectedStep + 1;
-                        }
-                      });
-                    }
-                  } else {
-                    BlocProvider.of<NuevoPuntoSalidaBloc>(context)
-                        .add(NuevoPuntoSalidaEventSave());
-                    // Navigator.pushReplacementNamed(
-                    //     context, ListadoPuntoSalidaScreen.routeName);
-                    // Navigator.pop(context, true);
-                    Navigator.pop(context);
-                    Navigator.pushReplacementNamed(
-                        context, ListadoPuntoSalidaScreen.routeName);
-                    // Navigator.pushReplacement(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (BuildContext context) => super.widget));
-                  }
-                },
-                onStepCancel: () {
-                  setState(() {
-                    if (selectedStep > 0) {
-                      selectedStep = selectedStep - 1;
-                    } else {
-                      Navigator.of(context).pop();
-                    }
-                  });
-                },
-                onStepTapped: (step) {
-                  if (selectedStep == 0) {
-                    _focusClear();
-                    if (_formKey.currentState!.validate()) {
-                      BlocProvider.of<NuevoPuntoSalidaBloc>(context).add(
-                          NuevoPuntoSalidaEventToMapa(
-                              nombre: nombreController.text,
-                              descripcion: descripcionController.text,
-                              direccion: direccionController.text));
-                    } else {
-                      return;
-                    }
-                  }
-                  setState(() {
-                    selectedStep = step;
-                  });
-                },
-                type: StepperType.horizontal,
-                steps: <Step>[
-                  Step(
-                      state: selectedStep > 0
-                          ? StepState.complete
-                          : StepState.indexed,
-                      isActive: selectedStep >= 0,
-                      title: const Text("Datos"),
-                      content: Align(
-                          alignment: Alignment.topCenter,
-                          child: Container(
-                              margin: EdgeInsets.zero,
-                              constraints: BoxConstraints(
-                                  maxHeight: kIsWeb
-                                      ? 450
-                                      : MediaQuery.of(context).size.height -
-                                          240),
-                              child: StepDatos(
-                                nombreController: nombreController,
-                                descripcionController: descripcionController,
-                                direccionController: direccionController,
-                                formKey: _formKey,
-                              )))),
-                  Step(
-                      isActive: selectedStep >= 1,
-                      title: const Text("Ubicación"),
-                      content: BlocBuilder<NuevoPuntoSalidaBloc,
-                          NuevoPuntoSalidaState>(builder: (context, state) {
-                        if (state is NuevoPuntoSalidaMapa) {
-                          return Container(
-                              padding: const EdgeInsets.all(0),
-                              margin: const EdgeInsets.all(0),
-                              height: double.maxFinite,
-                              constraints: BoxConstraints(
-                                  maxHeight: kIsWeb
-                                      ? 450
-                                      : MediaQuery.of(context).size.height -
-                                          240),
-                              child: GoogleMapsSetPosition(
-                                  latitude: state.puntoSalida.latitud,
-                                  longitude: state.puntoSalida.longitud,
-                                  markers: {
-                                    const MarkerId('markerd'): createDragMarker(
+    return GestureDetector(
+        onTap: _focusClear,
+        child: BlocBuilder<NuevoPuntoSalidaBloc, NuevoPuntoSalidaState>(
+            builder: (context, state) {
+          if (state is NuevoPuntoSalidaLoading) {
+            return Center(
+                child: CircularProgressIndicator(
+                    color: Theme.of(context).primaryColor));
+          } else {
+            return Center(
+                child: Container(
+                    constraints: const BoxConstraints(
+                        maxWidth: AppWebStyles.pageMaxWidthConstrain),
+                    child: Stepper(
+                        currentStep: selectedStep,
+                        margin: EdgeInsets.zero,
+                        physics: const ClampingScrollPhysics(),
+                        elevation: 2,
+                        controlsBuilder: (context, ControlsDetails control) {
+                          return ButtonBar(
+                            alignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton.icon(
+                                icon: Icon(
+                                    control.currentStep == 0
+                                        ? Icons.close
+                                        : Icons.arrow_back,
+                                    color: Colors.white),
+                                onPressed: control.onStepCancel,
+                                label: Text(
+                                    control.currentStep == 0
+                                        ? "Salir"
+                                        : "Atras",
+                                    style:
+                                        const TextStyle(color: Colors.white)),
+                                style: ElevatedButton.styleFrom(
+                                  padding: FormConst.buttonPadding,
+                                  backgroundColor: Colors.grey,
+                                ),
+                              ),
+                              ElevatedButton.icon(
+                                icon: Icon(
+                                    control.currentStep == 0
+                                        ? Icons.arrow_forward
+                                        : Icons.save,
+                                    color: Colors.white),
+                                onPressed: control.onStepContinue,
+                                label: Text(
+                                    control.currentStep == 0
+                                        ? "Siguiente"
+                                        : "Guardar",
+                                    style:
+                                        const TextStyle(color: Colors.white)),
+                                style: ElevatedButton.styleFrom(
+                                  padding: FormConst.buttonPadding,
+                                  backgroundColor:
+                                      Theme.of(context).primaryColor,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                        onStepContinue: () {
+                          if (selectedStep == 0) {
+                            if (_formKey.currentState!.validate()) {
+                              _focusClear();
+                              BlocProvider.of<NuevoPuntoSalidaBloc>(context)
+                                  .add(NuevoPuntoSalidaEventToMapa(
+                                      nombre: nombreController.text,
+                                      descripcion: descripcionController.text,
+                                      direccion: direccionController.text));
+                              setState(() {
+                                if (selectedStep < 1) {
+                                  selectedStep = selectedStep + 1;
+                                }
+                              });
+                            }
+                          } else {
+                            BlocProvider.of<NuevoPuntoSalidaBloc>(context)
+                                .add(NuevoPuntoSalidaEventSave());
+                            // Navigator.pushReplacementNamed(
+                            //     context, ListadoPuntoSalidaScreen.routeName);
+                            // Navigator.pop(context, true);
+                            Navigator.pop(context);
+                            Navigator.pushReplacementNamed(
+                                context, ListadoPuntoSalidaScreen.routeName);
+                            // Navigator.pushReplacement(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (BuildContext context) => super.widget));
+                          }
+                        },
+                        onStepCancel: () {
+                          setState(() {
+                            if (selectedStep > 0) {
+                              selectedStep = selectedStep - 1;
+                            } else {
+                              Navigator.of(context).pop();
+                            }
+                          });
+                        },
+                        onStepTapped: (step) {
+                          if (selectedStep == 0) {
+                            _focusClear();
+                            if (_formKey.currentState!.validate()) {
+                              BlocProvider.of<NuevoPuntoSalidaBloc>(context)
+                                  .add(NuevoPuntoSalidaEventToMapa(
+                                      nombre: nombreController.text,
+                                      descripcion: descripcionController.text,
+                                      direccion: direccionController.text));
+                            } else {
+                              return;
+                            }
+                          }
+                          setState(() {
+                            selectedStep = step;
+                          });
+                        },
+                        type: StepperType.horizontal,
+                        steps: <Step>[
+                          Step(
+                              state: selectedStep > 0
+                                  ? StepState.complete
+                                  : StepState.indexed,
+                              isActive: selectedStep >= 0,
+                              title: const Text("Datos"),
+                              content: Align(
+                                  alignment: Alignment.topCenter,
+                                  child: Container(
+                                      margin: EdgeInsets.zero,
+                                      constraints: BoxConstraints(
+                                          maxHeight: kIsWeb
+                                              ? 450
+                                              : MediaQuery.of(context)
+                                                      .size
+                                                      .height -
+                                                  240),
+                                      child: StepDatos(
+                                        nombreController: nombreController,
+                                        descripcionController:
+                                            descripcionController,
+                                        direccionController:
+                                            direccionController,
+                                        formKey: _formKey,
+                                      )))),
+                          Step(
+                            isActive: selectedStep >= 1,
+                            title: const Text("Ubicación"),
+                            content: state is NuevoPuntoSalidaMapa
+                                ? Container(
+                                    padding: const EdgeInsets.all(0),
+                                    margin: const EdgeInsets.all(0),
+                                    height: double.maxFinite,
+                                    constraints: BoxConstraints(
+                                        maxHeight: kIsWeb
+                                            ? 450
+                                            : MediaQuery.of(context)
+                                                    .size
+                                                    .height -
+                                                240),
+                                    child: GoogleMapsSetPosition(
                                         latitude: state.puntoSalida.latitud,
                                         longitude: state.puntoSalida.longitud,
-                                        onSelectPosition: (position) => BlocProvider
-                                                .of<NuevoPuntoSalidaBloc>(
-                                                    context)
-                                            .add(
-                                                NuevoPuntoSalidaEventSelectPoint(
-                                                    punto: state.puntoSalida,
-                                                    latitud: position.latitude,
-                                                    longitud:
-                                                        position.longitude)))
-                                  },
-                                  onSelectPosition: (position) {
-                                    BlocProvider.of<NuevoPuntoSalidaBloc>(
-                                            context)
-                                        .add(NuevoPuntoSalidaEventSelectPoint(
-                                            punto: state.puntoSalida,
-                                            latitud: position.latitude,
-                                            longitud: position.longitude));
-                                    // _onSelectPosition();
-                                  }));
-                        } else {
-                          return Center(
-                              child: CircularProgressIndicator(
-                                  color: Theme.of(context).primaryColor));
-                        }
-                      }))
-                ])));
+                                        markers: {
+                                          const MarkerId('markerd'): createDragMarker(
+                                              latitude: state
+                                                  .puntoSalida.latitud,
+                                              longitude: state
+                                                  .puntoSalida.longitud,
+                                              onSelectPosition: (position) =>
+                                                  BlocProvider.of<
+                                                              NuevoPuntoSalidaBloc>(
+                                                          context)
+                                                      .add(
+                                                          NuevoPuntoSalidaEventSelectPoint(
+                                                              punto: state
+                                                                  .puntoSalida,
+                                                              latitud: position
+                                                                  .latitude,
+                                                              longitud: position
+                                                                  .longitude)))
+                                        },
+                                        onSelectPosition: (position) {
+                                          BlocProvider.of<NuevoPuntoSalidaBloc>(
+                                                  context)
+                                              .add(
+                                                  NuevoPuntoSalidaEventSelectPoint(
+                                                      punto: state.puntoSalida,
+                                                      latitud:
+                                                          position.latitude,
+                                                      longitud:
+                                                          position.longitude));
+                                          // _onSelectPosition();
+                                        }))
+                                : Container(),
+                          )
+                        ])));
+          }
+        }));
   }
 }
 

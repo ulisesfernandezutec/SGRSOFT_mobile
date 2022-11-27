@@ -8,8 +8,8 @@ part of 'tipo_residuo.dart';
 
 TipoDeResiduo _$TipoDeResiduoFromJson(Map<String, dynamic> json) =>
     TipoDeResiduo(
-      json['_id'] as int,
-      json['nombre'] as String,
+      id: json['_id'] as int,
+      nombre: json['nombre'] as String,
     );
 
 Map<String, dynamic> _$TipoDeResiduoToJson(TipoDeResiduo instance) =>

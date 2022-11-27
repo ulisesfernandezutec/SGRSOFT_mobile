@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sgrsoft/domain/blocs/tipos_residuos/listado/listado_bloc.dart';
 import 'package:sgrsoft/domain/blocs/tipos_residuos/nuevo/nuevo_bloc.dart';
 import 'package:sgrsoft/domain/models/tipo_residuo.dart';
-import 'package:sgrsoft/ui/view/tipo_de_residuo/listado/listado.dart';
 import 'package:sgrsoft/ui/widgets/app_bar.dart';
 
 class AgregarTipoResiduo extends StatefulWidget {
@@ -46,7 +45,7 @@ class AgregarTipoResiduoState extends State<AgregarTipoResiduo> {
                 onPressed: () {
                   BlocProvider.of<NuevoTipoDeResiduoBloc>(context).add(
                       SaveNuevoTipoDeResiduoEvent(
-                          tipoDeResiduo: TipoDeResiduo(0, nombre)));
+                          tipoDeResiduo: TipoDeResiduo(id: 0, nombre: nombre)));
                   BlocProvider.of<ListadoTipoDeResiduosBloc>(context)
                       .add(LoadListadoTiposDeResiduosEvent());
                   Navigator.pop(context);

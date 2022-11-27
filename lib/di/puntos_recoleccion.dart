@@ -15,7 +15,7 @@ void puntosRecoleccionGetIt(GetIt gi) async {
         id: 1,
         latitud: -34.734501,
         longitud: -56.229366,
-        tipo: TipoDeResiduo(1, 'Podas'),
+        tipo: TipoDeResiduo(id: 1, nombre: 'Podas'),
         direccion: 'Juan Ortiz 228',
         descripcion: 'Se corto un paraiso muy grande',
         estados: [
@@ -26,7 +26,7 @@ void puntosRecoleccionGetIt(GetIt gi) async {
         id: 2,
         latitud: -34.725260,
         longitud: -56.201385,
-        tipo: TipoDeResiduo(2, 'Residuos grandes'),
+        tipo: TipoDeResiduo(id: 2, nombre: 'Residuos grandes'),
         direccion: 'Juan Ortiz 229',
         descripcion: 'Ropero de madera grande',
         estados: [
@@ -37,7 +37,7 @@ void puntosRecoleccionGetIt(GetIt gi) async {
         id: 3,
         latitud: -34.739191,
         longitud: -56.222028,
-        tipo: TipoDeResiduo(2, 'Residuos grandes'),
+        tipo: TipoDeResiduo(id: 2, nombre: 'Residuos grandes'),
         direccion: 'Juan Ortiz 2293',
         descripcion: 'Ropero de madera grande3',
         estados: [
@@ -48,7 +48,7 @@ void puntosRecoleccionGetIt(GetIt gi) async {
         id: 4,
         latitud: -34.718100,
         longitud: -56.224860,
-        tipo: TipoDeResiduo(1, 'Podas'),
+        tipo: TipoDeResiduo(id: 1, nombre: 'Podas'),
         direccion: 'Juan Ortiz 444',
         descripcion: '4',
         estados: [
@@ -59,7 +59,7 @@ void puntosRecoleccionGetIt(GetIt gi) async {
         id: 5,
         latitud: -34.892189,
         longitud: -56.186288,
-        tipo: TipoDeResiduo(1, 'Podas'),
+        tipo: TipoDeResiduo(id: 1, nombre: 'Podas'),
         direccion: 'Plaza Independecia',
         descripcion: '4',
         estados: [
@@ -70,7 +70,7 @@ void puntosRecoleccionGetIt(GetIt gi) async {
         id: 6,
         latitud: -34.895920,
         longitud: -56.159166,
-        tipo: TipoDeResiduo(1, 'Podas'),
+        tipo: TipoDeResiduo(id: 1, nombre: 'Podas'),
         direccion: 'Parque Batlle',
         descripcion: '4',
         estados: [
@@ -81,7 +81,7 @@ void puntosRecoleccionGetIt(GetIt gi) async {
         id: 7,
         latitud: -34.881056,
         longitud: -56.148802,
-        tipo: TipoDeResiduo(1, 'Podas'),
+        tipo: TipoDeResiduo(id: 1, nombre: 'Podas'),
         direccion: 'Casmu',
         descripcion: '4',
         estados: [
@@ -92,7 +92,7 @@ void puntosRecoleccionGetIt(GetIt gi) async {
         id: 8,
         latitud: -34.881056,
         longitud: -56.148802,
-        tipo: TipoDeResiduo(1, 'Podas'),
+        tipo: TipoDeResiduo(id: 1, nombre: 'Podas'),
         direccion: 'Casmu',
         descripcion: '4',
         estados: [
@@ -103,7 +103,7 @@ void puntosRecoleccionGetIt(GetIt gi) async {
         id: 9,
         latitud: -34.881056,
         longitud: -56.148802,
-        tipo: TipoDeResiduo(1, 'Podas'),
+        tipo: TipoDeResiduo(id: 1, nombre: 'Podas'),
         direccion: 'Casmu',
         descripcion: '4',
         estados: [
@@ -114,7 +114,7 @@ void puntosRecoleccionGetIt(GetIt gi) async {
         id: 10,
         latitud: -34.881056,
         longitud: -56.148802,
-        tipo: TipoDeResiduo(1, 'Podas'),
+        tipo: TipoDeResiduo(id: 1, nombre: 'Podas'),
         direccion: 'Casmu',
         descripcion: '4',
         estados: [
@@ -125,7 +125,7 @@ void puntosRecoleccionGetIt(GetIt gi) async {
         id: 11,
         latitud: -34.881056,
         longitud: -56.148802,
-        tipo: TipoDeResiduo(1, 'Podas'),
+        tipo: TipoDeResiduo(id: 1, nombre: 'Podas'),
         direccion: 'Casmu',
         descripcion: '4',
         estados: [

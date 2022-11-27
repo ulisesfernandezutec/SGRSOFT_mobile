@@ -107,7 +107,8 @@ class AddRutaScreenState extends State<AddRutaScreen> {
                                                           latitud: 0.0,
                                                           longitud: 0.0,
                                                           tipo: TipoDeResiduo(
-                                                              0, ""),
+                                                              id: 0,
+                                                              nombre: ""),
                                                           direccion: "",
                                                           descripcion: "",
                                                           estados: const <

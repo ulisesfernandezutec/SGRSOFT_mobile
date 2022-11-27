@@ -6,9 +6,9 @@ import 'package:sgrsoft/domain/models/tipo_residuo.dart';
 
 void tiposDeResiduosGetIt(GetIt gi) async {
   List<TipoDeResiduo> list = [
-    TipoDeResiduo(1, 'Podas'),
-    TipoDeResiduo(2, 'Residuos grandes'),
-    TipoDeResiduo(3, 'Pilas y Baterias'),
+    TipoDeResiduo(id: 1, nombre: 'Podas'),
+    TipoDeResiduo(id: 2, nombre: 'Residuos grandes'),
+    TipoDeResiduo(id: 3, nombre: 'Pilas y Baterias'),
   ];
   // RemoteTiposDeResiduosDataSource remotePuntosRecoleccionDataSource =
   //     MockTiposDeResiduosDataSource(db: list);

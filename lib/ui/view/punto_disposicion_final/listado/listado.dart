@@ -21,6 +21,7 @@ class ListadoPuntoDisposicionFinalScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           showDialog(
+              barrierDismissible: false,
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
@@ -61,7 +62,8 @@ class ListadoPuntoDisposicionFinalScreen extends StatelessWidget {
                                 ...state.puntos
                                     .map((punto) => ListTile(
                                           title: Text(punto.nombre),
-                                          subtitle: Text(punto.direccion),
+                                          subtitle:
+                                              Text(punto.tipos.toString()),
                                           onTap: () {},
                                         ))
                                     .toList(),

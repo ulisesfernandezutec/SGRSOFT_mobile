@@ -75,17 +75,17 @@ List<Widget> menuInferior(BuildContext context) {
         );
       },
     ),
-    IconButton(
-      icon: const Icon(Icons.add),
-      tooltip: 'Nuevo Punto de Recolección',
-      color: Theme.of(context).primaryColor,
-      onPressed: () {
-        Navigator.pushNamed(
-          context,
-          '/puntos_recoleccion/nuevo',
-        );
-      },
-    ),
+    // IconButton(
+    //   icon: const Icon(Icons.add),
+    //   tooltip: 'Nuevo Punto de Recolección',
+    //   color: Theme.of(context).primaryColor,
+    //   onPressed: () {
+    //     Navigator.pushNamed(
+    //       context,
+    //       '/puntos_recoleccion/nuevo',
+    //     );
+    //   },
+    // ),
     IconButton(
       icon: const Icon(Icons.login),
       tooltip: 'Google',

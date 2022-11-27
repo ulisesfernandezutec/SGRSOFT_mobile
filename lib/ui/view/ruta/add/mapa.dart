@@ -51,7 +51,7 @@ class StepMap extends StatelessWidget {
                               id: 0,
                               latitud: 0.0,
                               longitud: 0.0,
-                              tipo: TipoDeResiduo(0, ""),
+                              tipo: TipoDeResiduo(id: 0, nombre: ""),
                               direccion: "",
                               descripcion: "",
                               estados: const <PuntoRecoleccionEstado>[])));

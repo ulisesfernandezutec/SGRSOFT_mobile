@@ -38,3 +38,14 @@ https://stackoverflow.com/questions/54138750/total-distance-calculation-from-lat
 
 Ver 
 MaterialStateProperty
+
+https://www.youtube.com/watch?v=qot8faKKV-g&ab_channel=KevinAlexanderCubillosPinz%C3%B3n
+
+https://www.youtube.com/watch?v=YGPrmJoB7is&ab_channel=ProfesorDr.CarlosMart%C3%ADnez
+
+https://pypi.org/project/PuLP/
+
+https://es.wikipedia.org/wiki/Algoritmo_de_Dijkstra
+
+sumar canvas a la documetacion 
+pruebas de perfirmance locus

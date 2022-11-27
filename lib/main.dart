@@ -47,8 +47,6 @@ void main() async {
         BlocProvider(
             create: (BuildContext context) => DetallePuntosRecoleccionBloc()),
         BlocProvider(
-            create: (BuildContext context) => NuevoPuntosRecoleccionBloc()),
-        BlocProvider(
             create: (BuildContext context) => EditarTipoDeResiduoBloc()),
         BlocProvider(
             create: (BuildContext context) => ListadoTipoDeResiduosBloc()

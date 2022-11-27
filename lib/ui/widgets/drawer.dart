@@ -25,27 +25,20 @@ Drawer appDrawer(BuildContext context) {
           child: ImageStore().logo,
         ),
         ListTile(
-            leading: const Icon(Icons.class_outlined),
-            title: const Text('Rol de Usuario'),
+            leading: const Icon(Icons.auto_delete_outlined),
+            title: const Text('Puntos de Recolección'),
             onTap: () {
-              Navigator.restorablePushNamed(
-                  context, ListadoRolScreen.routeName);
-            }),
-        ListTile(
-            leading: const Icon(Icons.list),
-            title: const Text('Servicios'),
-            onTap: () {
-              Navigator.restorablePushNamed(
+              Navigator.pushNamed(
                   context, ListadoPuntosRecoleccionScreens.routeName);
             }),
         ListTile(
-            leading: const Icon(FontAwesomeIcons.home),
+            leading: const Icon(Icons.flag_outlined),
             title: const Text('Puntos de Salida'),
             onTap: () {
               Navigator.pushNamed(context, ListadoPuntoSalidaScreen.routeName);
             }),
         ListTile(
-            leading: const Icon(FontAwesomeIcons.trash),
+            leading: const Icon(Icons.delete_outline),
             title: const Text('Puntos de Disposición Final'),
             onTap: () {
               Navigator.pushNamed(
@@ -53,26 +46,29 @@ Drawer appDrawer(BuildContext context) {
             }),
         ListTile(
             leading: const Icon(Icons.class_outlined),
-            title: const Text('Tipo de Residuos'),
+            title: const Text('Tipos de Residuos'),
             onTap: () {
               Navigator.restorablePushNamed(
                   context, ListadoTipoResiduos.routeName);
             }),
         ListTile(
-            leading: const Icon(Icons.car_crash_outlined),
-            title: const Text('Vehiculos'),
+            leading: const Icon(Icons.local_shipping_outlined),
+            title: const Text('Camiones'),
             onTap: () {
               Navigator.restorablePushNamed(
                   context, ListadoVehiculoScreen.routeName);
             }),
         ListTile(
-            leading: const Icon(Icons.map),
-            title: const Text('Mapa'),
-            onTap: () {
-              Navigator.restorablePushNamed(context, '/mapa');
-            }),
+            leading: const Icon(Icons.query_stats_outlined),
+            title: const Text('Datos'),
+            onTap: () {}),
         ListTile(
-          leading: const Icon(Icons.settings),
+          leading: const Icon(Icons.people_alt_outlined),
+          title: const Text('Usuarios'),
+          onTap: () {},
+        ),
+        ListTile(
+          leading: const Icon(Icons.settings_outlined),
           title: const Text('Settings'),
           onTap: () {
             Navigator.restorablePushNamed(context, SettingsView.routeName);
