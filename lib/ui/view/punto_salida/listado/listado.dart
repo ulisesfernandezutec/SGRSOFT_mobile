@@ -20,6 +20,7 @@ class ListadoPuntoSalidaScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           showDialog(
+              barrierDismissible: false,
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(

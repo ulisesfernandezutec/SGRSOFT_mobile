@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sgrsoft/domain/blocs/puntos_recoleccion/listado/listado_bloc.dart';
@@ -7,6 +8,9 @@ import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/tarjeta.dart';
 import 'package:sgrsoft/ui/widgets/app_bar.dart';
 import 'package:sgrsoft/ui/widgets/drawer.dart';
 import 'package:sgrsoft/ui/widgets/menu_inferior.dart';
+import 'package:sgrsoft/ui/widgets/modal/head.dart';
+
+import '../nuevo/nuevo.dart';
 
 class ListadoPuntosRecoleccionScreens extends StatefulWidget {
   const ListadoPuntosRecoleccionScreens({super.key});
@@ -45,6 +49,31 @@ class _ListadoPuntosRecoleccionState
     return Scaffold(
         appBar: appBar(context),
         drawer: appDrawer(context),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            showDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                      title: const AppHeadModal(
+                          title: "Nuevo Punto de Recolección"),
+                      titlePadding: EdgeInsets.zero,
+                      contentPadding: EdgeInsets.zero,
+                      insetPadding: const EdgeInsets.symmetric(horizontal: 0),
+                      content: Container(
+                          width: double.infinity,
+                          margin: const EdgeInsets.all(0),
+                          constraints: BoxConstraints(
+                              maxHeight: kIsWeb
+                                  ? 600
+                                  : MediaQuery.of(context).size.height,
+                              maxWidth: 700),
+                          child: const NuevoPuntosRecoleccionScreens()));
+                });
+          },
+          child: const Icon(Icons.add),
+        ),
         body: SafeArea(
             child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 70),

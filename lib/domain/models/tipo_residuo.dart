@@ -8,7 +8,7 @@ class TipoDeResiduo {
   int id;
   String nombre;
 
-  TipoDeResiduo(this.id, this.nombre);
+  TipoDeResiduo({required this.id, required this.nombre});
 
   factory TipoDeResiduo.fromJson(Map<String, dynamic> json) =>
       _$TipoDeResiduoFromJson(json);

@@ -1,32 +1,36 @@
 part of 'nuevo_bloc.dart';
 
-abstract class NuevoPuntosRecoleccionBlocState extends Equatable {
-  const NuevoPuntosRecoleccionBlocState();
-
-  @override
-  List<Object> get props => [];
-}
-
-class NuevoInitialPuntosRecoleccionBlocState
-    extends NuevoPuntosRecoleccionBlocState {}
-
-class NuevoLoaderPuntosRecoleccionBlocState
-    extends NuevoPuntosRecoleccionBlocState {
+abstract class NuevoPuntoRecoleccionState extends Equatable {
+  final PuntoRecoleccion puntoRecoleccion;
   final List<TipoDeResiduo> tiposDeResiduos;
-  final Position position;
 
-  const NuevoLoaderPuntosRecoleccionBlocState(
-      {required this.tiposDeResiduos, required this.position});
+  const NuevoPuntoRecoleccionState(
+      {required this.tiposDeResiduos, required this.puntoRecoleccion});
+  @override
+  List<Object> get props => [puntoRecoleccion, tiposDeResiduos];
 }
 
-class NuevoSuccessPuntosRecoleccionBlocState
-    extends NuevoPuntosRecoleccionBlocState {
-  const NuevoSuccessPuntosRecoleccionBlocState();
+class NuevoPuntoRecoleccionInitial extends NuevoPuntoRecoleccionState {
+  const NuevoPuntoRecoleccionInitial(
+      {required super.puntoRecoleccion, required super.tiposDeResiduos});
 }
 
-class NuevoErrorPuntosRecoleccionBlocState
-    extends NuevoPuntosRecoleccionBlocState {
-  final String message;
+class NuevoPuntoRecoleccionLoading extends NuevoPuntoRecoleccionState {
+  const NuevoPuntoRecoleccionLoading(
+      {required super.puntoRecoleccion, required super.tiposDeResiduos});
+}
 
-  const NuevoErrorPuntosRecoleccionBlocState({required this.message});
+class NuevoPuntoRecoleccionDatos extends NuevoPuntoRecoleccionState {
+  const NuevoPuntoRecoleccionDatos(
+      {required super.tiposDeResiduos, required super.puntoRecoleccion});
+}
+
+class NuevoPuntoRecoleccionMapa extends NuevoPuntoRecoleccionState {
+  const NuevoPuntoRecoleccionMapa(
+      {required super.tiposDeResiduos, required super.puntoRecoleccion});
+}
+
+class NuevoPuntoRecoleccionSuccess extends NuevoPuntoRecoleccionState {
+  const NuevoPuntoRecoleccionSuccess(
+      {required super.tiposDeResiduos, required super.puntoRecoleccion});
 }

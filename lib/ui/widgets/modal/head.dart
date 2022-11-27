@@ -6,26 +6,30 @@ class AppHeadModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(5),
-      margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
+    return Card(
         color: Theme.of(context).primaryColor,
-        border: Border(
-          bottom: BorderSide(
-            color: Theme.of(context).dividerColor,
-            width: 3,
+        margin: EdgeInsets.zero,
+        elevation: 2,
+        child: Container(
+          padding: const EdgeInsets.all(5),
+          // margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+          alignment: Alignment.center,
+          // decoration: BoxDecoration(
+          //   color: Theme.of(context).primaryColor,
+          //   border: Border(
+          //     bottom: BorderSide(
+          //       color: Theme.of(context).dividerColor,
+          //       width: 3,
+          //     ),
+          //   ),
+          // ),
+          child: Text(
+            title.toUpperCase(),
+            style: Theme.of(context)
+                .textTheme
+                .headline6
+                ?.copyWith(color: Colors.white),
           ),
-        ),
-      ),
-      child: Text(
-        title.toUpperCase(),
-        style: Theme.of(context)
-            .textTheme
-            .headline6
-            ?.copyWith(color: Colors.white),
-      ),
-    );
+        ));
   }
 }

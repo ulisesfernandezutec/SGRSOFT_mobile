@@ -41,18 +41,17 @@ class NuevoPuntoSalidaBloc
       emit(NuevoPuntoSalidaDatos(puntoSalida: event.punto));
     });
     on<NuevoPuntoSalidaEventSelectPoint>((event, emit) async {
-      puntoSalida = event.punto;
       if (kDebugMode) {
         print('puntoSalida: ${puntoSalida.toJson()}');
       }
-      emit(NuevoPuntoSalidaMapa(
-          puntoSalida: PuntoSalida(
-              id: puntoSalida.id,
-              nombre: puntoSalida.nombre,
-              descripcion: puntoSalida.descripcion,
-              direccion: puntoSalida.direccion,
-              latitud: event.latitud,
-              longitud: event.longitud)));
+      puntoSalida = PuntoSalida(
+          id: puntoSalida.id,
+          nombre: puntoSalida.nombre,
+          descripcion: puntoSalida.descripcion,
+          direccion: puntoSalida.direccion,
+          latitud: event.latitud,
+          longitud: event.longitud);
+      emit(NuevoPuntoSalidaMapa(puntoSalida: puntoSalida));
     });
   }
 

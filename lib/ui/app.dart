@@ -14,7 +14,6 @@ import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/listado.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/mapa/mapa.dart';
 import 'package:sgrsoft/ui/settings/settings_controller.dart';
 import 'package:sgrsoft/ui/settings/settings_view.dart';
-import 'package:sgrsoft/ui/view/puntos_recoleccion/add/add.dart';
 import 'package:sgrsoft/ui/view/rol/listado/listado.dart';
 import 'package:sgrsoft/ui/view/ruta/add/add.dart';
 import 'package:sgrsoft/ui/view/tipo_de_residuo/listado/listado.dart';
@@ -23,6 +22,7 @@ import 'package:sgrsoft/ui/widgets/custom_error.dart';
 import 'package:sgrsoft/ui/widgets/google_maps/test.dart';
 
 import 'view/punto_salida/nuevo/nuevo.dart';
+import 'view/puntos_recoleccion/nuevo/nuevo.dart';
 import 'widgets/google_maps/select_position2.dart';
 
 class MainApp extends StatelessWidget {
@@ -83,7 +83,7 @@ class MainApp extends StatelessWidget {
           theme: ThemeData(
             brightness: Brightness.light,
             primarySwatch: Colors.lightGreen,
-            useMaterial3: false,
+            useMaterial3: settingsController.isMaterial3,
             fontFamily: 'Ubuntu',
           ),
           // theme: ThemeData(
@@ -101,11 +101,14 @@ class MainApp extends StatelessWidget {
           //     ),
           //     useMaterial3: true,
           //     fontFamily: 'Ubuntu'),
-          darkTheme: ThemeData.dark(),
+          darkTheme: ThemeData.dark(
+            useMaterial3: settingsController.isMaterial3,
+          ),
           themeMode: settingsController.themeMode,
 
           // Define a function to handle named routes in order to support
           // Flutter web url navigation and deep linking.
+
           onGenerateRoute: (RouteSettings routeSettings) {
             return MaterialPageRoute<void>(
               settings: routeSettings,

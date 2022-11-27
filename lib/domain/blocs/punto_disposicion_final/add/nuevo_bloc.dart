@@ -65,7 +65,8 @@ class NuevoPuntoDisposicionFinalBloc extends Bloc<
           emit: emit,
           nombre: event.nombre,
           direccion: event.direccion,
-          descripcion: event.descripcion);
+          descripcion: event.descripcion,
+          selectedTiposResiduos: event.selectedTiposResiduos);
     });
     on<NuevoPuntoDisposicionFinalEventToData>((event, emit) async {
       emit(NuevoPuntoDisposicionFinalDatos(
@@ -73,19 +74,16 @@ class NuevoPuntoDisposicionFinalBloc extends Bloc<
           tiposDeResiduos: await _tiposDeResiduosRepository.getList()));
     });
     on<NuevoPuntoDisposicionFinalEventSelectPoint>((event, emit) async {
-      puntoDisposicionFinal = event.punto;
-      if (kDebugMode) {
-        print('puntoDisposicionFinal: ${puntoDisposicionFinal.toJson()}');
-      }
+      puntoDisposicionFinal = PuntoDisposicionFinal(
+          id: puntoDisposicionFinal.id,
+          nombre: puntoDisposicionFinal.nombre,
+          descripcion: puntoDisposicionFinal.descripcion,
+          direccion: puntoDisposicionFinal.direccion,
+          latitud: event.latitud,
+          longitud: event.longitud,
+          tipos: puntoDisposicionFinal.tipos);
       emit(NuevoPuntoDisposicionFinalMapa(
-          puntoDisposicionFinal: PuntoDisposicionFinal(
-              id: puntoDisposicionFinal.id,
-              nombre: puntoDisposicionFinal.nombre,
-              descripcion: puntoDisposicionFinal.descripcion,
-              direccion: puntoDisposicionFinal.direccion,
-              latitud: event.latitud,
-              longitud: event.longitud,
-              tipos: puntoDisposicionFinal.tipos),
+          puntoDisposicionFinal: puntoDisposicionFinal,
           tiposDeResiduos: const []));
     });
     on<NuevoPuntoDisposicionFinalEventLoad>((event, emit) async {
@@ -127,7 +125,8 @@ class NuevoPuntoDisposicionFinalBloc extends Bloc<
       {required Emitter<NuevoPuntoDisposicionFinalState> emit,
       required String nombre,
       required String direccion,
-      required String descripcion}) async {
+      required String descripcion,
+      required List<TipoDeResiduo> selectedTiposResiduos}) async {
     ApiGoogleGeoCode apiGoogleGeoCode = ApiGoogleGeoCode();
     LatLng? coordenadas =
         await apiGoogleGeoCode.getLatLngFromAddress(direccion);
@@ -142,7 +141,7 @@ class NuevoPuntoDisposicionFinalBloc extends Bloc<
     }
     PuntoDisposicionFinal punto = PuntoDisposicionFinal(
         nombre: nombre,
-        tipos: puntoDisposicionFinal.tipos,
+        tipos: selectedTiposResiduos,
         direccion: direccion,
         descripcion: descripcion,
         latitud: coordenadas.latitude,

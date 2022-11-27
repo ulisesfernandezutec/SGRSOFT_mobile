@@ -15,7 +15,12 @@
         "request": "launch",
         "type": "dart",
         "args": ["-d", "efb768cf7d2b", "--hot", "--debug"],
+    },{
+        "name": "Alcatel ( Lolipop 5 )",
+        "request": "launch",
+        "type": "dart",
+        "args": ["-d", "a82b6a0b", "--hot", "--debug"],
     }
-
+    
 ]}
 
