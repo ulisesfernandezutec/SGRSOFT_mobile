@@ -11,7 +11,7 @@ class AppHeadModal extends StatelessWidget {
         margin: EdgeInsets.zero,
         elevation: 2,
         child: Container(
-          padding: const EdgeInsets.all(5),
+          padding: const EdgeInsets.all(10),
           // margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
           alignment: Alignment.center,
           // decoration: BoxDecoration(
