@@ -12,24 +12,27 @@ class AppHeadModal extends StatelessWidget {
         elevation: 2,
         child: Container(
           padding: const EdgeInsets.all(10),
-          // margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
           alignment: Alignment.center,
-          // decoration: BoxDecoration(
-          //   color: Theme.of(context).primaryColor,
-          //   border: Border(
-          //     bottom: BorderSide(
-          //       color: Theme.of(context).dividerColor,
-          //       width: 3,
-          //     ),
-          //   ),
-          // ),
-          child: Text(
-            title.toUpperCase(),
-            style: Theme.of(context)
-                .textTheme
-                .headline6
-                ?.copyWith(color: Colors.white),
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
           ),
+          child: Row(children: <Widget>[
+            Expanded(
+                child: Text(
+              title.toUpperCase(),
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6
+                  ?.copyWith(color: Colors.white),
+              // overflow: TextOverflow.ellipsis,
+              softWrap: true,
+            )),
+            // const Spacer(),
+            IconButton(
+              icon: const Icon(Icons.close, color: Colors.white),
+              onPressed: () => Navigator.of(context).pop(),
+            )
+          ]),
         ));
   }
 }
