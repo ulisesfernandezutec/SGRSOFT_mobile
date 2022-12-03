@@ -49,3 +49,6 @@ https://es.wikipedia.org/wiki/Algoritmo_de_Dijkstra
 
 sumar canvas a la documetacion 
 pruebas de perfirmance locus
+
+https://api.flutter.dev/flutter/material/showDateRangePicker.html
+https://github.com/Dhanraj-FlutterDev/FlutterSearchbarDemo/blob/master/lib/main.dart

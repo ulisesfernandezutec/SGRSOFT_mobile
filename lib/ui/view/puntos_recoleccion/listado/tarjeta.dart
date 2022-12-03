@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sgrsoft/domain/models/punto_recoleccion.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/detalle/detalle.dart';
+import 'package:sgrsoft/ui/widgets/modal/head.dart';
 
 class TarjetaPuntoRecoleccion extends StatefulWidget {
   final PuntoRecoleccion puntoRecoleccion;
@@ -29,11 +31,35 @@ class _TarjetaPuntoRecoleccionState extends State<TarjetaPuntoRecoleccion> {
         child: Material(
             child: InkWell(
                 highlightColor: Theme.of(context).colorScheme.primary,
+                // onTap: () {
+                //   Navigator.pushNamed(
+                //       context, DetallePuntosRecoleccionScreens.routeName,
+                //       arguments: DetallePuntoRecoleccionArguments(
+                //           id: widget.puntoRecoleccion.id));
+                // },
                 onTap: () {
-                  Navigator.pushNamed(
-                      context, DetallePuntosRecoleccionScreens.routeName,
-                      arguments: DetallePuntoRecoleccionArguments(
-                          id: widget.puntoRecoleccion.id));
+                  showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                            title: const AppHeadModal(
+                                title: "Punto de Recolección"),
+                            titlePadding: EdgeInsets.zero,
+                            contentPadding: EdgeInsets.zero,
+                            insetPadding:
+                                const EdgeInsets.symmetric(horizontal: 0),
+                            content: Container(
+                                width: double.infinity,
+                                margin: const EdgeInsets.all(0),
+                                constraints: BoxConstraints(
+                                    maxHeight: kIsWeb
+                                        ? 600
+                                        : MediaQuery.of(context).size.height,
+                                    maxWidth: 700),
+                                child: DetallePuntosRecoleccionScreens(
+                                    id: widget.puntoRecoleccion.id)));
+                      });
                 },
                 child: Card(
                     elevation: 0,

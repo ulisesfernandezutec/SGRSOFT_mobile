@@ -120,8 +120,8 @@ class MainApp extends StatelessWidget {
                     return const ListadoPuntosRecoleccionScreens();
                   case MapaPuntosRecoleccion.routeName:
                     return const MapaPuntosRecoleccion();
-                  case DetallePuntosRecoleccionScreens.routeName:
-                    return const DetallePuntosRecoleccionScreens();
+                  // case DetallePuntosRecoleccionScreens.routeName:
+                  //   return const DetallePuntosRecoleccionScreens();
                   case EditarPuntosRecoleccionScreens.routeName:
                     return const EditarPuntosRecoleccionScreens();
                   case NuevoPuntosRecoleccionScreens.routeName:

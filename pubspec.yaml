@@ -48,6 +48,7 @@ dependencies:
   multiselect_formfield:
     git:
       url: https://github.com/hitshydev/multiselect_formfield
+  material_floating_search_bar: ^0.3.7
 
 dev_dependencies:
   flutter_test:

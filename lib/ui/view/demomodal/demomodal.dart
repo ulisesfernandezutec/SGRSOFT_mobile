@@ -30,27 +30,37 @@ class DemoModalState extends State<DemoModal> {
                   child: const Text('Show Modal Bottom Sheet'),
                   onPressed: () {
                     showModalBottomSheet(
+                      backgroundColor: Colors.transparent,
                       context: context,
                       isScrollControlled: true,
                       builder: (context) {
-                        return FractionallySizedBox(
-                            heightFactor: 0.9,
-                            child: Wrap(
-                              children: const [
-                                ListTile(
-                                  leading: Icon(Icons.share),
-                                  title: Text('Share'),
-                                ),
-                                ListTile(
-                                  leading: Icon(Icons.copy),
-                                  title: Text('Copy Link'),
-                                ),
-                                ListTile(
-                                  leading: Icon(Icons.edit),
-                                  title: Text('Edit'),
-                                ),
-                              ],
-                            ));
+                        return Container(
+                            color: Colors.transparent,
+                            margin: const EdgeInsets.fromLTRB(0, 0, 0, 50),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(
+                                      color: Colors.white,
+                                      constraints:
+                                          const BoxConstraints(maxWidth: 500),
+                                      child: Wrap(
+                                        children: const [
+                                          ListTile(
+                                            leading: Icon(Icons.share),
+                                            title: Text('Share'),
+                                          ),
+                                          ListTile(
+                                            leading: Icon(Icons.copy),
+                                            title: Text('Copy Link'),
+                                          ),
+                                          ListTile(
+                                            leading: Icon(Icons.edit),
+                                            title: Text('Edit'),
+                                          ),
+                                        ],
+                                      ))
+                                ]));
                       },
                     );
                   },

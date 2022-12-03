@@ -9,6 +9,7 @@ import 'package:sgrsoft/ui/widgets/app_bar.dart';
 import 'package:sgrsoft/ui/widgets/drawer.dart';
 import 'package:sgrsoft/ui/widgets/menu_inferior.dart';
 import 'package:sgrsoft/ui/widgets/modal/head.dart';
+import 'package:sgrsoft/ui/widgets/search_bar.dart';
 
 import '../nuevo/nuevo.dart';
 
@@ -49,6 +50,8 @@ class _ListadoPuntosRecoleccionState
     return Scaffold(
         appBar: appBar(context),
         drawer: appDrawer(context),
+        // endDrawer: const Text("endDrawer"),
+        // floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
             showDialog(
@@ -123,6 +126,48 @@ class _ListadoPuntosRecoleccionState
                     ),
                   )),
             ),
+            // Stack(
+            //   alignment: Alignment.topLeft,
+            //   children: <Widget>[
+            //     buildFloatingSearchBar(),
+            //     Positioned(
+            //       top: 100,
+            //       left: 100,
+            //       child: Container(
+            //         height: 300,
+            //         width: 300,
+            //         color: Colors.amber,
+            //         child: const Center(child: Text('Positioned')),
+            //       ),
+            //     ),
+            //     Align(
+            //       alignment: Alignment.topRight,
+            //       child: Container(
+            //         height: 200,
+            //         width: 200,
+            //         color: Colors.brown,
+            //         child: const Center(child: Text('Aligned')),
+            //       ),
+            //     ),
+            //     Container(
+            //       height: 100,
+            //       width: 100,
+            //       color: Colors.cyan,
+            //       child: const Center(child: Text('Non-Positioned')),
+            //     ),
+            //   ],
+            // ),
+            // Positioned(
+            //     top: 10,
+            //     // right: 0,
+            //     left: 10,
+            //     // bottom: 0,
+            //     child: Column(
+            //       children: <Widget>[
+            //         const Text("hola asd ad"),
+            //         const Text("hola asd ad")
+            //       ],
+            //     )),
             Center(
               child: BlocBuilder<ListadoPuntosRecoleccionBloc,
                   ListadoPuntosRecoleccionState>(
@@ -145,6 +190,7 @@ class _ListadoPuntosRecoleccionState
             )
           ]),
         )),
-        persistentFooterButtons: menuInferior(context));
+        persistentFooterButtons: menuInferior(context),
+        persistentFooterAlignment: AlignmentDirectional.bottomCenter);
   }
 }
