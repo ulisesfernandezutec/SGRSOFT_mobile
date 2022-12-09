@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +10,6 @@ import 'package:sgrsoft/ui/widgets/app_bar.dart';
 import 'package:sgrsoft/ui/widgets/drawer.dart';
 import 'package:sgrsoft/ui/widgets/menu_inferior.dart';
 import 'package:sgrsoft/ui/widgets/modal/head.dart';
-import 'package:sgrsoft/ui/widgets/search_bar.dart';
 
 import '../nuevo/nuevo.dart';
 
@@ -111,17 +111,53 @@ class _ListadoPuntosRecoleccionState
                           },
                         )),
                         // const Spacer(),
-                        IconButton(
-                          onPressed: () => {},
-                          icon: Icon(Icons.sort,
-                              color: Theme.of(context).colorScheme.primary),
-                          padding: const EdgeInsets.fromLTRB(0, 0, 0.5, 0),
+                        Container(
+                          height: 38,
+                          // padding: EdgeInsets.all(2),
+                          decoration: BoxDecoration(
+                              // border: Border.all(
+                              //     color: const Color(0xff39ceb9), width: 1),
+                              borderRadius: BorderRadius.circular(8)),
+                          child: TextButton.icon(
+                            // <-- TextButton
+
+                            onPressed: () {
+                              // showAlignedDialog(
+                              //     context: context,
+                              //     builder: _localDialogBuilder,
+                              //     followerAnchor: Alignment.center,
+                              //     targetAnchor: Alignment.center,
+                              //     isGlobal: true,
+                              //     transitionsBuilder: (BuildContext context,
+                              //         Animation<double> animation,
+                              //         Animation<double> secondaryAnimation,
+                              //         Widget child) {
+                              //       return SlideTransition(
+                              //         position: Tween(
+                              //                 begin: const Offset(-1, 0),
+                              //                 end: const Offset(0, 0))
+                              //             .animate(animation),
+                              //         child: FadeTransition(
+                              //           opacity: CurvedAnimation(
+                              //             parent: animation,
+                              //             curve: Curves.easeOut,
+                              //           ),
+                              //           child: child,
+                              //         ),
+                              //       );
+                              //     });
+                              // Navigator.pushNamed(
+                              //     context, DetallePuntosRecoleccionScreens.routeName,
+                              //     arguments:
+                              //         DetallePuntoRecoleccionArguments(id: e.id));
+                            },
+                            icon: const Icon(
+                              Icons.tune,
+                              size: 24.0,
+                            ),
+                            label: const Text('Filtros'),
+                          ),
                         ),
-                        IconButton(
-                            onPressed: () => {},
-                            icon: Icon(Icons.filter_list,
-                                color: Theme.of(context).colorScheme.primary),
-                            padding: const EdgeInsets.fromLTRB(0, 0, 0.5, 0)),
                       ],
                     ),
                   )),
@@ -190,7 +226,59 @@ class _ListadoPuntosRecoleccionState
             )
           ]),
         )),
-        persistentFooterButtons: menuInferior(context),
+        // persistentFooterButtons: menuInferior(context),
         persistentFooterAlignment: AlignmentDirectional.bottomCenter);
   }
 }
+
+// WidgetBuilder get _localDialogBuilder {
+//   return (BuildContext context) {
+//     return GestureDetector(
+//       onTap: () {
+//         Navigator.of(context).pop();
+//       },
+//       child: Container(
+//         padding: const EdgeInsets.symmetric(horizontal: 10),
+//         decoration: const BoxDecoration(
+//             color: Colors.amberAccent,
+//             borderRadius: BorderRadius.all(Radius.circular(10))),
+//         child: DefaultTextStyle(
+//           style: const TextStyle(fontSize: 18, color: Colors.black87),
+//           child: IntrinsicWidth(
+//             child: Column(
+//               mainAxisSize: MainAxisSize.min,
+//               children: [
+//                 const SizedBox(
+//                   height: 10,
+//                 ),
+//                 GestureDetector(
+//                     onTap: () {
+//                       Navigator.of(context).pop();
+//                     },
+//                     child: const Text("Tap to close")),
+//                 const SizedBox(
+//                   height: 10,
+//                 ),
+//                 const Divider(
+//                   height: 4,
+//                 ),
+//                 const SizedBox(
+//                   height: 10,
+//                 ),
+//                 GestureDetector(
+//                     onTap: () {
+//                       print("hello2");
+//                       //Navigator.of(context).pop();
+//                     },
+//                     child: const Text("Tap to print")),
+//                 const SizedBox(
+//                   height: 10,
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   };
+// }

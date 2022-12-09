@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'punto_mapa.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 // ignore: must_be_immutable
 class PuntoMapa extends Equatable {
   @JsonKey(name: '_id')

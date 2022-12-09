@@ -10,7 +10,7 @@ import 'google_directions/google_bound.dart';
 
 part 'ruta.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 // ignore: must_be_immutable
 class Ruta extends Equatable {
   @JsonKey(name: '_id')
@@ -20,9 +20,10 @@ class Ruta extends Equatable {
   Usuario? chofer;
   Usuario? administrador;
   GoogleBound? bound;
-  List<RutaPunto> puntos = [];
+  List<RutaPunto>? puntos = [];
   PuntoSalida? salida;
   PuntoDisposicionFinal? disposicionFinal;
+  DateTime? fecha;
 
   Ruta(
       {this.id,
@@ -30,16 +31,27 @@ class Ruta extends Equatable {
       this.vehiculo,
       this.chofer,
       this.administrador,
-      required this.puntos,
+      this.puntos,
       this.bound,
       this.salida,
-      this.disposicionFinal});
+      this.disposicionFinal,
+      this.fecha});
 
   factory Ruta.fromJson(Map<String, dynamic> json) => _$RutaFromJson(json);
 
   Map<String, dynamic> toJson() => _$RutaToJson(this);
 
   @override
-  List<Object?> get props =>
-      [id, nombre, vehiculo, chofer, administrador, puntos, bound];
+  List<Object?> get props => [
+        id,
+        nombre,
+        vehiculo,
+        chofer,
+        administrador,
+        puntos,
+        bound,
+        salida,
+        disposicionFinal,
+        fecha
+      ];
 }

@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 
 class AppComboBox extends StatelessWidget {
-  final lista = [
-    {
-      'id': 1,
-      'nombre': 'Coca Cola',
-    },
-    {
-      'id': 2,
-      'nombre': 'Pepsi',
-    }
-  ];
+  final List<Map<String, dynamic>> dataList;
+  final String comboKey;
+  final String comboLabel;
+  final String hint;
+  final String label;
+  final int? selectedValue;
+  final ValueChanged<int?>? onChanged;
 
-  AppComboBox({super.key});
+  const AppComboBox(
+      {super.key,
+      required this.dataList,
+      required this.comboKey,
+      required this.comboLabel,
+      required this.hint,
+      required this.selectedValue,
+      required this.label,
+      required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -20,25 +25,20 @@ class AppComboBox extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
         child: DropdownButtonFormField(
             decoration: InputDecoration(
-              // enabledBorder: OutlineInputBorder(
-              //   borderRadius: BorderRadius.circular(10),
-              // ),
+              labelText: label,
               border: OutlineInputBorder(
-                // borderSide:
-                //     BorderSide(color: Colors.blue, width: 2),
                 borderRadius: BorderRadius.circular(5),
               ),
               filled: true,
               contentPadding: const EdgeInsets.all(16),
-              // fillColor: Colors.blueAccent,
             ),
-            value: 1,
-            hint: const Text("Seleccione un tipo de residuo"),
-            items: lista
+            value: selectedValue,
+            hint: Text(hint),
+            items: dataList
                 .map((e) => DropdownMenuItem(
-                    value: int.parse(e['id'].toString()),
-                    child: Text(e['nombre'].toString())))
+                    value: int.parse(e[comboKey].toString()),
+                    child: Text(e[comboLabel].toString())))
                 .toList(),
-            onChanged: (int? value) {}));
+            onChanged: onChanged));
   }
 }

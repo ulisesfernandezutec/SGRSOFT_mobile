@@ -10,7 +10,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sgrsoft/data/api/api_google_geocode.dart';
 import 'package:sgrsoft/data/repository/puntos_recoleccion_repository_imp.dart';
 import 'package:sgrsoft/data/repository/tipos_residuos.dart';
-import 'package:sgrsoft/data/streams/puntos_recoleccion/listado.dart';
+import 'package:sgrsoft/data/streams/puntos_recoleccion_stream.dart';
 import 'package:sgrsoft/device/dev_geolocator.dart';
 import 'package:sgrsoft/domain/models/punto_recoleccion.dart';
 import 'package:sgrsoft/domain/models/tipo_residuo.dart';

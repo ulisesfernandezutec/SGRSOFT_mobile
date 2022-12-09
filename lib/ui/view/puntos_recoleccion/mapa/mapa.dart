@@ -16,6 +16,14 @@ class MapaPuntosRecoleccion extends StatefulWidget {
 }
 
 class _MapaPuntosRecoleccionState extends State<MapaPuntosRecoleccion> {
+  String selectId = '';
+
+  void selectMarker(String id) {
+    setState(() {
+      selectId = id;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,11 +84,12 @@ class _MapaPuntosRecoleccionState extends State<MapaPuntosRecoleccion> {
                           maxHeight: 800),
                       padding: const EdgeInsets.all(0),
                       child: GoogleMapsShowAllPositions(
-                        key: const Key('mapa_puntos_recoleccion'),
-                        puntos: state.puntosRecoleccion,
-                        latitude: state.puntosRecoleccion[0].latitud,
-                        longitude: state.puntosRecoleccion[0].longitud,
-                      )));
+                          key: const Key('mapa_puntos_recoleccion'),
+                          puntos: state.puntosRecoleccion,
+                          latitude: state.puntosRecoleccion[0].latitud,
+                          longitude: state.puntosRecoleccion[0].longitud,
+                          onSelectMarker: selectMarker,
+                          selectedMarkerId: selectId)));
                 },
               ),
             )

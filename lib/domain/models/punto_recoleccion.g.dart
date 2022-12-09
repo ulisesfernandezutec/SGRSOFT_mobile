@@ -29,6 +29,6 @@ Map<String, dynamic> _$PuntoRecoleccionToJson(PuntoRecoleccion instance) =>
       'direccion': instance.direccion,
       'descripcion': instance.descripcion,
       'en_ruta': instance.enRuta,
-      'tipo': instance.tipo,
-      'estados': instance.estados,
+      'tipo': instance.tipo.toJson(),
+      'estados': instance.estados?.map((e) => e.toJson()).toList(),
     };

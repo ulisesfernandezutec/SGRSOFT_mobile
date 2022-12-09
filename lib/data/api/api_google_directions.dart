@@ -3,74 +3,71 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sgrsoft/data/const/netconsts.dart';
-import 'package:sgrsoft/data/repository/utils/add_ruta.dart';
 import 'package:sgrsoft/domain/models/google_directions/google_direction.dart';
 import 'package:sgrsoft/domain/models/google_directions/google_route.dart';
 import 'package:sgrsoft/domain/models/ruta.dart';
 import 'package:sgrsoft/domain/models/ruta_punto.dart';
 
 class ApiGoogleDirections {
-  AddRutaRepository rutaRepository;
+  Ruta ruta;
   GoogleDirection? googleDirection;
 
-  ApiGoogleDirections({required this.rutaRepository});
+  ApiGoogleDirections({required this.ruta});
 
   Future<void> getGoogleDirections() async {
-    List<RutaPunto> puntos = rutaRepository.ruta.puntos;
-    if (puntos.length > 1) {
-      LatLng origin = LatLng(puntos[0].punto.latitud, puntos[0].punto.longitud);
-      LatLng destination = LatLng(puntos[puntos.length - 1].punto.latitud,
-          puntos[puntos.length - 1].punto.longitud);
+    List<RutaPunto> puntos = ruta.puntos ?? [];
+    // if (puntos.isNotEmpty) {
+    LatLng origin = LatLng(ruta.salida!.latitud, ruta.salida!.longitud);
+    LatLng destination =
+        LatLng(ruta.disposicionFinal!.latitud, ruta.disposicionFinal!.longitud);
 
-      log('origin.toString(): ${origin.latitude},${origin.longitude}');
-      var url = Uri.parse(NetConts.GOOGLE_URL_DIRECTIONS);
-      Map<String, String> queryParameters = {};
-      queryParameters['origin'] = "${origin.latitude},${origin.longitude}";
-      queryParameters['destination'] =
-          "${destination.latitude},${destination.longitude}";
-      queryParameters['key'] = NetConts.getGoogleAPIKey();
-      queryParameters['language'] = 'es';
-      queryParameters['mode'] = 'DRIVING';
+    var url = Uri.parse(NetConts.GOOGLE_URL_DIRECTIONS);
+    Map<String, String> queryParameters = {};
+    queryParameters['origin'] = "${origin.latitude},${origin.longitude}";
+    queryParameters['destination'] =
+        "${destination.latitude},${destination.longitude}";
+    queryParameters['key'] = NetConts.getGoogleAPIKey();
+    queryParameters['language'] = 'es';
+    queryParameters['mode'] = 'DRIVING';
 
-      List<String> waypointsString = [];
-      for (int i = 1; i < puntos.length - 1; i++) {
-        waypointsString
-            .add("${puntos[i].punto.latitud},${puntos[i].punto.longitud}");
-      }
-
-      if (puntos.length > 2) {
-        queryParameters['waypoints'] = waypointsString.join('|');
-      }
-
-      print(Uri.https(url.host, url.path, queryParameters)
-          .toString()
-          .replaceAll("%2C", ","));
-      Dio dio = Dio();
-      await dio
-          .get(Uri.https(url.host, url.path, queryParameters)
-              .toString()
-              .replaceAll("%2C", ","))
-          .then((value) {
-        log("value.data: ${value.data}");
-        googleDirection = GoogleDirection.fromJson(value.data);
-        log("googleDirection.toString(): ${googleDirection.toString()}");
-      });
+    List<String> waypointsString = [];
+    for (int i = 0; i < puntos.length; i++) {
+      waypointsString
+          .add("${puntos[i].punto.latitud},${puntos[i].punto.longitud}");
     }
+
+    if (waypointsString.isNotEmpty) {
+      queryParameters['waypoints'] = waypointsString.join('|');
+    }
+
+    Dio dio = Dio();
+    await dio
+        .get(Uri.https(url.host, url.path, queryParameters)
+            .toString()
+            .replaceAll("%2C", ","))
+        .then((value) {
+      googleDirection = GoogleDirection.fromJson(value.data);
+    });
+    // }
   }
 
   Ruta getRuta() {
-    Ruta ruta = rutaRepository.ruta;
     if (googleDirection != null) {
       ruta.bound = googleDirection?.routes[0].bounds;
 
       for (GoogleRoute r in googleDirection!.routes) {
         for (int i = 0; i < r.legs.length; i++) {
-          ruta.puntos[i].googleDistance = r.legs[i].distance;
-          ruta.puntos[i].googleDuration = r.legs[i].duration;
+          try {
+            ruta.puntos![i].googleDistance = r.legs[i].distance;
+            ruta.puntos![i].googleDuration = r.legs[i].duration;
+          } catch (e) {
+            log("getRuta() ${e.toString()}");
+            continue;
+          }
         }
       }
     }
-    rutaRepository.updateRuta(ruta);
+
     return ruta;
   }
 

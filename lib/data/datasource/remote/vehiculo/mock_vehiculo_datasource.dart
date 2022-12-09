@@ -1,5 +1,6 @@
-import 'package:sgrsoft/data/datasource/remote/vehiculo/remote.dart';
 import 'package:sgrsoft/domain/models/vehiculo.dart';
+
+import 'remote.dart';
 
 class MockVehiculoDataSource extends RemoteVehiculoDataSource {
   List<Vehiculo> db;

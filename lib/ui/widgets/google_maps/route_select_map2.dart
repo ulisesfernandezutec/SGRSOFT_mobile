@@ -11,11 +11,10 @@ class GoogleSelectRouteMap2 extends StatelessWidget {
   final List<Marker> markers;
 
   GoogleSelectRouteMap2(
-      {Key? key,
+      {super.key,
       required this.ruta,
       required this.polylines,
-      required this.markers})
-      : super(key: key);
+      required this.markers});
 
   // Map Controller to control the map
   Completer<GoogleMapController> mapController = Completer();
@@ -48,9 +47,9 @@ class GoogleSelectRouteMap2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LatLng initialPosition = const LatLng(-34.773527, -58.367394);
-    if (ruta.puntos.isNotEmpty) {
+    if (ruta.puntos!.isNotEmpty) {
       initialPosition = LatLng(
-          ruta.puntos.first.punto.latitud, ruta.puntos.first.punto.longitud);
+          ruta.puntos!.first.punto.latitud, ruta.puntos!.first.punto.longitud);
     }
 
     return GoogleMap(

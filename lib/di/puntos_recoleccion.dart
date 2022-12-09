@@ -88,50 +88,6 @@ void puntosRecoleccionGetIt(GetIt gi) async {
           PuntoRecoleccionEstado(1, DateTime(2022, 4, 4), 1, 'Pendiente4',
               'Pendiente de recoleccion4')
         ]),
-    PuntoRecoleccion(
-        id: 8,
-        latitud: -34.881056,
-        longitud: -56.148802,
-        tipo: TipoDeResiduo(id: 1, nombre: 'Podas'),
-        direccion: 'Casmu',
-        descripcion: '4',
-        estados: [
-          PuntoRecoleccionEstado(1, DateTime(2022, 4, 4), 1, 'Pendiente4',
-              'Pendiente de recoleccion4')
-        ]),
-    PuntoRecoleccion(
-        id: 9,
-        latitud: -34.881056,
-        longitud: -56.148802,
-        tipo: TipoDeResiduo(id: 1, nombre: 'Podas'),
-        direccion: 'Casmu',
-        descripcion: '4',
-        estados: [
-          PuntoRecoleccionEstado(1, DateTime(2022, 4, 4), 1, 'Pendiente4',
-              'Pendiente de recoleccion4')
-        ]),
-    PuntoRecoleccion(
-        id: 10,
-        latitud: -34.881056,
-        longitud: -56.148802,
-        tipo: TipoDeResiduo(id: 1, nombre: 'Podas'),
-        direccion: 'Casmu',
-        descripcion: '4',
-        estados: [
-          PuntoRecoleccionEstado(1, DateTime(2022, 4, 4), 1, 'Pendiente4',
-              'Pendiente de recoleccion4')
-        ]),
-    PuntoRecoleccion(
-        id: 11,
-        latitud: -34.881056,
-        longitud: -56.148802,
-        tipo: TipoDeResiduo(id: 1, nombre: 'Podas'),
-        direccion: 'Casmu',
-        descripcion: '4',
-        estados: [
-          PuntoRecoleccionEstado(1, DateTime(2022, 4, 4), 1, 'Pendiente4',
-              'Pendiente de recoleccion4')
-        ]),
   ];
   // RemotePuntosRecoleccionDataSource remotePuntosRecoleccionDataSource =
   //     ApiPuntosRecoleccionDataSource(db: <PuntoRecoleccion>[]);

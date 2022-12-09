@@ -18,8 +18,8 @@ Ruta _$RutaFromJson(Map<String, dynamic> json) => Ruta(
       administrador: json['administrador'] == null
           ? null
           : Usuario.fromJson(json['administrador'] as Map<String, dynamic>),
-      puntos: (json['puntos'] as List<dynamic>)
-          .map((e) => RutaPunto.fromJson(e as Map<String, dynamic>))
+      puntos: (json['puntos'] as List<dynamic>?)
+          ?.map((e) => RutaPunto.fromJson(e as Map<String, dynamic>))
           .toList(),
       bound: json['bound'] == null
           ? null
@@ -31,16 +31,20 @@ Ruta _$RutaFromJson(Map<String, dynamic> json) => Ruta(
           ? null
           : PuntoDisposicionFinal.fromJson(
               json['disposicionFinal'] as Map<String, dynamic>),
+      fecha: json['fecha'] == null
+          ? null
+          : DateTime.parse(json['fecha'] as String),
     );
 
 Map<String, dynamic> _$RutaToJson(Ruta instance) => <String, dynamic>{
       '_id': instance.id,
       'nombre': instance.nombre,
-      'vehiculo': instance.vehiculo,
-      'chofer': instance.chofer,
-      'administrador': instance.administrador,
-      'bound': instance.bound,
-      'puntos': instance.puntos,
-      'salida': instance.salida,
-      'disposicionFinal': instance.disposicionFinal,
+      'vehiculo': instance.vehiculo?.toJson(),
+      'chofer': instance.chofer?.toJson(),
+      'administrador': instance.administrador?.toJson(),
+      'bound': instance.bound?.toJson(),
+      'puntos': instance.puntos?.map((e) => e.toJson()).toList(),
+      'salida': instance.salida?.toJson(),
+      'disposicionFinal': instance.disposicionFinal?.toJson(),
+      'fecha': instance.fecha?.toIso8601String(),
     };

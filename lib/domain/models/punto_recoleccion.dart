@@ -5,7 +5,7 @@ import 'package:sgrsoft/domain/models/tipo_residuo.dart';
 
 part 'punto_recoleccion.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 // ignore: must_be_immutable
 class PuntoRecoleccion extends PuntoMapa {
   final TipoDeResiduo tipo;

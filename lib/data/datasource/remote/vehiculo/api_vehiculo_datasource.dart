@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:sgrsoft/data/const/netconsts.dart';
-import 'package:sgrsoft/data/datasource/remote/vehiculo/remote.dart';
 import 'package:sgrsoft/domain/models/vehiculo.dart';
 import 'package:http/http.dart' as http;
+
+import 'remote.dart';
 
 class ApiVehiculoDataSource extends RemoteVehiculoDataSource {
   List<Vehiculo> db;
