@@ -19,6 +19,7 @@ import 'vehiculo.dart';
 final GetIt _l = GetIt.instance;
 
 Future<void> initializeDI() async {
+  auth();
   data();
   domain();
   streams();

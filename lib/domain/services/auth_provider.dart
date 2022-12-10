@@ -1,7 +1,7 @@
 abstract class AuthenticationProvider {
   Future<bool> login(String username, String password);
   Future<bool> logout();
-  Future<bool> createSession(String refreshToken, String accessToken);
+  Future<bool> createSession(String token);
   Future<String> getRefreshToken();
   Future<String> getAccessToken();
 

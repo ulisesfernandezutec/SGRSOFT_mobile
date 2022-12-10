@@ -42,8 +42,8 @@ class NetConts {
   }
 
   // Authentification API
-  static const String API_URL_AUTH_LOGIN = "$API_URL/login/";
-  static const String API_JWT_REFRESH = "$API_URL/jwt/refresh/";
-  static const String API_JWT_VERIFY = "$API_URL/jwt/verify/";
-  static const String API_GOOGLE_CHECK_TOKEN = "$API_URL/jwt/blacklist/";
+  static const String API_URL_AUTH_LOGIN = "$API_URL/login";
+  static const String API_JWT_REFRESH = "${API_URL}tkn/";
+  static const String API_JWT_VERIFY = "${API_URL}tkn/";
+  static const String API_GOOGLE_CHECK_TOKEN = "${API_URL}glogin/";
 }

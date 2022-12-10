@@ -1,10 +1,12 @@
+import 'dart:developer';
+
 import 'package:sgrsoft/domain/services/auth_provider.dart';
 
 class Auth implements AuthenticationProvider {
   @override
-  Future<bool> createSession(String refreshToken, String accessToken) {
-    // TODO: implement getRefreshToken
-    throw UnimplementedError();
+  Future<bool> createSession(String token) {
+    log("Auth $token");
+    return Future.value(true);
   }
 
   @override
