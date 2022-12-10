@@ -63,11 +63,11 @@ class _TarjetaPuntoRecoleccionState extends State<TarjetaPuntoRecoleccion> {
                 },
                 child: Card(
                     elevation: 0,
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                       side: BorderSide(
-                        color: Theme.of(context).colorScheme.outline,
+                        color: Color(0xff39ceb9),
                       ),
-                      borderRadius: const BorderRadius.all(Radius.circular(5)),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
                     ),
                     child: Container(
                       decoration: BoxDecoration(
@@ -83,62 +83,79 @@ class _TarjetaPuntoRecoleccionState extends State<TarjetaPuntoRecoleccion> {
                                 borderRadius: BorderRadius.only(
                                     topRight: Radius.circular(5.0),
                                     topLeft: Radius.circular(5.0)),
+                                color: Color(0xffe5f8f6),
                               ),
                               width: double.infinity,
                               child: Row(children: <Widget>[
-                                Center(
-                                  child: Text(
-                                      widget.puntoRecoleccion.tipo.nombre
-                                          .toUpperCase(),
-                                      textAlign: TextAlign.center,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall
-                                          ?.copyWith(
-                                              fontWeight: FontWeight.w600,
-                                              letterSpacing: 1.5)),
+                                const Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                                    child: Icon(Icons.auto_delete_outlined,
+                                        size: 24.0, color: Color(0xff39ceb9))),
+                                Text(
+                                    widget.puntoRecoleccion.tipo.nombre
+                                        .toUpperCase(),
+                                    textAlign: TextAlign.center,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall
+                                        ?.copyWith(
+                                            color: Colors.black54,
+                                            fontWeight: FontWeight.w600,
+                                            letterSpacing: 1.5)),
+                              ])),
+                          Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                              child: Row(children: [
+                                Icon(
+                                  Icons.home,
+                                  color: Colors.grey.shade600,
                                 ),
+                                Text(
+                                  widget.puntoRecoleccion.direccion,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(color: Colors.grey.shade800),
+                                )
                               ])),
                           Container(
                               width: double.infinity,
                               padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).cardColor,
-                                borderRadius: const BorderRadius.only(
-                                    bottomRight: Radius.circular(10.0),
-                                    bottomLeft: Radius.circular(10.0)),
-                              ),
                               child: Text(
                                 widget.puntoRecoleccion.descripcion,
-                                style: Theme.of(context).textTheme.bodyLarge,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(color: Colors.grey.shade600),
                               )),
-                          Container(
-                              width: double.infinity,
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).cardColor,
-                                borderRadius: const BorderRadius.only(
-                                    bottomRight: Radius.circular(10.0),
-                                    bottomLeft: Radius.circular(10.0)),
-                              ),
-                              child: Text(
-                                DateFormat.yMd().format(
-                                    widget.puntoRecoleccion.estados![0].fecha),
-                                style: Theme.of(context).textTheme.labelMedium,
-                              )),
-                          Container(
-                              width: double.infinity,
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).cardColor,
-                                borderRadius: const BorderRadius.only(
-                                    bottomRight: Radius.circular(10.0),
-                                    bottomLeft: Radius.circular(10.0)),
-                              ),
-                              child: Text(
-                                widget.puntoRecoleccion.estados![0].estado,
-                                style: Theme.of(context).textTheme.labelMedium,
-                              ))
+                          const Divider(),
+                          Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                              child: Row(children: [
+                                Text(
+                                  widget.puntoRecoleccion.estados![0].estado,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelMedium
+                                      ?.copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.grey.shade600,
+                                      ),
+                                ),
+                                const Spacer(),
+                                Text(
+                                  DateFormat.MMMEd('es').format(widget
+                                      .puntoRecoleccion.estados![0].fecha),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelMedium
+                                      ?.copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.grey.shade600,
+                                      ),
+                                )
+                              ]))
                         ],
                       ),
                     )))));

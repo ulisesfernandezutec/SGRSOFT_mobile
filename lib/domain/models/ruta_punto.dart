@@ -7,7 +7,7 @@ import 'package:sgrsoft/domain/models/ruta_punto_estado.dart';
 
 part 'ruta_punto.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 // ignore: must_be_immutable
 class RutaPunto extends Equatable {
   @JsonKey(name: '_id')

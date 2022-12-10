@@ -24,6 +24,12 @@ class NetConts {
   static const String GOOGLE_URL_PLACES =
       "https://maps.googleapis.com/maps/api/place/findplacefromtext/json";
 
+  // Variables para Azure Cloud
+  static const String AZURE_SUBSCRIPTION_KEY =
+      "UToIPMAkiSZd0hePC8WhUGK-d5HnWDheSB0H14jAkxU";
+  static const String AZURE_BEST_ORDER =
+      "https://atlas.microsoft.com/route/directions/json?subscription-key=$AZURE_SUBSCRIPTION_KEY&api-version=1.0&travelMode=car&traffic=true&computeTravelTimeFor=all&computeBestOrder=true&routeType=shortest&RouteRepresentationForBestOrder=polyline&language=es-419&query=";
+
   static String getGoogleAPIKey() {
     const String googleMapsApiKey = kIsWeb
         ? "AIzaSyC-ojOj6y2NTYM0TlP2-MSw4QURB9bUUUg"
@@ -34,4 +40,10 @@ class NetConts {
   String getBasicAuth() {
     return 'Basic ${base64Encode(utf8.encode('$API_BASIC_USER:$API_BASIC_PASS'))}';
   }
+
+  // Authentification API
+  static const String API_URL_AUTH_LOGIN = "$API_URL/login";
+  static const String API_JWT_REFRESH = "${API_URL}tkn/";
+  static const String API_JWT_VERIFY = "${API_URL}tkn/";
+  static const String API_GOOGLE_CHECK_TOKEN = "${API_URL}glogin/";
 }

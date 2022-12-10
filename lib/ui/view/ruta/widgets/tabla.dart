@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sgrsoft/domain/blocs/ruta/add/bloc.dart';
 import 'package:sgrsoft/domain/models/ruta.dart';
 
 import 'dart:ui';
@@ -39,41 +36,45 @@ class RutasTabla extends StatelessWidget {
 
     return ReorderableListView(
       shrinkWrap: true,
-      // padding: const EdgeInsets.symmetric(horizontal: 40),
-      proxyDecorator: proxyDecorator,
+      // padding: const EdgeInsets.symmetric(horizontal: 5),
+      // proxyDecorator: proxyDecorator,
       children: <Widget>[
-        for (int index = 0; index < ruta.puntos.length; index += 1)
-          ListTile(
+        for (int index = 0;
+            index < (ruta.puntos != null ? ruta.puntos!.length : 0);
+            index += 1)
+          Card(
+            elevation: 2,
             key: Key('$index'),
-            tileColor: index.isOdd ? oddItemColor : evenItemColor,
-            title: Text(ruta.puntos[index].punto.direccion.toString()),
-            subtitle: Row(children: <Widget>[
-              Text(
-                  "${ruta.puntos[index].googleDistance?.text ?? ""} | ${ruta.puntos[index].googleDuration?.text ?? ""}"),
-              const Spacer(),
-              const Icon(FontAwesomeIcons.truck),
-            ]),
-            leading: IconButton(
-              onPressed: () {
-                ruta.puntos.removeAt(index);
-                BlocProvider.of<AddRutaBloc>(context)
-                    .add(ActualizarAddRutaEvent(puntos: ruta.puntos));
-              },
-              icon: const Icon(Icons.delete),
-              color: Colors.red,
-            ),
-            // trailing: Text('ss'),
-          )
-        // ])),
+            child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                child: Column(children: <Widget>[
+                  Text(ruta.puntos![index].punto.direccion.toString()),
+                  Row(children: <Widget>[
+                    IconButton(
+                      onPressed: () {
+                        ruta.puntos!.removeAt(index);
+                        // BlocProvider.of<AddRutaBloc>(context)
+                        //     .add(ActualizarAddRutaEvent(puntos: ruta.puntos!));
+                      },
+                      icon: const Icon(Icons.delete),
+                      color: Colors.red,
+                    ),
+                    Text(
+                        "${ruta.puntos![index].googleDistance?.text ?? ""} | ${ruta.puntos![index].googleDuration?.text ?? ""}"),
+                    // const Spacer(),
+                    // const Icon(FontAwesomeIcons.truck),
+                  ]),
+                ])),
+          ),
       ],
       onReorder: (int oldIndex, int newIndex) {
         if (oldIndex < newIndex) {
           newIndex -= 1;
         }
-        final RutaPunto item = ruta.puntos.removeAt(oldIndex);
-        ruta.puntos.insert(newIndex, item);
-        BlocProvider.of<AddRutaBloc>(context)
-            .add(ActualizarAddRutaEvent(puntos: ruta.puntos));
+        final RutaPunto item = ruta.puntos!.removeAt(oldIndex);
+        ruta.puntos!.insert(newIndex, item);
+        // BlocProvider.of<AddRutaBloc>(context)
+        //     .add(ActualizarAddRutaEvent(puntos: ruta.puntos!));
       },
     );
   }

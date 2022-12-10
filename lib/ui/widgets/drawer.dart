@@ -5,7 +5,10 @@ import 'package:sgrsoft/ui/settings/settings_view.dart';
 import 'package:sgrsoft/ui/view/punto_disposicion_final/listado/listado.dart';
 import 'package:sgrsoft/ui/view/punto_salida/listado/listado.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/listado.dart';
+import 'package:sgrsoft/ui/view/puntos_recoleccion/mapa/mapa.dart';
 import 'package:sgrsoft/ui/view/rol/listado/listado.dart';
+import 'package:sgrsoft/ui/view/ruta/listado/listado.dart';
+import 'package:sgrsoft/ui/view/test/route_optimize.dart';
 import 'package:sgrsoft/ui/view/tipo_de_residuo/listado/listado.dart';
 import 'package:sgrsoft/ui/view/vehiculo/listado/listado.dart';
 
@@ -23,6 +26,13 @@ Drawer appDrawer(BuildContext context) {
             color: Theme.of(context).colorScheme.primary,
           ),
           child: ImageStore().logo,
+        ),
+        ListTile(
+          leading: const Icon(Icons.map_outlined),
+          title: const Text('Mapa de Puntos'),
+          onTap: () {
+            Navigator.pushNamed(context, MapaPuntosRecoleccion.routeName);
+          },
         ),
         ListTile(
             leading: const Icon(Icons.auto_delete_outlined),
@@ -43,6 +53,12 @@ Drawer appDrawer(BuildContext context) {
             onTap: () {
               Navigator.pushNamed(
                   context, ListadoPuntoDisposicionFinalScreen.routeName);
+            }),
+        ListTile(
+            leading: const Icon(Icons.route_outlined),
+            title: const Text('Rutas'),
+            onTap: () {
+              Navigator.pushNamed(context, ListadoRutaScreen.routeName);
             }),
         ListTile(
             leading: const Icon(Icons.class_outlined),
@@ -72,6 +88,13 @@ Drawer appDrawer(BuildContext context) {
           title: const Text('Settings'),
           onTap: () {
             Navigator.restorablePushNamed(context, SettingsView.routeName);
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.route_outlined),
+          title: const Text('Pueba de Rutas'),
+          onTap: () {
+            Navigator.pushNamed(context, RouteOptimize.routeName);
           },
         ),
       ],

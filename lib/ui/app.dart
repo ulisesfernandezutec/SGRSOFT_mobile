@@ -8,14 +8,13 @@ import 'package:sgrsoft/ui/view/login/google.dart';
 import 'package:sgrsoft/ui/view/login/login.dart';
 import 'package:sgrsoft/ui/view/punto_disposicion_final/listado/listado.dart';
 import 'package:sgrsoft/ui/view/punto_salida/listado/listado.dart';
-import 'package:sgrsoft/ui/view/puntos_recoleccion/detalle/detalle.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/editar/_editar.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/listado.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/mapa/mapa.dart';
 import 'package:sgrsoft/ui/settings/settings_controller.dart';
 import 'package:sgrsoft/ui/settings/settings_view.dart';
 import 'package:sgrsoft/ui/view/rol/listado/listado.dart';
-import 'package:sgrsoft/ui/view/ruta/add/add.dart';
+import 'package:sgrsoft/ui/view/ruta/listado/listado.dart';
 import 'package:sgrsoft/ui/view/tipo_de_residuo/listado/listado.dart';
 import 'package:sgrsoft/ui/view/vehiculo/listado/listado.dart';
 import 'package:sgrsoft/ui/widgets/custom_error.dart';
@@ -23,6 +22,7 @@ import 'package:sgrsoft/ui/widgets/google_maps/test.dart';
 
 import 'view/punto_salida/nuevo/nuevo.dart';
 import 'view/puntos_recoleccion/nuevo/nuevo.dart';
+import 'view/test/route_optimize.dart';
 import 'widgets/google_maps/select_position2.dart';
 
 class MainApp extends StatelessWidget {
@@ -141,8 +141,6 @@ class MainApp extends StatelessWidget {
                     return const ListadoVehiculoScreen();
                   case GoogleMapsSetPosition2.routeName:
                     return const GoogleMapsSetPosition2();
-                  case AddRutaScreen.routeName:
-                    return const AddRutaScreen();
                   case SignInGoogle.routeName:
                     return const SignInGoogle();
                   case PolylineMap.routeName:
@@ -153,6 +151,10 @@ class MainApp extends StatelessWidget {
                     return const NuevoPuntoSalidaScreen();
                   case ListadoPuntoDisposicionFinalScreen.routeName:
                     return const ListadoPuntoDisposicionFinalScreen();
+                  case ListadoRutaScreen.routeName:
+                    return const ListadoRutaScreen();
+                  case RouteOptimize.routeName:
+                    return const RouteOptimize();
                   default:
                     return const LoginScreen();
                 }

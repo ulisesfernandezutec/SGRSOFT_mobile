@@ -27,12 +27,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.only(top: 10, bottom: 10),
-        // decoration: BoxDecoration(
-        //     color: Colors.white,
-        //     borderRadius: BorderRadius.circular(5),
-        //     border: Border.all(color: Colors.grey)),
+    return Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
         child: TextFormField(
           cursorHeight: 20,
           readOnly: true,
@@ -41,7 +37,12 @@ class _CalendarWidgetState extends State<CalendarWidget> {
           textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
-            prefixIcon: Icon(
+            // prefixIcon: Icon(
+            //   Icons.date_range,
+            //   color: Theme.of(context).primaryColor,
+            //   size: 35,
+            // ),
+            suffixIcon: Icon(
               Icons.date_range,
               color: Theme.of(context).primaryColor,
               size: 35,

@@ -24,8 +24,8 @@ RutaPunto _$RutaPuntoFromJson(Map<String, dynamic> json) => RutaPunto(
 
 Map<String, dynamic> _$RutaPuntoToJson(RutaPunto instance) => <String, dynamic>{
       '_id': instance.id,
-      'punto': instance.punto,
-      'googleDuration': instance.googleDuration,
-      'googleDistance': instance.googleDistance,
-      'estado': instance.estado,
+      'punto': instance.punto.toJson(),
+      'googleDuration': instance.googleDuration?.toJson(),
+      'googleDistance': instance.googleDistance?.toJson(),
+      'estado': instance.estado?.toJson(),
     };

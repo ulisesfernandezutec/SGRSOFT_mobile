@@ -52,3 +52,10 @@ pruebas de perfirmance locus
 
 https://api.flutter.dev/flutter/material/showDateRangePicker.html
 https://github.com/Dhanraj-FlutterDev/FlutterSearchbarDemo/blob/master/lib/main.dart
+
+https://stackoverflow.com/questions/51930040/how-to-customize-a-dialogs-position-size-and-background
+https://www.kindacode.com/article/flutter-get-the-position-of-a-tap-x-y-coordinates/
+
+https://pub.dev/packages/flutter_smart_dialog
+
+https://www.flutterbeads.com/format-datetime-in-flutter/#:~:text=To%20format%20DateTime%20in%20Flutter%20using%20a%20standard%20format%2C%20you,method%20with%20providing%20the%20DateTime.

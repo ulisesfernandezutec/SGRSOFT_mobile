@@ -7,7 +7,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
-import 'package:sgrsoft/data/streams/puntos_recoleccion/listado.dart';
+import 'package:sgrsoft/data/streams/puntos_recoleccion_stream.dart';
 import 'package:sgrsoft/domain/models/punto_recoleccion.dart';
 
 part 'listado_event.dart';
@@ -28,7 +28,7 @@ class ListadoPuntosRecoleccionBloc
   ListadoPuntosRecoleccionBloc()
       : super(ListadoInitialPuntosRecoleccionState()) {
     on<LoadListadoPuntosRecoleccionEvent>((event, emit) async {
-      _streamListadoPuntosRecoleccion.timerStart();
+      // _streamListadoPuntosRecoleccion.timerStart();
       if (event.search.isNotEmpty) {
         _streamListadoPuntosRecoleccion.refresh();
       }

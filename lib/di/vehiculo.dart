@@ -9,11 +9,18 @@ void vehiculoGetIt(GetIt gi) async {
   List<Vehiculo> list = [
     Vehiculo(
         id: 1,
-        nombre: 'para que nombre?',
+        nombre: 'Camion 1',
         matricula: 'ABC123',
         marca: 'Toyota',
         modelo: 'Corolla',
         chofer: 0),
+    Vehiculo(
+        id: 2,
+        nombre: 'Camion 1',
+        matricula: 'ABC321',
+        marca: 'Toyota',
+        modelo: 'Corolla',
+        chofer: 2),
   ];
   RemoteVehiculoDataSource remoteVehiculoDataSource =
       MockVehiculoDataSource(db: list);

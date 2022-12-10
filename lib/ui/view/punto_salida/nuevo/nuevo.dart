@@ -204,40 +204,44 @@ class NuevoPuntoSalidaScreenState extends State<NuevoPuntoSalidaScreen> {
                                                     .size
                                                     .height -
                                                 240),
-                                    child: GoogleMapsSetPosition(
-                                        latitude: state.puntoSalida.latitud,
-                                        longitude: state.puntoSalida.longitud,
-                                        markers: {
-                                          const MarkerId('markerd'): createDragMarker(
-                                              latitude: state
-                                                  .puntoSalida.latitud,
-                                              longitude: state
-                                                  .puntoSalida.longitud,
-                                              onSelectPosition: (position) =>
-                                                  BlocProvider.of<
-                                                              NuevoPuntoSalidaBloc>(
-                                                          context)
-                                                      .add(
-                                                          NuevoPuntoSalidaEventSelectPoint(
+                                    child: Card(
+                                        elevation: 3,
+                                        child: GoogleMapsSetPosition(
+                                            latitude: state.puntoSalida.latitud,
+                                            longitude:
+                                                state.puntoSalida.longitud,
+                                            markers: {
+                                              const MarkerId('markerd'): createDragMarker(
+                                                  latitude: state
+                                                      .puntoSalida.latitud,
+                                                  longitude: state
+                                                      .puntoSalida.longitud,
+                                                  onSelectPosition:
+                                                      (position) => BlocProvider
+                                                              .of<NuevoPuntoSalidaBloc>(
+                                                                  context)
+                                                          .add(NuevoPuntoSalidaEventSelectPoint(
                                                               punto: state
                                                                   .puntoSalida,
                                                               latitud: position
                                                                   .latitude,
                                                               longitud: position
                                                                   .longitude)))
-                                        },
-                                        onSelectPosition: (position) {
-                                          BlocProvider.of<NuevoPuntoSalidaBloc>(
-                                                  context)
-                                              .add(
-                                                  NuevoPuntoSalidaEventSelectPoint(
-                                                      punto: state.puntoSalida,
-                                                      latitud:
-                                                          position.latitude,
-                                                      longitud:
-                                                          position.longitude));
-                                          // _onSelectPosition();
-                                        }))
+                                            },
+                                            onSelectPosition: (position) {
+                                              BlocProvider.of<
+                                                          NuevoPuntoSalidaBloc>(
+                                                      context)
+                                                  .add(
+                                                      NuevoPuntoSalidaEventSelectPoint(
+                                                          punto:
+                                                              state.puntoSalida,
+                                                          latitud:
+                                                              position.latitude,
+                                                          longitud: position
+                                                              .longitude));
+                                              // _onSelectPosition();
+                                            })))
                                 : Container(),
                           )
                         ])));

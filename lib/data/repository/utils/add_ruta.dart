@@ -12,11 +12,11 @@ class AddRutaRepository {
   }
 
   void addPunto(RutaPunto punto) {
-    _ruta.puntos.add(punto);
+    _ruta.puntos?.add(punto);
   }
 
   void removePunto(RutaPunto punto) {
-    _ruta.puntos.remove(punto);
+    _ruta.puntos?.remove(punto);
   }
 
   // update puntos
