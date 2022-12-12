@@ -4,14 +4,12 @@ import 'rol.dart';
 
 part 'usuario.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Usuario {
   @JsonKey(name: '_id')
   int? id;
-  String? username;
-  String? apiId;
-  String? documento;
-
+  @JsonKey(name: "pwrd")
+  String? password;
   Rol? rol;
   String? nombre;
   String? apellido;
@@ -21,15 +19,13 @@ class Usuario {
 
   Usuario(
       {this.id,
-      this.username,
-      this.apiId,
       this.rol,
       this.nombre,
       this.apellido,
-      this.documento,
       this.telefono,
       this.email,
-      this.direccion});
+      this.direccion,
+      this.password});
 
   factory Usuario.fromJson(Map<String, dynamic> json) =>
       _$UsuarioFromJson(json);

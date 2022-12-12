@@ -5,8 +5,22 @@
     "sub": "103518565494858423704",
     "email": "ulises13@gmail.com",
     "emailVerified": "true",
-    "exp": "1670611575",
-    "expiresIn": "3533",
+    "exp": "1670760051",
+    "expiresIn": "746",
     "accessType": "online",
-    "sgrToken": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiIwYWM4ZDEwYi00ZTgzLTQzMzktYTBlYi05NDg2NDcxZmE4MjUiLCJzdWIiOiJ1bGlzZXMxM0BnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6WyJVU0VSIl0sImlhdCI6MTY3MDYwODA0MiwiRW1haWwiOiJ1bGlzZXMxM0BnbWFpbC5jb20iLCJleHAiOjE2NzA2MDk4NDJ9.f2plR5MEqUoyaKMZcPuLcZ7FUPP5O15hsRJ_OQn6AALSjeF0CH7ELz0dwZXgKols9dYW8tP76vuGXHKKS3PxYw"
+    "sgrToken": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiI4NDFiYmVkNy05N2YzLTQ4M2YtYWMxNy0wOTg4OTExZjE2MDIiLCJzdWIiOiJ1bGlzZXMxM0BnbWFpbC5jb20iLCJhdXRob3JpdGllcyI6WyJVU0VSIl0sImlhdCI6MTY3MDc1OTMwNCwiRW1haWwiOiJ1bGlzZXMxM0BnbWFpbC5jb20iLCJleHAiOjE2NzA3NjExMDR9.dgPUukxuRj3Vgz83v30OdEIfkODErbkAiSWiXb2YMQ_KtftBWWnFojACshY82rhvl0DGp01a05FWIDmpxXnSAw",
+    "usuario": {
+        "_id": 1670608042461,
+        "pwrd": "****",
+        "rol": {
+            "_id": 3,
+            "nombre": "USER"
+        },
+        "nombre": "",
+        "apellido": "",
+        "documento": "",
+        "telefono": "",
+        "email": "ulises13@gmail.com",
+        "direccion": ""
+    }
 }

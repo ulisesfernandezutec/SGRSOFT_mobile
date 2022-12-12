@@ -55,6 +55,7 @@ class StepMap extends StatelessWidget {
                       polylines: polylines)))
           : Container(),
       Container(
+          padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
           constraints: const BoxConstraints(maxWidth: 600, maxHeight: 500),
           child: SingleChildScrollView(
               child: Column(children: <Widget>[
@@ -72,6 +73,7 @@ class StepMap extends StatelessWidget {
             RutasTabla(
               ruta: ruta,
             ),
+            const Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 10)),
             AppComboBox(
               dataList: puntosDisposicionFinal
                   .map((e) => {"id": e.id, "label": e.nombre})

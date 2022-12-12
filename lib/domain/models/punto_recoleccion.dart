@@ -9,7 +9,8 @@ part 'punto_recoleccion.g.dart';
 // ignore: must_be_immutable
 class PuntoRecoleccion extends PuntoMapa {
   final TipoDeResiduo tipo;
-
+  @JsonKey(name: 'usuario')
+  final int usuario;
   List<PuntoRecoleccionEstado>? estados;
 
   PuntoRecoleccion({
@@ -19,6 +20,7 @@ class PuntoRecoleccion extends PuntoMapa {
     required super.direccion,
     required super.descripcion,
     super.enRuta,
+    required this.usuario,
     required this.tipo,
     this.estados,
   });

@@ -33,7 +33,10 @@ List<Widget> menuInferior(BuildContext context) {
       fillColor: Colors.green[400],
       color: Colors.green[400],
       isSelected: const [true, false],
-      children: icons,
+      children: const <Widget>[
+        Icon(Icons.list_alt_outlined),
+        Icon(Icons.map_outlined),
+      ],
       // )
     ),
     IconButton(

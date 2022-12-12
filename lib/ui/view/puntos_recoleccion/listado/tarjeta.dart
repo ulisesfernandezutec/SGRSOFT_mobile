@@ -129,6 +129,16 @@ class _TarjetaPuntoRecoleccionState extends State<TarjetaPuntoRecoleccion> {
                                     .bodyLarge!
                                     .copyWith(color: Colors.grey.shade600),
                               )),
+                          Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(10),
+                              child: Text(
+                                widget.puntoRecoleccion.usuario.toString(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge!
+                                    .copyWith(color: Colors.grey.shade600),
+                              )),
                           const Divider(),
                           Padding(
                               padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),

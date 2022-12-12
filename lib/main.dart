@@ -7,6 +7,8 @@ import 'package:sgrsoft/domain/blocs/rol/nuevo/nuevo_bloc.dart';
 import 'package:sgrsoft/domain/blocs/tipos_residuos/editar/editar_bloc.dart';
 import 'package:sgrsoft/domain/blocs/tipos_residuos/listado/listado_bloc.dart';
 import 'package:sgrsoft/domain/blocs/tipos_residuos/nuevo/nuevo_bloc.dart';
+import 'package:sgrsoft/domain/blocs/usuario/listado/listado_bloc.dart';
+import 'package:sgrsoft/domain/blocs/usuario/nuevo/nuevo_bloc.dart';
 import 'package:sgrsoft/domain/blocs/vehiculo/editar/editar_bloc.dart';
 import 'package:sgrsoft/domain/blocs/vehiculo/listado/listado_bloc.dart';
 import 'package:sgrsoft/domain/blocs/vehiculo/nuevo/nuevo_bloc.dart';
@@ -66,6 +68,8 @@ void main() async {
         BlocProvider(create: (BuildContext context) => NuevoPuntoSalidaBloc()),
         BlocProvider(
             create: (BuildContext context) => NuevoPuntoDisposicionFinalBloc()),
+        BlocProvider(create: (BuildContext context) => ListadoUsuarioBloc()),
+        BlocProvider(create: (BuildContext context) => NuevoUsuarioBloc())
         // BlocProvider(create: (BuildContext context) => DetalleVehiculoBloc()),
       ],
       child: MainApp(

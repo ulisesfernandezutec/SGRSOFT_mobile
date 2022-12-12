@@ -74,6 +74,7 @@ class EditarPuntosRecoleccionBloc extends Bloc<EditarPuntosRecoleccionEvent,
           tipo: tipoDeResiduo,
           direccion: "",
           descripcion: "",
+          usuario: 0,
           estados: const <PuntoRecoleccionEstado>[]);
 
       await _puntosRecoleccionRepository.add(puntoDeRecoleccion);

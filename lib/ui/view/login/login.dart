@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:sgrsoft/data/services/social_auth.dart';
+import 'package:sgrsoft/domain/services/auth_provider.dart';
 import 'package:sgrsoft/domain/services/social_auth_provider.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/listado.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
@@ -8,7 +10,7 @@ import 'package:email_validator/email_validator.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
-
+  static const routeName = '/login';
   @override
   State<StatefulWidget> createState() {
     return LoginScreenState();
@@ -17,6 +19,7 @@ class LoginScreen extends StatefulWidget {
 
 class LoginScreenState extends State<LoginScreen> {
   bool isLogin = false;
+  bool errorOn = false;
 
   final emailController = TextEditingController();
   final passController = TextEditingController();
@@ -24,6 +27,8 @@ class LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
+
+  GetIt getIt = GetIt.instance;
 
   Future<void> _handleGoogleSignIn(context) async {
     try {
@@ -39,6 +44,32 @@ class LoginScreenState extends State<LoginScreen> {
       if (kDebugMode) {
         print(error);
       }
+    }
+  }
+
+  Future<void> _handleLogIn(context) async {
+    try {
+      // setState(() {
+      //   errorOn = false;
+      // });
+      AuthenticationProvider authProvider = getIt();
+      bool login =
+          await authProvider.login(emailController.text, passController.text);
+      if (login) {
+        Navigator.pushReplacementNamed(
+            context, ListadoPuntosRecoleccionScreens.routeName);
+      } else {
+        setState(() {
+          errorOn = true;
+        });
+      }
+    } catch (error) {
+      if (kDebugMode) {
+        print(error);
+      }
+      setState(() {
+        errorOn = true;
+      });
     }
   }
 
@@ -76,7 +107,7 @@ class LoginScreenState extends State<LoginScreen> {
                                 maxWidth: 450, maxHeight: 400),
                             padding: const EdgeInsets.all(0),
                             decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.8),
+                                color: Colors.white.withOpacity(0.9),
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(10)),
                                 border: Border.all(
@@ -97,11 +128,27 @@ class LoginScreenState extends State<LoginScreen> {
                                       width: 167,
                                       height: 58,
                                     )),
+
+                                errorOn
+                                    ? Container(
+                                        width: double.infinity,
+                                        margin: const EdgeInsets.fromLTRB(
+                                            10, 10, 10, 0),
+                                        padding: const EdgeInsets.all(15),
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: Colors.red, width: 2)),
+                                        child: const Text(
+                                            'Usuario o contraseña no validos',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.red)))
+                                    : Container(),
                                 Padding(
                                     padding: const EdgeInsets.fromLTRB(
                                         10, 10, 10, 10),
                                     child: TextFormField(
-                                      autofocus: true,
+                                      // autofocus: true,
                                       focusNode: _emailFocusNode,
                                       keyboardType: TextInputType.emailAddress,
                                       textInputAction: TextInputAction.next,
@@ -150,7 +197,10 @@ class LoginScreenState extends State<LoginScreen> {
                                       : ElevatedButton(
                                           onPressed: () async {
                                             // login(emailController.text, passController.text
-                                            _formKey.currentState!.validate();
+                                            if (_formKey.currentState!
+                                                .validate()) {
+                                              _handleLogIn(context);
+                                            }
                                           },
                                           style: ElevatedButton.styleFrom(
                                             elevation: 3,
@@ -159,27 +209,27 @@ class LoginScreenState extends State<LoginScreen> {
                                           child: const Text('Entrar'),
                                         ),
                                 ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 0, 0, 10),
-                                  child: Row(children: [
-                                    const Text(
-                                      "¿No tienes usuario? ",
-                                      // style: const TextStyle(color: Colors.red),
-                                    ),
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.pushNamed(
-                                            context,
-                                            '/register',
-                                          );
-                                        },
-                                        child: Text('Crear nuevo usuario.',
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .primaryColor)))
-                                  ]),
-                                ),
+                                // Padding(
+                                //   padding:
+                                //       const EdgeInsets.fromLTRB(10, 0, 0, 10),
+                                //   child: Row(children: [
+                                //     const Text(
+                                //       "¿No tienes usuario? ",
+                                //       // style: const TextStyle(color: Colors.red),
+                                //     ),
+                                //     TextButton(
+                                //         onPressed: () {
+                                //           Navigator.pushNamed(
+                                //             context,
+                                //             RegistroScreen.routeName,
+                                //           );
+                                //         },
+                                //         child: Text('Crear nuevo usuario.',
+                                //             style: TextStyle(
+                                //                 color: Theme.of(context)
+                                //                     .primaryColor)))
+                                //   ]),
+                                // ),
                                 const Flexible(
                                     flex: 1,
                                     fit: FlexFit.loose,

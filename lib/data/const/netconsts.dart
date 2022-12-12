@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 class NetConts {
-  static const int REFRESH_TIME = 30;
+  static const int REFRESH_TIME = 60;
   static const String API_URL = "https://api.karaiguazu.com/";
   static const String API_BASIC_USER = "dev";
   static const String API_BASIC_PASS = "dev";
@@ -15,7 +15,7 @@ class NetConts {
   static const String API_URL_USUARIO_ROL = "${API_URL}rol/";
   static const String API_URL_VEHICULO = "${API_URL}vehiculo/";
 
-  static const String API_URL_USUARIO = "${API_URL}usuario/";
+  static const String API_URL_USUARIO = "${API_URL}usr/";
 
   static const String GOOGLE_URL_DIRECTIONS =
       "https://maps.googleapis.com/maps/api/directions/json";
@@ -42,7 +42,8 @@ class NetConts {
   }
 
   // Authentification API
-  static const String API_URL_AUTH_LOGIN = "$API_URL/login";
+  static const String API_URL_AUTH_LOGIN = "${API_URL}login/";
+  static const String API_URL_AUTH_MAIL = "${API_URL}mail/";
   static const String API_JWT_REFRESH = "${API_URL}tkn/";
   static const String API_JWT_VERIFY = "${API_URL}tkn/";
   static const String API_GOOGLE_CHECK_TOKEN = "${API_URL}glogin/";

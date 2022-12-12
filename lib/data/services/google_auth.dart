@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:get_it/get_it.dart';
 import 'package:sgrsoft/data/const/netconsts.dart';
-import 'package:sgrsoft/domain/models/auth/api_glogin.dart';
+import 'package:sgrsoft/domain/models/usuario.dart';
 import 'package:sgrsoft/domain/services/auth_provider.dart';
 import 'package:sgrsoft/domain/services/social_auth_provider.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -24,8 +24,14 @@ class GoogleAuth implements SocialAuthenticationProvider {
     try {
       final result = await _googleSignIn.signIn();
       final GoogleSignInAuthentication ggAuth = await result!.authentication;
-      // final auth = getIt<AuthenticationProvider>();
-      // await auth.createSession(await getToken(ggAuth.accessToken!));
+
+      if (ggAuth.accessToken == null) {
+        return false;
+      }
+      Map<String, dynamic> map = await apiConnect(ggAuth.accessToken!);
+      Usuario usuario = Usuario.fromJson(map["usuario"]);
+      final auth = getIt<AuthenticationProvider>();
+      await auth.createSession(map["sgrToken"], usuario);
       return true;
     } catch (error) {
       log("GoogleAuth: login: ${error.toString()}");
@@ -34,7 +40,7 @@ class GoogleAuth implements SocialAuthenticationProvider {
   }
 
   // Google get token
-  Future<String> getToken(String accessToken) async {
+  Future<Map<String, dynamic>> apiConnect(String accessToken) async {
     var headers = {'Accept': '*/*'};
 
     final response = await http.get(
@@ -42,13 +48,12 @@ class GoogleAuth implements SocialAuthenticationProvider {
         headers: headers);
 
     if (response.statusCode == 200) {
-      ApiGLogin apiGLogin =
-          ApiGLogin.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
-      return apiGLogin.sgrToken;
+      Map<String, dynamic> map = jsonDecode(response.body);
+      return map;
     } else {
       log("GoogleAuth: getToken: reasonPhrase: ${response.reasonPhrase.toString()}");
     }
 
-    return "accessToken";
+    return {};
   }
 }

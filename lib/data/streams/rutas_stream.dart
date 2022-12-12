@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:sgrsoft/data/const/netconsts.dart';
 import 'package:sgrsoft/data/repository/ruta_repository_imp.dart';
@@ -9,9 +10,9 @@ class StreamListadoRutas {
   late Timer _timer;
   bool _timerStarted = false;
   bool _refresh = false;
-  List<Ruta> rutas = [];
+  List<Ruta> _rutas = [];
 
-  get puntos => rutas;
+  get rutas => _rutas;
 
   final _streamController = StreamController<List<Ruta>>.broadcast();
   get stream => _streamController.stream;
@@ -36,9 +37,13 @@ class StreamListadoRutas {
   void refresh() async {
     if (!_refresh) {
       _refresh = true;
-      rutas = await _rutaRespository.getList();
-      _streamController.sink.add(rutas);
-      _refresh = false;
+      try {
+        _rutas = await _rutaRespository.getList();
+        _streamController.sink.add(_rutas);
+        _refresh = false;
+      } catch (e) {
+        log("Error en StreamListadoRutas.refresh: $e");
+      }
     }
   }
 
