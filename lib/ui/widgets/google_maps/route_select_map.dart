@@ -1,8 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:flutter/foundation.dart'
-    show Factory, Uint8List, kDebugMode, kIsWeb;
+import 'package:flutter/foundation.dart' show Factory, Uint8List, kIsWeb;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
