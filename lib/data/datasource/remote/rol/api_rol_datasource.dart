@@ -17,8 +17,11 @@ class ApiRolDataSource extends RemoteRolDataSource {
   @override
   Future<List<Rol>> getList() async {
     List<Rol> ndb = [];
-    var response = await http.get(Uri.parse(url),
-        headers: {'Accept': '*/*', 'Authorization': basicAuth});
+    var response = await http.get(Uri.parse(url), headers: {
+      'Accept': '*/*',
+      'Authorization': basicAuth,
+      'Access-Control-Allow-Origin': '*'
+    });
     if (response.statusCode == 200) {
       (jsonDecode(utf8.decode(response.bodyBytes))).forEach((element) {
         ndb.add(Rol.fromJson(element));
@@ -78,7 +81,8 @@ class ApiRolDataSource extends RemoteRolDataSource {
     var headers = {
       'Authorization': basicAuth,
       'Content-Type': 'application/json',
-      'Accept': '*/*'
+      'Accept': '*/*',
+      'Access-Control-Allow-Origin': '*'
     };
     var response = await http.post(Uri.parse(url),
         headers: headers, body: jsonEncode(rol.toJson()));
@@ -128,7 +132,8 @@ class ApiRolDataSource extends RemoteRolDataSource {
     var headers = {
       'Authorization': basicAuth,
       'Content-Type': 'application/json',
-      'Accept': '*/*'
+      'Accept': '*/*',
+      'Access-Control-Allow-Origin': '*'
     };
     var response = await http.put(Uri.parse(url),
         headers: headers, body: jsonEncode(rol.toJson()));

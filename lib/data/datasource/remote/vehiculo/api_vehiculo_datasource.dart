@@ -18,8 +18,11 @@ class ApiVehiculoDataSource extends RemoteVehiculoDataSource {
   @override
   Future<List<Vehiculo>> getList() async {
     List<Vehiculo> ndb = [];
-    var response = await http.get(Uri.parse(url),
-        headers: {'Accept': '*/*', 'Authorization': basicAuth});
+    var response = await http.get(Uri.parse(url), headers: {
+      'Accept': '*/*',
+      'Access-Control-Allow-Origin': '*',
+      'Authorization': basicAuth
+    });
     if (response.statusCode == 200) {
       (jsonDecode(utf8.decode(response.bodyBytes))).forEach((element) {
         ndb.add(Vehiculo.fromJson(element));

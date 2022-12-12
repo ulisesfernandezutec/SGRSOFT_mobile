@@ -23,8 +23,11 @@ class ApiUsuarioDataSource extends RemoteUsuarioDataSource {
   Future<List<Usuario>> getList() async {
     String? authString = await authProvider.getAccessToken();
     List<Usuario> ndb = [];
-    var response = await http.get(Uri.parse(url),
-        headers: {'Accept': '*/*', 'Authorization': authString ?? ''});
+    var response = await http.get(Uri.parse(url), headers: {
+      'Accept': '*/*',
+      'Access-Control-Allow-Origin': '*',
+      'Authorization': authString ?? ''
+    });
     if (response.statusCode == 200) {
       (jsonDecode(utf8.decode(response.bodyBytes))).forEach((element) {
         ndb.add(Usuario.fromJson(element));
