@@ -104,7 +104,7 @@ class _ListadoPuntosRecoleccionState
                           spacing: 5,
                           runSpacing: 5,
                           children: <Widget>[
-                            for (final punto in state.puntosRecoleccion ?? [])
+                            for (final punto in state.puntosRecoleccion)
                               TarjetaPuntoRecoleccion(puntoRecoleccion: punto)
                           ],
                         );

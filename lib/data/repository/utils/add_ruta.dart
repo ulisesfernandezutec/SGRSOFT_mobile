@@ -25,6 +25,6 @@ class AddRutaRepository {
   }
 
   void clear() {
-    _ruta = Ruta(puntos: []);
+    _ruta = Ruta(puntos: const []);
   }
 }

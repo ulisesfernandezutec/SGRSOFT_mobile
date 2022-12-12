@@ -12,9 +12,7 @@ class ImageStore {
 
   static const markerIcon = BitmapDescriptor.defaultMarker;
 
-  static Future<Uint8List> getBytesFromAsset(
-      String path, int width, BuildContext context) async {
-    // double pixelRatio = MediaQuery.of(context).devicePixelRatio;
+  static Future<Uint8List> getBytesFromAsset(String path, int width) async {
     double pixelRatio = ui.window.devicePixelRatio;
     ByteData data = await rootBundle.load(path);
     ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),

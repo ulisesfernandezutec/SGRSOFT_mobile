@@ -57,9 +57,9 @@ class GoogleMapsShowAllPositionsState
     isUpdate = true;
   }
 
-  Future<void> _setMarkerSelectIcon(BuildContext context) async {
+  Future<void> _setMarkerSelectIcon() async {
     final Uint8List icon = await ImageStore.getBytesFromAsset(
-        'assets/images/iconos/bandera_$imgPlatform.png', 36, context);
+        'assets/images/iconos/bandera_$imgPlatform.png', 36);
     final markerIcon = BitmapDescriptor.fromBytes(icon);
     setState(() {
       loading = false;
@@ -67,11 +67,11 @@ class GoogleMapsShowAllPositionsState
     });
   }
 
-  Future<void> _setMarkerIcon(BuildContext context) async {
+  Future<void> _setMarkerIcon() async {
     // final Uint8List icon = await ImageStore.getBytesFromAsset(
     //     'assets/images/iconos/marker_$imgPlatform.png', 36, context);
     final Uint8List icon = await ImageStore.getBytesFromAsset(
-        'assets/images/iconos/pin_$imgPlatform.png', 36, context);
+        'assets/images/iconos/pin_$imgPlatform.png', 36);
     final markerIcon = BitmapDescriptor.fromBytes(icon);
     setState(() {
       // loading = false;
@@ -82,8 +82,8 @@ class GoogleMapsShowAllPositionsState
   @override
   void initState() {
     super.initState();
-    _setMarkerIcon(context);
-    _setMarkerSelectIcon(context);
+    _setMarkerIcon();
+    _setMarkerSelectIcon();
   }
 
   @override

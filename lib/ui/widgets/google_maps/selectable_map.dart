@@ -53,7 +53,7 @@ class GoogleSelectableMapState extends State<GoogleSelectableMap> {
     //     const ImageConfiguration(devicePixelRatio: 1, size: Size(24, 24)),
     //     'assets/images/iconos/marker_$imgPlatform.png');
     final Uint8List icon = await ImageStore.getBytesFromAsset(
-        'assets/images/iconos/marker_$imgPlatform.png', 24, context);
+        'assets/images/iconos/marker_$imgPlatform.png', 24);
     final markerIcon = BitmapDescriptor.fromBytes(icon);
     setState(() {
       loading = false;
