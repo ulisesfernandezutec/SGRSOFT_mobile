@@ -58,7 +58,8 @@ class ApiPuntoDisposicionFinalDataSource
     var headers = {
       'Authorization': basicAuth,
       'Content-Type': 'application/json',
-      'Accept': '*/*'
+      'Accept': '*/*',
+      'Access-Control-Allow-Origin': '*'
     };
     var response = await http.post(Uri.parse(url),
         headers: headers, body: jsonEncode(puntoDisposicionFinal.toJson()));
@@ -109,7 +110,8 @@ class ApiPuntoDisposicionFinalDataSource
     var headers = {
       'Authorization': basicAuth,
       'Content-Type': 'application/json',
-      'Accept': '*/*'
+      'Accept': '*/*',
+      'Access-Control-Allow-Origin': '*'
     };
     var response = await http.put(Uri.parse(url),
         headers: headers, body: jsonEncode(puntoDisposicionFinal.toJson()));
