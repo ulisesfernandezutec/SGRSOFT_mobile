@@ -85,53 +85,53 @@ class GoogleSelectRouteMapState extends State<GoogleSelectRouteMap> {
     isUpdate = true;
   }
 
-  Future<void> _setMarkerInRouteIcon(BuildContext context) async {
+  Future<BitmapDescriptor> _setMarkerInRouteIcon() async {
     final Uint8List icon = await ImageStore.getBytesFromAsset(
-        'assets/images/iconos/trash_in_route_$imgPlatform.png', 24, context);
+        'assets/images/iconos/trash_in_route_$imgPlatform.png', 24);
     final markerIcon = BitmapDescriptor.fromBytes(icon);
-    setState(() {
-      loading = false;
-      _trashInRouteIcon = markerIcon;
-    });
+    return markerIcon;
   }
 
-  Future<void> _setMarkerStartIcon(BuildContext context) async {
+  Future<BitmapDescriptor> _setMarkerStartIcon() async {
     final Uint8List icon = await ImageStore.getBytesFromAsset(
-        'assets/images/iconos/start_$imgPlatform.png', 24, context);
+        'assets/images/iconos/start_$imgPlatform.png', 24);
     final markerIcon = BitmapDescriptor.fromBytes(icon);
-    setState(() {
-      loading = false;
-      _trashStartIcon = markerIcon;
-    });
+    return markerIcon;
   }
 
-  Future<void> _setMarkerEndIcon(BuildContext context) async {
+  Future<BitmapDescriptor> _setMarkerEndIcon() async {
     final Uint8List icon = await ImageStore.getBytesFromAsset(
-        'assets/images/iconos/end_$imgPlatform.png', 24, context);
+        'assets/images/iconos/end_$imgPlatform.png', 24);
     final markerIcon = BitmapDescriptor.fromBytes(icon);
-    setState(() {
-      loading = false;
-      _trashEndIcon = markerIcon;
-    });
+    return markerIcon;
   }
 
-  Future<void> _setMarkerTrashIcon(BuildContext context) async {
+  Future<BitmapDescriptor> _setMarkerTrashIcon() async {
     final Uint8List icon = await ImageStore.getBytesFromAsset(
-        'assets/images/iconos/trash_$imgPlatform.png', 24, context);
+        'assets/images/iconos/trash_$imgPlatform.png', 24);
     final markerIcon = BitmapDescriptor.fromBytes(icon);
+    return markerIcon;
+  }
+
+  Future<void> _setAllMarkerIcons(BuildContext context) async {
+    BitmapDescriptor trashIcon = await _setMarkerTrashIcon();
+    BitmapDescriptor trashInRouteIcon = await _setMarkerInRouteIcon();
+    BitmapDescriptor trashStartIcon = await _setMarkerStartIcon();
+    BitmapDescriptor trashEndIcon = await _setMarkerEndIcon();
+
     setState(() {
+      _trashEndIcon = trashEndIcon;
+      _trashIcon = trashIcon;
+      _trashInRouteIcon = trashInRouteIcon;
+      _trashStartIcon = trashStartIcon;
       loading = false;
-      _trashIcon = markerIcon;
     });
   }
 
   @override
   void initState() {
     super.initState();
-    _setMarkerTrashIcon(context);
-    _setMarkerInRouteIcon(context);
-    _setMarkerStartIcon(context);
-    _setMarkerEndIcon(context);
+    _setAllMarkerIcons(context);
   }
 
   @override
