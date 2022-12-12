@@ -2,6 +2,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
+import 'package:sgrsoft/data/repository/ruta_repository_imp.dart';
 import 'package:sgrsoft/data/streams/rutas_stream.dart';
 import 'package:sgrsoft/domain/models/ruta.dart';
 
@@ -12,6 +13,7 @@ final getIt = GetIt.instance;
 
 class ListadoRutaBloc extends Bloc<ListadoRutaEvent, ListadoRutaState> {
   final StreamListadoRutas _streamListadoRutas = getIt();
+  final RutaRepository _rutaRepository = getIt<RutaRepository>();
 
   String _search = '';
   get getSearch => _search;
@@ -20,10 +22,6 @@ class ListadoRutaBloc extends Bloc<ListadoRutaEvent, ListadoRutaState> {
 
   ListadoRutaBloc() : super(ListadoRutaInitial()) {
     on<LoadListadoRutaEvent>((event, emit) async {
-      _streamListadoRutas.timerStart();
-      if (event.search.isNotEmpty) {
-        _streamListadoRutas.refresh();
-      }
       await _getRutas(event: event, emit: emit);
     });
     on<FiltedListadoRutaEvent>((event, emit) async {
@@ -36,6 +34,10 @@ class ListadoRutaBloc extends Bloc<ListadoRutaEvent, ListadoRutaState> {
   Future<void> _getRutas(
       {required LoadListadoRutaEvent event,
       required Emitter<ListadoRutaState> emit}) async {
+    emit(ListadoRutaInitial());
+    _filtered = searchFilter(await _streamListadoRutas.rutas, _search);
+    emit(ListadoRutaSuccess(rutas: _filtered, search: _search));
+
     await emit.forEach(_streamListadoRutas.stream, onData: (List<Ruta> rutas) {
       _rutas = rutas;
       _filtered = searchFilter(rutas, _search);

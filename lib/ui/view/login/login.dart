@@ -7,7 +7,6 @@ import 'package:sgrsoft/domain/services/social_auth_provider.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/listado.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:sgrsoft/ui/view/registro/registro.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -20,6 +19,7 @@ class LoginScreen extends StatefulWidget {
 
 class LoginScreenState extends State<LoginScreen> {
   bool isLogin = false;
+  bool errorOn = false;
 
   final emailController = TextEditingController();
   final passController = TextEditingController();
@@ -49,18 +49,27 @@ class LoginScreenState extends State<LoginScreen> {
 
   Future<void> _handleLogIn(context) async {
     try {
+      // setState(() {
+      //   errorOn = false;
+      // });
       AuthenticationProvider authProvider = getIt();
       bool login =
           await authProvider.login(emailController.text, passController.text);
-
       if (login) {
         Navigator.pushReplacementNamed(
             context, ListadoPuntosRecoleccionScreens.routeName);
+      } else {
+        setState(() {
+          errorOn = true;
+        });
       }
     } catch (error) {
       if (kDebugMode) {
         print(error);
       }
+      setState(() {
+        errorOn = true;
+      });
     }
   }
 
@@ -119,6 +128,22 @@ class LoginScreenState extends State<LoginScreen> {
                                       width: 167,
                                       height: 58,
                                     )),
+
+                                errorOn
+                                    ? Container(
+                                        width: double.infinity,
+                                        margin: const EdgeInsets.fromLTRB(
+                                            10, 10, 10, 0),
+                                        padding: const EdgeInsets.all(15),
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: Colors.red, width: 2)),
+                                        child: const Text(
+                                            'Usuario o contraseña no validos',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.red)))
+                                    : Container(),
                                 Padding(
                                     padding: const EdgeInsets.fromLTRB(
                                         10, 10, 10, 10),

@@ -11,12 +11,11 @@ class StreamListadoPuntosRecoleccion {
   late Timer _timer;
   bool _timerStarted = false;
   bool _refresh = false;
-  bool _firstLoad = false;
+
   SearchPuntosRecoleccionObject _filter = SearchPuntosRecoleccionObject();
   List<PuntoRecoleccion> puntosRecoleccion = [];
 
   get puntos => puntosRecoleccion;
-  get firstLoad => _firstLoad;
 
   final _streamController =
       StreamController<List<PuntoRecoleccion>>.broadcast();
@@ -45,11 +44,7 @@ class StreamListadoPuntosRecoleccion {
       try {
         puntosRecoleccion =
             await _puntoRecoleccionRespository.getList(search: _filter);
-
         _streamController.sink.add(puntosRecoleccion);
-        if (!_firstLoad) {
-          _firstLoad = true;
-        }
       } catch (e) {
         log("Error en StreamListadoPuntosRecoleccion.refresh: $e");
       }

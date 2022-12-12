@@ -6,6 +6,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
+import 'package:sgrsoft/data/repository/puntos_recoleccion_repository_imp.dart';
 import 'package:sgrsoft/data/repository/tipos_residuos.dart';
 import 'package:sgrsoft/data/streams/puntos_recoleccion_stream.dart';
 import 'package:sgrsoft/domain/models/punto_recoleccion.dart';
@@ -29,11 +30,11 @@ class ListadoPuntosRecoleccionBloc
   List<PuntoRecoleccion> _puntos = <PuntoRecoleccion>[];
   final TiposDeResiduosRepository _tiposDeResiduosRepository =
       getIt<TiposDeResiduosRepository>();
+  final PuntosRecoleccionRepository _puntosRecoleccionRepository = getIt();
 
   ListadoPuntosRecoleccionBloc()
       : super(ListadoInitialPuntosRecoleccionState()) {
     on<LoadListadoPuntosRecoleccionEvent>((event, emit) async {
-      // _streamListadoPuntosRecoleccion.refresh();
       await _getPuntos(event: event, emit: emit);
     });
     on<FiltedListadoPuntosRecoleccionEvent>((event, emit) async {
@@ -48,54 +49,21 @@ class ListadoPuntosRecoleccionBloc
       {required ListadoPuntosRecoleccionEvent event,
       required Emitter<ListadoPuntosRecoleccionState> emit}) async {
     List<TipoDeResiduo> tipos = await _tiposDeResiduosRepository.getList();
-    if (_streamListadoPuntosRecoleccion.firstLoad!) {
-      emit(ListadoLoadingPuntosRecoleccionState());
-    } else {
-      _filtered = searchFilter(
-          _streamListadoPuntosRecoleccion.puntosRecoleccion, objSearch);
-      emit(ListadoSuccessPuntosRecoleccionState(
-          puntosRecoleccion: _filtered,
-          search: objSearch,
-          tiposResiduo: tipos));
-    }
+
+    emit(ListadoLoadingPuntosRecoleccionState());
+    _filtered =
+        searchFilter(await _streamListadoPuntosRecoleccion.puntos, objSearch);
+    emit(ListadoSuccessPuntosRecoleccionState(
+        puntosRecoleccion: _filtered, search: objSearch, tiposResiduo: tipos));
 
     await emit.forEach(_streamListadoPuntosRecoleccion.stream,
         onData: (List<PuntoRecoleccion> puntos) {
       _puntos = puntos;
-      // log('_getPuntos 2');
       _filtered = searchFilter(puntos, objSearch);
 
       return ListadoSuccessPuntosRecoleccionState(
           puntosRecoleccion: _filtered, search: objSearch, tiposResiduo: tipos);
     });
-    // .catchError((error) {
-    //   log('_getPuntos $error');
-    //   emit(ListadoErrorPuntosRecoleccionState(
-    //       error: "Error al cargar los puntos de recolección"));
-    // }
-    // );
-
-    // _streamListadoPuntosRecoleccion.stream.listen((event) async {
-    //   if (event != null) {
-    //     _puntos = event;
-    //     _filtered = searchFilter(event, objSearch);
-    //     emit(ListadoSuccessPuntosRecoleccionState(
-    //         puntosRecoleccion: _filtered,
-    //         search: objSearch,
-    //         tiposResiduo: tipos));
-    //   }
-    // }
-    // );
-
-    // await emit.forEach(_streamListadoPuntosRecoleccion.stream,
-    //     onData: (List<PuntoRecoleccion> puntos) {
-    //   _puntos = puntos;
-    //   _filtered = searchFilter(puntos, objSearch);
-
-    //   return (ListadoSuccessPuntosRecoleccionState(
-    //       puntosRecoleccion: _filtered, search: objSearch));
-    // }).catchError((error) => emit(ListadoErrorPuntosRecoleccionState(
-    //     error: "Error al cargar los puntos de recolección")));
   }
 
   Future<void> _filterPuntos(
