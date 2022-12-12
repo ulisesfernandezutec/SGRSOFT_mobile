@@ -60,7 +60,8 @@ class JWTAuthentication implements AuthenticationProvider {
     var headers = {
       'Authorization': access,
       'Content-Type': 'application/json',
-      'Accept': '*/*'
+      'Accept': '*/*',
+      'Access-Control-Allow-Origin': '*'
     };
 
     final response = await http.post(
@@ -88,7 +89,11 @@ class JWTAuthentication implements AuthenticationProvider {
   Future<bool> login(String username, String password) async {
     UsuarioRepository usuarioRepository = getIt.get();
     final encript = Encriptrar();
-    var headers = {'Content-Type': 'application/json', 'Accept': '*/*'};
+    var headers = {
+      'Content-Type': 'application/json',
+      'Accept': '*/*',
+      'Access-Control-Allow-Origin': '*'
+    };
     final response = await http.post(Uri.parse(NetConts.API_URL_AUTH_LOGIN),
         headers: headers,
         body:
