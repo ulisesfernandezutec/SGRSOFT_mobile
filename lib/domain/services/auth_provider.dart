@@ -1,9 +1,12 @@
+import '../models/usuario.dart';
+
 abstract class AuthenticationProvider {
   Future<bool> login(String username, String password);
   Future<bool> logout();
-  Future<bool> createSession(String token);
-  Future<String> getRefreshToken();
-  Future<String> getAccessToken();
+  Future<bool> createSession(String token, Usuario? usuario);
+  Future<Usuario?> getUsuario();
+  Future<String?> getRefreshToken();
+  Future<String?> getAccessToken();
 
   // Future<bool> register(String username, String password);
   // Future<bool> changePassword(String oldPassword, String newPassword);

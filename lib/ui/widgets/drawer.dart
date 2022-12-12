@@ -10,6 +10,7 @@ import 'package:sgrsoft/ui/view/rol/listado/listado.dart';
 import 'package:sgrsoft/ui/view/ruta/listado/listado.dart';
 import 'package:sgrsoft/ui/view/test/route_optimize.dart';
 import 'package:sgrsoft/ui/view/tipo_de_residuo/listado/listado.dart';
+import 'package:sgrsoft/ui/view/usuario/listado/listado.dart';
 import 'package:sgrsoft/ui/view/vehiculo/listado/listado.dart';
 
 Drawer appDrawer(BuildContext context) {
@@ -81,7 +82,9 @@ Drawer appDrawer(BuildContext context) {
         ListTile(
           leading: const Icon(Icons.people_alt_outlined),
           title: const Text('Usuarios'),
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, ListadoUsuarioScreen.routeName);
+          },
         ),
         ListTile(
           leading: const Icon(Icons.settings_outlined),

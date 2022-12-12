@@ -1,24 +1,30 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:get_it/get_it.dart';
 import 'package:sgrsoft/data/const/netconsts.dart';
 import 'package:sgrsoft/data/datasource/remote/usuario/remote.dart';
 import 'package:sgrsoft/domain/models/usuario.dart';
 import 'package:http/http.dart' as http;
+import 'package:sgrsoft/domain/services/auth_provider.dart';
+
+GetIt getIt = GetIt.instance;
 
 class ApiUsuarioDataSource extends RemoteUsuarioDataSource {
   List<Usuario> db;
 
-  String basicAuth = NetConts().getBasicAuth();
-  String url = NetConts.API_URL_VEHICULO;
+  AuthenticationProvider authProvider = getIt();
+
+  String url = NetConts.API_URL_USUARIO;
 
   ApiUsuarioDataSource({required this.db});
 
   @override
   Future<List<Usuario>> getList() async {
+    String? authString = await authProvider.getAccessToken();
     List<Usuario> ndb = [];
     var response = await http.get(Uri.parse(url),
-        headers: {'Accept': '*/*', 'Authorization': basicAuth});
+        headers: {'Accept': '*/*', 'Authorization': authString ?? ''});
     if (response.statusCode == 200) {
       (jsonDecode(utf8.decode(response.bodyBytes))).forEach((element) {
         ndb.add(Usuario.fromJson(element));
@@ -70,6 +76,7 @@ class ApiUsuarioDataSource extends RemoteUsuarioDataSource {
 
   @override
   Future<bool> add(Usuario usuario) async {
+    String? authString = await authProvider.getAccessToken();
     var json = usuario.toJson();
 
     if (kDebugMode) {
@@ -77,7 +84,7 @@ class ApiUsuarioDataSource extends RemoteUsuarioDataSource {
     }
 
     var headers = {
-      'Authorization': basicAuth,
+      'Authorization': authString ?? '',
       'Content-Type': 'application/json',
       'Accept': '*/*'
     };
@@ -103,9 +110,10 @@ class ApiUsuarioDataSource extends RemoteUsuarioDataSource {
 
   @override
   Future<bool> delete(Usuario usuario) async {
+    String? authString = await authProvider.getAccessToken();
     try {
       var response = await http.delete(Uri.parse(url + usuario.id.toString()),
-          headers: {'Authorization': basicAuth});
+          headers: {'Authorization': authString ?? ''});
       if (response.statusCode == 200) {
         db.remove(usuario);
         return true;
@@ -120,6 +128,7 @@ class ApiUsuarioDataSource extends RemoteUsuarioDataSource {
 
   @override
   Future<bool> update(Usuario usuario) async {
+    String? authString = await authProvider.getAccessToken();
     var json = usuario.toJson();
 
     if (kDebugMode) {
@@ -127,7 +136,7 @@ class ApiUsuarioDataSource extends RemoteUsuarioDataSource {
     }
 
     var headers = {
-      'Authorization': basicAuth,
+      'Authorization': authString ?? '',
       'Content-Type': 'application/json',
       'Accept': '*/*'
     };

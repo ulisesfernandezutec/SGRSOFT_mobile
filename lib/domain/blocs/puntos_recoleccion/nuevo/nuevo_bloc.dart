@@ -14,6 +14,8 @@ import 'package:sgrsoft/data/streams/puntos_recoleccion_stream.dart';
 import 'package:sgrsoft/device/dev_geolocator.dart';
 import 'package:sgrsoft/domain/models/punto_recoleccion.dart';
 import 'package:sgrsoft/domain/models/tipo_residuo.dart';
+import 'package:sgrsoft/domain/models/usuario.dart';
+import 'package:sgrsoft/domain/services/auth_provider.dart';
 
 part 'nuevo_event.dart';
 part 'nuevo_state.dart';
@@ -24,6 +26,7 @@ class NuevoPuntoRecoleccionBloc
     extends Bloc<NuevoPuntoRecoleccionEvent, NuevoPuntoRecoleccionState> {
   final PuntosRecoleccionRepository _puntoRecoleccionRespository = getIt();
   final TiposDeResiduosRepository _tiposDeResiduosRepository = getIt();
+  final AuthenticationProvider _authenticationProvider = getIt();
 
   PuntoRecoleccion puntoRecoleccion = PuntoRecoleccion(
       id: 0,
@@ -31,6 +34,7 @@ class NuevoPuntoRecoleccionBloc
       longitud: 0,
       direccion: '',
       descripcion: '',
+      usuario: 0,
       tipo: TipoDeResiduo(id: 0, nombre: ''));
 
   List<TipoDeResiduo> tiposDeResiduos = [];
@@ -44,8 +48,9 @@ class NuevoPuntoRecoleccionBloc
                 longitud: 0,
                 direccion: '',
                 descripcion: '',
+                usuario: 0,
                 tipo: TipoDeResiduo(id: 0, nombre: '')))) {
-    on<NuevoPuntoRecoleccionEventSave>((event, emit) {
+    on<NuevoPuntoRecoleccionEventSave>((event, emit) async {
       emit(NuevoPuntoRecoleccionLoading(
           tiposDeResiduos: tiposDeResiduos,
           puntoRecoleccion: puntoRecoleccion));
@@ -74,18 +79,14 @@ class NuevoPuntoRecoleccionBloc
           tiposDeResiduos: await _tiposDeResiduosRepository.getList()));
     });
     on<NuevoPuntoRecoleccionEventSelectPoint>((event, emit) async {
-      // puntoRecoleccion = event.punto;
-      print(puntoRecoleccion.toJson().toString());
-      print(event.punto.toJson().toString());
-      print(event.latitud.toString());
-      print(event.longitud.toString());
       puntoRecoleccion = PuntoRecoleccion(
           id: puntoRecoleccion.id,
           descripcion: puntoRecoleccion.descripcion,
           direccion: puntoRecoleccion.direccion,
           latitud: event.latitud,
           longitud: event.longitud,
-          tipo: puntoRecoleccion.tipo);
+          tipo: puntoRecoleccion.tipo,
+          usuario: puntoRecoleccion.usuario);
 
       emit(NuevoPuntoRecoleccionMapa(
           puntoRecoleccion: puntoRecoleccion, tiposDeResiduos: const []));
@@ -94,13 +95,15 @@ class NuevoPuntoRecoleccionBloc
       emit(NuevoPuntoRecoleccionLoading(
           tiposDeResiduos: tiposDeResiduos,
           puntoRecoleccion: puntoRecoleccion));
+      Usuario? usuario = await _authenticationProvider.getUsuario();
       puntoRecoleccion = PuntoRecoleccion(
-          id: 0,
-          latitud: 0,
-          longitud: 0,
-          direccion: '',
-          descripcion: '',
-          tipo: TipoDeResiduo(id: 0, nombre: ''));
+          id: puntoRecoleccion.id,
+          descripcion: puntoRecoleccion.descripcion,
+          direccion: puntoRecoleccion.direccion,
+          latitud: puntoRecoleccion.latitud,
+          longitud: puntoRecoleccion.longitud,
+          tipo: puntoRecoleccion.tipo,
+          usuario: usuario?.id ?? 0);
       tiposDeResiduos = await _tiposDeResiduosRepository.getList();
       emit(NuevoPuntoRecoleccionDatos(
           puntoRecoleccion: puntoRecoleccion,
@@ -116,7 +119,8 @@ class NuevoPuntoRecoleccionBloc
           longitud: puntoRecoleccion.longitud,
           direccion: puntoRecoleccion.direccion,
           descripcion: puntoRecoleccion.descripcion,
-          tipo: tipo);
+          tipo: tipo,
+          usuario: puntoRecoleccion.usuario);
       puntoRecoleccion = punto;
       emit(NuevoPuntoRecoleccionDatos(
           puntoRecoleccion: punto, tiposDeResiduos: tiposDeResiduos));
@@ -148,7 +152,8 @@ class NuevoPuntoRecoleccionBloc
         descripcion: descripcion,
         latitud: coordenadas.latitude,
         longitud: coordenadas.longitude,
-        id: 0);
+        id: 0,
+        usuario: puntoRecoleccion.usuario);
     puntoRecoleccion = punto;
 
     emit(NuevoPuntoRecoleccionMapa(

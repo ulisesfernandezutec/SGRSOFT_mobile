@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:sgrsoft/domain/services/auth_provider.dart';
 import 'package:sgrsoft/ui/asset_store/image_store.dart';
 
+GetIt getIt = GetIt.instance;
 // function con context como parametro
 AppBar appBar(BuildContext context) {
   return AppBar(
     title: ImageStore().logo,
+    actions: [
+      IconButton(
+          onPressed: () {
+            AuthenticationProvider auth = getIt<AuthenticationProvider>();
+            auth.logout();
+            Navigator.pushNamed(context, '/login');
+          },
+          tooltip: 'Cerrar sesión',
+          icon: const Icon(Icons.logout_outlined)),
+    ],
     // actions: <Widget>[
     //   IconButton(
     //     icon: const Icon(Icons.add_alert),

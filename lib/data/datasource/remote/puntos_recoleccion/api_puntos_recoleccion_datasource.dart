@@ -6,6 +6,7 @@ import 'package:sgrsoft/data/datasource/remote/puntos_recoleccion/remote.dart';
 import 'package:sgrsoft/domain/models/punto_recoleccion.dart';
 import 'package:http/http.dart' as http;
 import 'package:sgrsoft/domain/models/punto_recoleccion_estado.dart';
+import 'package:sgrsoft/domain/models/utils/search_puntos_recoleccion.dart';
 
 class ApiPuntosRecoleccionDataSource extends RemotePuntosRecoleccionDataSource {
   List<PuntoRecoleccion> db = [];
@@ -16,7 +17,8 @@ class ApiPuntosRecoleccionDataSource extends RemotePuntosRecoleccionDataSource {
   ApiPuntosRecoleccionDataSource({required this.db});
 
   @override
-  Future<List<PuntoRecoleccion>> getList() async {
+  Future<List<PuntoRecoleccion>> getList(
+      SearchPuntosRecoleccionObject? search) async {
     List<PuntoRecoleccion> ndb = [];
     var response = await http.get(Uri.parse(url),
         headers: {'Accept': '*/*', 'Authorization': basicAuth});
@@ -44,19 +46,6 @@ class ApiPuntosRecoleccionDataSource extends RemotePuntosRecoleccionDataSource {
     } else {
       throw Exception("No existen puntos de recolección para consultar");
     }
-    // try {
-    //   var response = await http.get(Uri.parse(url + id.toString()),
-    //       headers: {'Authorization': basicAuth});
-    //   if (response.statusCode == 200) {
-    //     return PuntoRecoleccion.fromJson(
-    //         jsonDecode(utf8.decode(response.bodyBytes)));
-    //   } else {
-    //     throw Exception(
-    //         'Falla al traer la informacion para el tipo ${id.toString()}');
-    //   }
-    // } catch (e) {
-    //   throw Exception("No se encontró el tipo de residuo. ${e.toString()}");
-    // }
   }
 
   @override

@@ -27,7 +27,7 @@ Future<void> initializeDI() async {
 }
 
 void auth() async {
-  _l.registerLazySingleton<AuthenticationProvider>(() => Auth());
+  _l.registerSingleton<AuthenticationProvider>(JWTAuthentication());
 }
 
 void data() async {

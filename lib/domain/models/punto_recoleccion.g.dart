@@ -14,6 +14,7 @@ PuntoRecoleccion _$PuntoRecoleccionFromJson(Map<String, dynamic> json) =>
       direccion: json['direccion'] as String,
       descripcion: json['descripcion'] as String,
       enRuta: json['en_ruta'] as bool?,
+      usuario: json['usuario'] as int,
       tipo: TipoDeResiduo.fromJson(json['tipo'] as Map<String, dynamic>),
       estados: (json['estados'] as List<dynamic>?)
           ?.map(
@@ -30,5 +31,6 @@ Map<String, dynamic> _$PuntoRecoleccionToJson(PuntoRecoleccion instance) =>
       'descripcion': instance.descripcion,
       'en_ruta': instance.enRuta,
       'tipo': instance.tipo.toJson(),
+      'usuario': instance.usuario,
       'estados': instance.estados?.map((e) => e.toJson()).toList(),
     };

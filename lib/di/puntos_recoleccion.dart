@@ -1,7 +1,4 @@
 import 'package:get_it/get_it.dart';
-import 'package:sgrsoft/data/datasource/local/puntos_recoleccion/local.dart';
-import 'package:sgrsoft/data/datasource/local/puntos_recoleccion/mock_puntos_recoleccion_datasource.dart';
-import 'package:sgrsoft/data/datasource/remote/puntos_recoleccion/api_puntos_recoleccion_datasource.dart';
 import 'package:sgrsoft/data/datasource/remote/puntos_recoleccion/mock_puntos_recoleccion_datasource.dart';
 import 'package:sgrsoft/data/datasource/remote/puntos_recoleccion/remote.dart';
 import 'package:sgrsoft/data/repository/puntos_recoleccion_repository_imp.dart';
@@ -18,6 +15,7 @@ void puntosRecoleccionGetIt(GetIt gi) async {
         tipo: TipoDeResiduo(id: 1, nombre: 'Podas'),
         direccion: 'Juan Ortiz 228',
         descripcion: 'Se corto un paraiso muy grande',
+        usuario: 0,
         estados: [
           PuntoRecoleccionEstado(1, DateTime(2022, 10, 1), 1, 'Pendiente',
               'Pendiente de recoleccion')
@@ -29,6 +27,7 @@ void puntosRecoleccionGetIt(GetIt gi) async {
         tipo: TipoDeResiduo(id: 2, nombre: 'Residuos grandes'),
         direccion: 'Juan Ortiz 229',
         descripcion: 'Ropero de madera grande',
+        usuario: 0,
         estados: [
           PuntoRecoleccionEstado(1, DateTime(2022, 5, 13), 1, 'Pendiente',
               'Pendiente de recoleccion')
@@ -40,8 +39,9 @@ void puntosRecoleccionGetIt(GetIt gi) async {
         tipo: TipoDeResiduo(id: 2, nombre: 'Residuos grandes'),
         direccion: 'Juan Ortiz 2293',
         descripcion: 'Ropero de madera grande3',
+        usuario: 0,
         estados: [
-          PuntoRecoleccionEstado(1, DateTime(2022, 7, 4), 1, 'Pendiente3',
+          PuntoRecoleccionEstado(1, DateTime(2022, 7, 4), 1, 'Asignado',
               'Pendiente de recoleccion3')
         ]),
     PuntoRecoleccion(
@@ -51,8 +51,9 @@ void puntosRecoleccionGetIt(GetIt gi) async {
         tipo: TipoDeResiduo(id: 1, nombre: 'Podas'),
         direccion: 'Juan Ortiz 444',
         descripcion: '4',
+        usuario: 0,
         estados: [
-          PuntoRecoleccionEstado(1, DateTime(2022, 4, 4), 1, 'Pendiente4',
+          PuntoRecoleccionEstado(1, DateTime(2022, 4, 4), 1, 'Cancelado',
               'Pendiente de recoleccion4')
         ]),
     PuntoRecoleccion(
@@ -62,8 +63,9 @@ void puntosRecoleccionGetIt(GetIt gi) async {
         tipo: TipoDeResiduo(id: 1, nombre: 'Podas'),
         direccion: 'Plaza Independecia',
         descripcion: '4',
+        usuario: 0,
         estados: [
-          PuntoRecoleccionEstado(1, DateTime(2022, 4, 4), 1, 'Pendiente4',
+          PuntoRecoleccionEstado(1, DateTime(2022, 4, 4), 1, 'Completado',
               'Pendiente de recoleccion4')
         ]),
     PuntoRecoleccion(
@@ -73,8 +75,9 @@ void puntosRecoleccionGetIt(GetIt gi) async {
         tipo: TipoDeResiduo(id: 1, nombre: 'Podas'),
         direccion: 'Parque Batlle',
         descripcion: '4',
+        usuario: 0,
         estados: [
-          PuntoRecoleccionEstado(1, DateTime(2022, 4, 4), 1, 'Pendiente4',
+          PuntoRecoleccionEstado(1, DateTime(2022, 4, 4), 1, 'Pendiente',
               'Pendiente de recoleccion4')
         ]),
     PuntoRecoleccion(
@@ -84,8 +87,9 @@ void puntosRecoleccionGetIt(GetIt gi) async {
         tipo: TipoDeResiduo(id: 1, nombre: 'Podas'),
         direccion: 'Casmu',
         descripcion: '4',
+        usuario: 0,
         estados: [
-          PuntoRecoleccionEstado(1, DateTime(2022, 4, 4), 1, 'Pendiente4',
+          PuntoRecoleccionEstado(1, DateTime(2022, 4, 4), 1, 'Asignado',
               'Pendiente de recoleccion4')
         ]),
   ];
@@ -93,9 +97,7 @@ void puntosRecoleccionGetIt(GetIt gi) async {
   //     ApiPuntosRecoleccionDataSource(db: <PuntoRecoleccion>[]);
   RemotePuntosRecoleccionDataSource remotePuntosRecoleccionDataSource =
       MockPuntosRecoleccionDataSource(db: list);
-  LocalPuntosRecoleccionDataSource localPuntosRecoleccionDataSource =
-      MockLocalPuntosRecoleccionDataSource(db: list);
 
-  gi.registerSingleton<PuntosRecoleccionRepository>(PuntosRecoleccionRepository(
-      remotePuntosRecoleccionDataSource, localPuntosRecoleccionDataSource));
+  gi.registerSingleton<PuntosRecoleccionRepository>(
+      PuntosRecoleccionRepository(remote: remotePuntosRecoleccionDataSource));
 }
