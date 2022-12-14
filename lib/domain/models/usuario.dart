@@ -16,6 +16,7 @@ class Usuario {
   String? telefono;
   String? email;
   String? direccion;
+  String? estado;
 
   Usuario(
       {this.id,
@@ -25,7 +26,8 @@ class Usuario {
       this.telefono,
       this.email,
       this.direccion,
-      this.password});
+      this.password,
+      this.estado});
 
   factory Usuario.fromJson(Map<String, dynamic> json) =>
       _$UsuarioFromJson(json);

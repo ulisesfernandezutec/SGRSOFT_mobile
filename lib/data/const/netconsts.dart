@@ -28,7 +28,7 @@ class NetConts {
   static const String AZURE_SUBSCRIPTION_KEY =
       "UToIPMAkiSZd0hePC8WhUGK-d5HnWDheSB0H14jAkxU";
   static const String AZURE_BEST_ORDER =
-      "https://atlas.microsoft.com/route/directions/json?subscription-key=$AZURE_SUBSCRIPTION_KEY&api-version=1.0&travelMode=car&traffic=true&computeTravelTimeFor=all&computeBestOrder=true&routeType=shortest&RouteRepresentationForBestOrder=polyline&language=es-419&query=";
+      "https://atlas.microsoft.com/route/directions/json?subscription-key=$AZURE_SUBSCRIPTION_KEY&api-version=1.0&travelMode=car&traffic=true&computeTravelTimeFor=all&routeType=shortest&language=es-419";
 
   static String getGoogleAPIKey() {
     const String googleMapsApiKey = kIsWeb

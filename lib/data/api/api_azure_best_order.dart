@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:sgrsoft/data/const/netconsts.dart';
-import 'package:sgrsoft/domain/models/azure/optimized_waypoint.dart';
+import 'package:sgrsoft/domain/models/azure/azure_optimized_waypoint.dart';
 import 'package:sgrsoft/domain/models/ruta_punto.dart';
 import 'package:http/http.dart' as http;
 
@@ -28,12 +28,12 @@ class ApiAzureBestOrder {
     };
     var response = await http.get(Uri.parse(url + urlParams), headers: headers);
     if (response.statusCode == 200) {
-      List<OptimizedWaypoint> optimizedWaypoints = [];
+      List<AzureOptimizedWaypoint> optimizedWaypoints = [];
       (jsonDecode(response.body)["optimizedWaypoints"]).forEach((e) {
-        optimizedWaypoints.add(OptimizedWaypoint.fromJson(e));
+        optimizedWaypoints.add(AzureOptimizedWaypoint.fromJson(e));
       });
 
-      for (OptimizedWaypoint m in optimizedWaypoints) {
+      for (AzureOptimizedWaypoint m in optimizedWaypoints) {
         optimizado[m.optimizedIndex] = optimizado2[m.providedIndex];
       }
       // optimizado.insert(0, start);
