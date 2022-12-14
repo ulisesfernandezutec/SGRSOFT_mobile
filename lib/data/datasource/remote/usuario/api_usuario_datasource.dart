@@ -161,4 +161,16 @@ class ApiUsuarioDataSource extends RemoteUsuarioDataSource {
       return false;
     }
   }
+
+  @override
+  Future<bool> registrar(Usuario usuario) async {
+    var headers = {'Content-Type': 'application/json', 'Accept': '*/*'};
+    var response = await http.post(Uri.parse(NetConts.API_URL_AUTH_REGISTRO),
+        headers: headers, body: jsonEncode(usuario.toJson()));
+    if (response.statusCode == 200) {
+      return Future.value(true);
+    } else {
+      return Future.value(false);
+    }
+  }
 }

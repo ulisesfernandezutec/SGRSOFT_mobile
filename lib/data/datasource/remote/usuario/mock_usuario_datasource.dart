@@ -43,4 +43,9 @@ class MockUsuarioDataSource extends RemoteUsuarioDataSource {
     db[db.indexWhere((usuario) => usuario.id == usuario.id)] = usuario;
     return Future.value(true);
   }
+
+  @override
+  Future<bool> registrar(Usuario usuario) {
+    return add(usuario);
+  }
 }

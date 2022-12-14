@@ -7,6 +7,7 @@ import 'package:sgrsoft/domain/services/social_auth_provider.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/listado.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:sgrsoft/ui/view/registro/registro.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -128,7 +129,6 @@ class LoginScreenState extends State<LoginScreen> {
                                       width: 167,
                                       height: 58,
                                     )),
-
                                 errorOn
                                     ? Container(
                                         width: double.infinity,
@@ -209,27 +209,27 @@ class LoginScreenState extends State<LoginScreen> {
                                           child: const Text('Entrar'),
                                         ),
                                 ),
-                                // Padding(
-                                //   padding:
-                                //       const EdgeInsets.fromLTRB(10, 0, 0, 10),
-                                //   child: Row(children: [
-                                //     const Text(
-                                //       "¿No tienes usuario? ",
-                                //       // style: const TextStyle(color: Colors.red),
-                                //     ),
-                                //     TextButton(
-                                //         onPressed: () {
-                                //           Navigator.pushNamed(
-                                //             context,
-                                //             RegistroScreen.routeName,
-                                //           );
-                                //         },
-                                //         child: Text('Crear nuevo usuario.',
-                                //             style: TextStyle(
-                                //                 color: Theme.of(context)
-                                //                     .primaryColor)))
-                                //   ]),
-                                // ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 0, 0, 10),
+                                  child: Row(children: [
+                                    const Text(
+                                      "¿No tienes usuario? ",
+                                      // style: const TextStyle(color: Colors.red),
+                                    ),
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                            context,
+                                            RegistroScreen.routeName,
+                                          );
+                                        },
+                                        child: Text('Crear nuevo usuario.',
+                                            style: TextStyle(
+                                                color: Theme.of(context)
+                                                    .primaryColor)))
+                                  ]),
+                                ),
                                 const Flexible(
                                     flex: 1,
                                     fit: FlexFit.loose,
