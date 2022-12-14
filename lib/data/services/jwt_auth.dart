@@ -99,7 +99,7 @@ class JWTAuthentication implements AuthenticationProvider {
     if (response.statusCode == 200) {
       log(response.body);
       final json = jsonDecode(response.body);
-      final token = json['token'];
+      final token = json['sgrToken'];
       await _storage.write(key: 'access', value: token);
       await _storage.write(key: 'refresh', value: token.split(" ")[1]);
       var now = DateTime.now();
