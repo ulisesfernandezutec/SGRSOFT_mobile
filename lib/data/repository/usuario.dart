@@ -38,4 +38,9 @@ class UsuarioRepository extends AbstractUsuarioRepository {
   Future<bool> delete(Usuario usuario) async {
     return await _remote.delete(usuario);
   }
+
+  @override
+  Future<bool> registrar(Usuario usuario) async {
+    return await _remote.registrar(usuario);
+  }
 }

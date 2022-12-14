@@ -43,6 +43,7 @@ class NetConts {
 
   // Authentification API
   static const String API_URL_AUTH_LOGIN = "${API_URL}login/";
+  static const String API_URL_AUTH_REGISTRO = "${API_URL}login/newuser";
   static const String API_URL_AUTH_MAIL = "${API_URL}mail/";
   static const String API_JWT_REFRESH = "${API_URL}tkn/";
   static const String API_JWT_VERIFY = "${API_URL}tkn/";

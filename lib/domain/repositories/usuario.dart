@@ -6,4 +6,5 @@ abstract class AbstractUsuarioRepository {
   Future<bool> add(Usuario usuario);
   Future<bool> update(Usuario usuario);
   Future<bool> delete(Usuario usuario);
+  Future<bool> registrar(Usuario usuario);
 }

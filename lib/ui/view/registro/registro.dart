@@ -1,10 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:sgrsoft/data/services/social_auth.dart';
-import 'package:sgrsoft/domain/services/social_auth_provider.dart';
-import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/listado.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:get_it/get_it.dart';
+import 'package:sgrsoft/data/repository/usuario.dart';
+import 'package:sgrsoft/domain/models/rol.dart';
+import 'package:sgrsoft/domain/models/usuario.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:sgrsoft/domain/services/encriptar.dart';
+
+GetIt getIt = GetIt.instance;
+final encript = Encriptrar();
 
 class RegistroScreen extends StatefulWidget {
   const RegistroScreen({super.key});
@@ -16,7 +20,10 @@ class RegistroScreen extends StatefulWidget {
 }
 
 class RegistroScreenState extends State<RegistroScreen> {
+  UsuarioRepository usuarioRepository = getIt.get();
+
   bool isLogin = false;
+  bool registro = false;
 
   final emailController = TextEditingController();
   final passController = TextEditingController();
@@ -33,16 +40,22 @@ class RegistroScreenState extends State<RegistroScreen> {
   final FocusNode _apellidoFocusNode = FocusNode();
   final FocusNode _telefonoFocusNode = FocusNode();
 
-  Future<void> _handleGoogleSignIn(context) async {
+  Future<void> _handleRegistro() async {
     try {
-      bool login =
-          await SocialAuth(tipo: SocialAuthenticationProviderOption.google)
-              .login();
+      Usuario usuario = Usuario(
+          email: emailController.text,
+          password: encript.encript(passController.text),
+          nombre: nombreController.text,
+          apellido: apellidoController.text,
+          telefono: telefonoController.text,
+          rol: Rol(0, 'Usuario'),
+          estado: 'Inactivo');
 
-      if (login) {
-        Navigator.pushReplacementNamed(
-            context, ListadoPuntosRecoleccionScreens.routeName);
-      }
+      bool result = await usuarioRepository.registrar(usuario);
+
+      setState(() {
+        registro = result;
+      });
     } catch (error) {
       if (kDebugMode) {
         print(error);
@@ -52,6 +65,7 @@ class RegistroScreenState extends State<RegistroScreen> {
 
   @override
   void dispose() {
+    bool registrado = false;
     // Clean up the controller when the widget is disposed.
     emailController.dispose();
     passController.dispose();
@@ -244,9 +258,16 @@ class RegistroScreenState extends State<RegistroScreen> {
                                           textInputAction: TextInputAction.done,
                                           controller: passController2,
                                           obscureText: true,
-                                          validator: ((value) => value!.isEmpty
-                                              ? "Repita su contraseña"
-                                              : null),
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return "Repita la contraseña";
+                                            } else if (passController.value !=
+                                                passController2.value) {
+                                              return "Las contraseñas no coinciden";
+                                            } else {
+                                              return null;
+                                            }
+                                          },
                                           decoration: const InputDecoration(
                                             prefixIcon:
                                                 Icon(Icons.key_outlined),
@@ -260,27 +281,62 @@ class RegistroScreenState extends State<RegistroScreen> {
                                           ),
                                     ),
                                     const Divider(),
+                                    registro
+                                        ? Container(
+                                            padding: EdgeInsets.all(10),
+                                            child: const Text(
+                                              "Registro exitoso, confime su mail y por favor inicie sesión",
+                                              style: TextStyle(
+                                                  color: Colors.green),
+                                            ))
+                                        : Container(),
                                     Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          10, 0, 10, 10),
-                                      child: isLogin
-                                          ? const Center(
-                                              child:
-                                                  CircularProgressIndicator())
-                                          : ElevatedButton(
-                                              onPressed: () async {
-                                                // login(emailController.text, passController.text
-                                                _formKey.currentState!
-                                                    .validate();
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                elevation: 3,
-                                                minimumSize:
-                                                    const Size(300, 50),
-                                              ),
-                                              child: const Text('Registrar'),
-                                            ),
-                                    ),
+                                        padding: const EdgeInsets.fromLTRB(
+                                            10, 0, 10, 10),
+                                        child: isLogin
+                                            ? const Center(
+                                                child:
+                                                    CircularProgressIndicator())
+                                            : ButtonBar(
+                                                alignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                    ElevatedButton(
+                                                      onPressed: () async {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        backgroundColor:
+                                                            Colors.grey,
+                                                        elevation: 3,
+                                                        minimumSize:
+                                                            const Size(150, 50),
+                                                      ),
+                                                      child: const Text(
+                                                          'Cancelar'),
+                                                    ),
+                                                    ElevatedButton(
+                                                      onPressed: () async {
+                                                        // login(emailController.text, passController.text
+                                                        if (_formKey
+                                                            .currentState!
+                                                            .validate()) {
+                                                          await _handleRegistro();
+                                                        }
+                                                        ;
+                                                      },
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        elevation: 3,
+                                                        minimumSize:
+                                                            const Size(150, 50),
+                                                      ),
+                                                      child: const Text(
+                                                          'Registrar'),
+                                                    ),
+                                                  ])),
                                   ]),
                                 ))))))));
   }
