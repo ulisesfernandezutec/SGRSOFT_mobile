@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sgrsoft/domain/blocs/usuario/listado/listado_bloc.dart';
 import 'package:sgrsoft/domain/models/usuario.dart';
+import 'package:sgrsoft/ui/view/usuario/detalle/detalle.dart';
 import 'package:sgrsoft/ui/view/usuario/nuevo/agregar.dart';
 import 'package:sgrsoft/ui/widgets/app_bar.dart';
 import 'package:sgrsoft/ui/widgets/modal/head.dart';
@@ -105,6 +106,12 @@ class ListadoUsuarioScreenState extends State<ListadoUsuarioScreen> {
                                 label: Text(
                                   "Tipo",
                                   style: TextStyle(fontWeight: FontWeight.bold),
+                                )),
+                            DataColumn2(
+                                fixedWidth: 120,
+                                label: Text(
+                                  "Estado",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                 ))
                           ], rows: [
                             for (var usuario in state.usuarios)
@@ -112,11 +119,36 @@ class ListadoUsuarioScreenState extends State<ListadoUsuarioScreen> {
                                 key: ValueKey<int?>(usuario.id),
                                 cells: [
                                   DataCell(Text(usuario.email!),
-                                      onTap: () =>
-                                          {log(usuario.email!.toString())}),
+                                      onTap: () async {
+                                    await showDialog<bool>(
+                                        barrierDismissible: false,
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                              title: const AppHeadModal(
+                                                  title: "Detalle de Usuario"),
+                                              titlePadding: EdgeInsets.zero,
+                                              contentPadding: EdgeInsets.zero,
+                                              insetPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 0),
+                                              content: Container(
+                                                  width: double.infinity,
+                                                  margin:
+                                                      const EdgeInsets.all(0),
+                                                  constraints:
+                                                      const BoxConstraints(
+                                                          maxHeight: 300,
+                                                          maxWidth: 500),
+                                                  child: DetalleUsuarioScreen(
+                                                      id: usuario.id!)));
+                                        });
+                                    setState(() {});
+                                  }),
                                   DataCell(Text(usuario.nombre!)),
                                   DataCell(Text(usuario.apellido!)),
                                   DataCell(Text(usuario.rol!.nombre)),
+                                  DataCell(Text(usuario.estado ?? "")),
                                 ],
                                 // onSelectChanged: (value) => {log(usuario.email!)},
                                 // onLongPress: () =>

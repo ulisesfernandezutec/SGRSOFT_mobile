@@ -13,7 +13,7 @@ void puntosRecoleccionGetIt(GetIt gi) async {
         latitud: -34.734501,
         longitud: -56.229366,
         tipo: TipoDeResiduo(id: 1, nombre: 'Podas'),
-        direccion: 'Juan Ortiz 228',
+        direccion: 'Casa 1',
         descripcion: 'Se corto un paraiso muy grande',
         usuario: 0,
         estados: [
@@ -25,7 +25,7 @@ void puntosRecoleccionGetIt(GetIt gi) async {
         latitud: -34.725260,
         longitud: -56.201385,
         tipo: TipoDeResiduo(id: 2, nombre: 'Residuos grandes'),
-        direccion: 'Juan Ortiz 229',
+        direccion: 'Casa 2',
         descripcion: 'Ropero de madera grande',
         usuario: 0,
         estados: [
@@ -37,7 +37,7 @@ void puntosRecoleccionGetIt(GetIt gi) async {
         latitud: -34.739191,
         longitud: -56.222028,
         tipo: TipoDeResiduo(id: 2, nombre: 'Residuos grandes'),
-        direccion: 'Juan Ortiz 2293',
+        direccion: 'Casa 3',
         descripcion: 'Ropero de madera grande3',
         usuario: 0,
         estados: [
@@ -49,7 +49,7 @@ void puntosRecoleccionGetIt(GetIt gi) async {
         latitud: -34.718100,
         longitud: -56.224860,
         tipo: TipoDeResiduo(id: 1, nombre: 'Podas'),
-        direccion: 'Juan Ortiz 444',
+        direccion: 'Casa 4',
         descripcion: '4',
         usuario: 0,
         estados: [

@@ -58,8 +58,8 @@ class ApiGoogleDirections {
       for (GoogleRoute r in googleDirection!.routes) {
         for (int i = 0; i < r.legs.length; i++) {
           try {
-            ruta.puntos![i].googleDistance = r.legs[i].distance;
-            ruta.puntos![i].googleDuration = r.legs[i].duration;
+            ruta.puntos![i].distance = r.legs[i].distance;
+            ruta.puntos![i].duration = r.legs[i].duration;
           } catch (e) {
             log("getRuta() ${e.toString()}");
             continue;

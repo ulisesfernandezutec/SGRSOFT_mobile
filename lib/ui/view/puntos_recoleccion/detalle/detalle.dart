@@ -134,31 +134,30 @@ class DetallePuntosRecoleccionScreenState
                                     backgroundColor: Colors.grey,
                                   ),
                                 ),
-                                // ElevatedButton.icon(
-                                //   icon: const Icon(Icons.edit),
-                                //   onPressed: () {
-                                //     Navigator.pushNamed(
-                                //         context,
-                                //         EditarPuntosRecoleccionScreens
-                                //             .routeName);
-                                //   },
-                                //   label: const Text('Editar'),
-                                //   style: ButtonStyle(
-                                //     backgroundColor:
-                                //         MaterialStateProperty.all<Color>(
-                                //             Theme.of(context).primaryColor),
-                                //   ),
-                                // ),
-                                // ElevatedButton.icon(
-                                //   icon: const Icon(Icons.delete),
-                                //   onPressed: () => {},
-                                //   label: const Text('Eliminar'),
-                                //   style: ButtonStyle(
-                                //     backgroundColor:
-                                //         MaterialStateProperty.all<Color>(
-                                //             Colors.red),
-                                //   ),
-                                // ),
+                                ElevatedButton.icon(
+                                  icon: const Icon(Icons.edit),
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                        context,
+                                        EditarPuntosRecoleccionScreens
+                                            .routeName);
+                                  },
+                                  label: const Text('Editar'),
+                                  style: ElevatedButton.styleFrom(
+                                      padding: FormConst.buttonPadding,
+                                      backgroundColor:
+                                          Theme.of(context).primaryColor),
+                                ),
+                                ElevatedButton.icon(
+                                  icon: const Icon(Icons.delete),
+                                  onPressed: () => {},
+                                  label: const Text('Eliminar'),
+                                  style: ElevatedButton.styleFrom(
+                                    padding: FormConst.buttonPadding,
+                                    backgroundColor:
+                                        Colors.red.withOpacity(0.9),
+                                  ),
+                                ),
                               ],
                             ),
                           ],

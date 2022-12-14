@@ -86,8 +86,7 @@ class JWTAuthentication implements AuthenticationProvider {
   }
 
   @override
-  Future<bool> login(String username, String password) async {
-    UsuarioRepository usuarioRepository = getIt.get();
+  Future<bool> login(String email, String password) async {
     final encript = Encriptrar();
     var headers = {
       'Content-Type': 'application/json',
@@ -96,8 +95,7 @@ class JWTAuthentication implements AuthenticationProvider {
     };
     final response = await http.post(Uri.parse(NetConts.API_URL_AUTH_LOGIN),
         headers: headers,
-        body:
-            jsonEncode({"email": username, "pwd": encript.encript(password)}));
+        body: jsonEncode({"email": email, "pwd": encript.encript(password)}));
     if (response.statusCode == 200) {
       log(response.body);
       final json = jsonDecode(response.body);

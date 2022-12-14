@@ -133,6 +133,9 @@ class ApiUsuarioDataSource extends RemoteUsuarioDataSource {
   Future<bool> update(Usuario usuario) async {
     String? authString = await authProvider.getAccessToken();
     var json = usuario.toJson();
+    if (usuario.password == null) {
+      json.remove('pwrd');
+    }
 
     if (kDebugMode) {
       print(json.toString());
@@ -145,12 +148,6 @@ class ApiUsuarioDataSource extends RemoteUsuarioDataSource {
     };
     var response = await http.put(Uri.parse(url),
         headers: headers, body: jsonEncode(usuario.toJson()));
-
-    if (kDebugMode) {
-      print(response.statusCode.toString());
-      print(utf8.decode(response.bodyBytes));
-      print(url);
-    }
 
     if (response.statusCode == 200) {
       if (utf8.decode(response.bodyBytes) == 'true') {

@@ -7,6 +7,7 @@ import 'package:sgrsoft/domain/blocs/rol/nuevo/nuevo_bloc.dart';
 import 'package:sgrsoft/domain/blocs/tipos_residuos/editar/editar_bloc.dart';
 import 'package:sgrsoft/domain/blocs/tipos_residuos/listado/listado_bloc.dart';
 import 'package:sgrsoft/domain/blocs/tipos_residuos/nuevo/nuevo_bloc.dart';
+import 'package:sgrsoft/domain/blocs/usuario/detalle/detalle_bloc.dart';
 import 'package:sgrsoft/domain/blocs/usuario/listado/listado_bloc.dart';
 import 'package:sgrsoft/domain/blocs/usuario/nuevo/nuevo_bloc.dart';
 import 'package:sgrsoft/domain/blocs/vehiculo/editar/editar_bloc.dart';
@@ -21,6 +22,7 @@ import 'data/streams/streams.dart';
 
 import 'domain/blocs/punto_disposicion_final/add/nuevo_bloc.dart';
 import 'domain/blocs/punto_salida/add/nuevo_bloc.dart';
+import 'domain/blocs/usuario/editar/editar_bloc.dart';
 
 void main() async {
   // Cargamos get_it
@@ -69,7 +71,9 @@ void main() async {
         BlocProvider(
             create: (BuildContext context) => NuevoPuntoDisposicionFinalBloc()),
         BlocProvider(create: (BuildContext context) => ListadoUsuarioBloc()),
-        BlocProvider(create: (BuildContext context) => NuevoUsuarioBloc())
+        BlocProvider(create: (BuildContext context) => NuevoUsuarioBloc()),
+        BlocProvider(create: (BuildContext context) => DetalleUsuarioBloc()),
+        BlocProvider(create: (BuildContext context) => EditarUsuarioBloc())
         // BlocProvider(create: (BuildContext context) => DetalleVehiculoBloc()),
       ],
       child: MainApp(

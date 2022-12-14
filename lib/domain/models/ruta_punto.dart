@@ -13,15 +13,15 @@ class RutaPunto extends Equatable {
   @JsonKey(name: '_id')
   int? id;
   final PuntoMapa punto;
-  GoogleDuration? googleDuration;
-  GoogleDistance? googleDistance;
+  GoogleDuration? duration;
+  GoogleDistance? distance;
   RutaPuntoEstado? estado;
 
   RutaPunto(
       {this.id,
       required this.punto,
-      this.googleDuration,
-      this.googleDistance,
+      this.duration,
+      this.distance,
       this.estado});
 
   factory RutaPunto.fromJson(Map<String, dynamic> json) =>
@@ -30,5 +30,5 @@ class RutaPunto extends Equatable {
   Map<String, dynamic> toJson() => _$RutaPuntoToJson(this);
 
   @override
-  List<Object?> get props => [id, punto, googleDistance, googleDuration];
+  List<Object?> get props => [id, punto, distance, duration];
 }

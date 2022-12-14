@@ -35,6 +35,7 @@ class RutasTabla extends StatelessWidget {
     }
 
     return ReorderableListView(
+      // reverse: true,
       shrinkWrap: true,
       // padding: const EdgeInsets.symmetric(horizontal: 5),
       // proxyDecorator: proxyDecorator,
@@ -60,7 +61,7 @@ class RutasTabla extends StatelessWidget {
                       color: Colors.red,
                     ),
                     Text(
-                        "${ruta.puntos![index].googleDistance?.text ?? ""} | ${ruta.puntos![index].googleDuration?.text ?? ""}"),
+                        "${ruta.puntos![index].distance?.value.toString() ?? ""} | ${ruta.puntos![index].duration?.value.toString() ?? ""}"),
                     // const Spacer(),
                     // const Icon(FontAwesomeIcons.truck),
                   ]),

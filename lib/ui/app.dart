@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
-import 'package:sgrsoft/domain/blocs/usuario/listado/listado_bloc.dart';
 import 'package:sgrsoft/domain/services/auth_provider.dart';
 import 'package:sgrsoft/ui/view/demogooglemaps/maps.dart';
 import 'package:sgrsoft/ui/view/demomodal/demomodal.dart';
@@ -19,13 +18,13 @@ import 'package:sgrsoft/ui/settings/settings_view.dart';
 import 'package:sgrsoft/ui/view/registro/registro.dart';
 import 'package:sgrsoft/ui/view/rol/listado/listado.dart';
 import 'package:sgrsoft/ui/view/ruta/listado/listado.dart';
+import 'package:sgrsoft/ui/view/test/route_optimize2.dart';
 import 'package:sgrsoft/ui/view/tipo_de_residuo/listado/listado.dart';
 import 'package:sgrsoft/ui/view/usuario/listado/listado.dart';
 import 'package:sgrsoft/ui/view/vehiculo/listado/listado.dart';
 import 'package:sgrsoft/ui/widgets/custom_error.dart';
 import 'package:sgrsoft/ui/widgets/google_maps/test.dart';
 
-import '../di/di.dart';
 import 'view/punto_salida/nuevo/nuevo.dart';
 import 'view/puntos_recoleccion/nuevo/nuevo.dart';
 import 'view/test/route_optimize.dart';
@@ -137,8 +136,6 @@ class MainApp extends StatelessWidget {
                     return const ListadoPuntosRecoleccionScreens();
                   case MapaPuntosRecoleccion.routeName:
                     return const MapaPuntosRecoleccion();
-                  // case DetallePuntosRecoleccionScreens.routeName:
-                  //   return const DetallePuntosRecoleccionScreens();
                   case EditarPuntosRecoleccionScreens.routeName:
                     return const EditarPuntosRecoleccionScreens();
                   case NuevoPuntosRecoleccionScreens.routeName:
@@ -174,6 +171,8 @@ class MainApp extends StatelessWidget {
                     return const RegistroScreen();
                   case RouteOptimize.routeName:
                     return const RouteOptimize();
+                  case RouteOptimize2.routeName:
+                    return const RouteOptimize2();
                   case ListadoUsuarioScreen.routeName:
                     return const ListadoUsuarioScreen();
                   default:

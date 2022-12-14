@@ -1,14 +1,11 @@
-// ignore: depend_on_referenced_packages
-
-// ignore: depend_on_referenced_packages
+import 'dart:developer';
 
 // ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:sgrsoft/data/api/api_azure_best_order.dart';
-import 'package:sgrsoft/data/api/api_google_directions.dart';
+import 'package:sgrsoft/data/api/api_azure_maps.dart';
 import 'package:sgrsoft/data/repository/punto_disposicion_final_repository_imp.dart';
 import 'package:sgrsoft/data/repository/punto_salida_repository_imp.dart';
 import 'package:sgrsoft/data/repository/usuario.dart';
@@ -106,20 +103,19 @@ class NuevaRutaBloc extends Bloc<NuevaRutaEvent, NuevaRutaState> {
     }
 
     // Optimizo los putnos si es necesario
-    if (ruta.salida != null && ruta.disposicionFinal != null) {
-      // Optimizo los puntos
-      List<RutaPunto> tmpList = rutaPuntos;
-      tmpList.insert(0, RutaPunto(punto: ruta.salida!));
-      tmpList.add(RutaPunto(punto: ruta.disposicionFinal!));
-      ruta.puntos = await ApiAzureBestOrder().optimize(tmpList);
-      // Obtengo los polylines y los datos de distancia y tiempo
-      ApiGoogleDirections api = ApiGoogleDirections(ruta: ruta);
-      await api.getGoogleDirections();
-      polylines = api.decodeEncodedPolyline();
-      ruta = api.getRuta();
-    } else {
-      ruta.puntos = rutaPuntos;
+    ApiAzureMaps apiAzureMaps = ApiAzureMaps();
+    ruta.puntos = rutaPuntos;
+    ruta = await apiAzureMaps.procesRoute(ruta: ruta, optimizar: true);
+
+    if (ruta.puntos != null) {
+      ids = [];
+      for (RutaPunto p in ruta.puntos!) {
+        ids.add(p.punto.id);
+        log("punto id ${p.punto.direccion}");
+      }
     }
+
+    polylines = apiAzureMaps.polylines;
 
     // Emito el estado
     emit(NuevaRutaDatos(
