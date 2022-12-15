@@ -35,7 +35,7 @@ class ListadoRutaScreen extends StatelessWidget {
                             maxHeight: kIsWeb
                                 ? 800
                                 : MediaQuery.of(context).size.height,
-                            maxWidth: 1500),
+                            maxWidth: 1050),
                         child: const NuevaRutaScreen()));
               });
         },

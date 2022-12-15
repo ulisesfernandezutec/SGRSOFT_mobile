@@ -8,6 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sgrsoft/data/api/api_azure_maps.dart';
 import 'package:sgrsoft/data/repository/punto_disposicion_final_repository_imp.dart';
 import 'package:sgrsoft/data/repository/punto_salida_repository_imp.dart';
+import 'package:sgrsoft/data/repository/ruta_repository_imp.dart';
 import 'package:sgrsoft/data/repository/usuario.dart';
 import 'package:sgrsoft/data/repository/utils/add_ruta.dart';
 import 'package:sgrsoft/data/repository/vehiculo.dart';
@@ -18,6 +19,7 @@ import 'package:sgrsoft/domain/models/punto_salida.dart';
 import 'package:sgrsoft/domain/models/ruta.dart';
 import 'package:sgrsoft/domain/models/ruta_punto.dart';
 import 'package:sgrsoft/domain/models/usuario.dart';
+import 'package:sgrsoft/domain/models/utils/search_puntos_recoleccion.dart';
 import 'package:sgrsoft/domain/models/vehiculo.dart';
 
 part 'nueva_event.dart';
@@ -32,7 +34,17 @@ class NuevaRutaBloc extends Bloc<NuevaRutaEvent, NuevaRutaState> {
   final PuntoDisposicionFinalRepository _disposicionFinalRepository = getIt();
   final UsuarioRepository _usuarioRepository = getIt();
   final AddRutaRepository _addRutaRepository = getIt();
-  Ruta ruta = Ruta(id: 0);
+  final RutaRepository _rutaRepository = getIt();
+
+  SearchPuntosRecoleccionObject objSearch = SearchPuntosRecoleccionObject();
+  Ruta ruta = Ruta(
+      id: 0,
+      nombre: '',
+      estado: 'Activa',
+      distancia: 0.0,
+      tiempoTrabajo: 0.0,
+      tiempoTraslado: 0.0,
+      optimizar: false);
   List<int> ids = [];
 
   NuevaRutaBloc() : super(NuevaRutaInitial()) {
@@ -57,6 +69,11 @@ class NuevaRutaBloc extends Bloc<NuevaRutaEvent, NuevaRutaState> {
           puntos: await streamListadoPuntosRecoleccion.puntos,
           polylines: const []));
     });
+    on<NuevaRutaEventSave>((event, emit) async {
+      emit(NuevaRutaLoading());
+      await _rutaRepository.add(ruta);
+      emit(NuevaRutaSaved());
+    });
     on<NuevaRutaEventChangeSalida>((event, emit) async {
       emit(NuevaRutaLoading());
       ruta.salida = await _puntoSalidaRepository.get(event.id);
@@ -69,13 +86,36 @@ class NuevaRutaBloc extends Bloc<NuevaRutaEvent, NuevaRutaState> {
     });
     on<NuevaRutaEventChangePuntos>((event, emit) async {
       emit(NuevaRutaLoading());
-
       if (ids.contains(event.id)) {
         ids.remove(event.id);
       } else {
         ids.add(event.id);
       }
-
+      await emitNuevaRutaDatos(ruta, emit);
+    });
+    on<NuevaRutaEventChangeChofer>((event, emit) async {
+      List<Usuario> usuarios = await _usuarioRepository.getList();
+      ruta.chofer =
+          usuarios.where((element) => element.id == event.id).toList()[0];
+      await emitNuevaRutaDatos(ruta, emit);
+    });
+    on<NuevaRutaEventChangeVehiculo>((event, emit) async {
+      List<Vehiculo> vehiculos = await _vehiculoRespository.getList();
+      ruta.vehiculo =
+          vehiculos.where((element) => element.id == event.id).toList()[0];
+      await emitNuevaRutaDatos(ruta, emit);
+    });
+    on<NuevaRutaEventChangeNombre>((event, emit) async {
+      ruta.nombre = event.nombre;
+      await emitNuevaRutaDatos(ruta, emit);
+    });
+    on<NuevaRutaEventChangeFecha>((event, emit) async {
+      ruta.fecha = event.fecha.millisecondsSinceEpoch;
+      await emitNuevaRutaDatos(ruta, emit);
+    });
+    on<NuevaRutaEventChangeOptimizar>((event, emit) async {
+      emit(NuevaRutaLoading());
+      ruta.optimizar = event.optimizar;
       await emitNuevaRutaDatos(ruta, emit);
     });
   }
@@ -99,13 +139,19 @@ class NuevaRutaBloc extends Bloc<NuevaRutaEvent, NuevaRutaState> {
         puntos.where((e) => ids.contains(e.id)).toList();
     List<RutaPunto> rutaPuntos = [];
     for (PuntoMapa p in puntosSeleccionados) {
-      rutaPuntos.add(RutaPunto(punto: p));
+      rutaPuntos.add(RutaPunto(
+          punto: p,
+          distancia: 0.0,
+          tiempoTraslado: 0.0,
+          tiempoTrabajo: 0.0,
+          estado: 'En proceso'));
     }
 
     // Optimizo los putnos si es necesario
     ApiAzureMaps apiAzureMaps = ApiAzureMaps();
     ruta.puntos = rutaPuntos;
-    ruta = await apiAzureMaps.procesRoute(ruta: ruta, optimizar: true);
+    ruta =
+        await apiAzureMaps.procesRoute(ruta: ruta, optimizar: ruta.optimizar);
 
     if (ruta.puntos != null) {
       ids = [];

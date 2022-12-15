@@ -9,21 +9,17 @@ part of 'ruta_punto.dart';
 RutaPunto _$RutaPuntoFromJson(Map<String, dynamic> json) => RutaPunto(
       id: json['_id'] as int?,
       punto: PuntoMapa.fromJson(json['punto'] as Map<String, dynamic>),
-      duration: json['duration'] == null
-          ? null
-          : GoogleDuration.fromJson(json['duration'] as Map<String, dynamic>),
-      distance: json['distance'] == null
-          ? null
-          : GoogleDistance.fromJson(json['distance'] as Map<String, dynamic>),
-      estado: json['estado'] == null
-          ? null
-          : RutaPuntoEstado.fromJson(json['estado'] as Map<String, dynamic>),
+      distancia: (json['distancia'] as num).toDouble(),
+      tiempoTrabajo: (json['tiempoTrabajo'] as num).toDouble(),
+      tiempoTraslado: (json['tiempoTraslado'] as num).toDouble(),
+      estado: json['estado'] as String,
     );
 
 Map<String, dynamic> _$RutaPuntoToJson(RutaPunto instance) => <String, dynamic>{
       '_id': instance.id,
       'punto': instance.punto.toJson(),
-      'duration': instance.duration?.toJson(),
-      'distance': instance.distance?.toJson(),
-      'estado': instance.estado?.toJson(),
+      'distancia': instance.distancia,
+      'tiempoTrabajo': instance.tiempoTrabajo,
+      'tiempoTraslado': instance.tiempoTraslado,
+      'estado': instance.estado,
     };

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sgrsoft/domain/blocs/ruta/nueva/nueva_bloc.dart';
 import 'package:sgrsoft/domain/models/punto_disposicion_final.dart';
 import 'package:sgrsoft/domain/models/punto_salida.dart';
 import 'package:sgrsoft/domain/models/usuario.dart';
@@ -43,6 +45,10 @@ class StepDatos extends StatelessWidget {
                       value!.isEmpty ? "El nombre no puede estar vacío" : null,
                   maxLines: 1,
                   controller: nombreController,
+                  onChanged: (value) => {
+                        BlocProvider.of<NuevaRutaBloc>(context)
+                            .add(NuevaRutaEventChangeNombre(nombre: value))
+                      },
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
                   decoration: const InputDecoration(
@@ -51,7 +57,12 @@ class StepDatos extends StatelessWidget {
                     border: OutlineInputBorder(),
                   ))),
           CalendarWidget(
-            selectDateFunction: (DateTime? date) {},
+            selectDateFunction: (DateTime? date) {
+              if (date != null) {
+                BlocProvider.of<NuevaRutaBloc>(context)
+                    .add(NuevaRutaEventChangeFecha(fecha: date));
+              }
+            },
           ),
           AppComboBox(
             dataList:
@@ -61,7 +72,11 @@ class StepDatos extends StatelessWidget {
             selectedValue: null,
             comboKey: "id",
             comboLabel: "label",
-            onChanged: (value) => {},
+            onChanged: (value) => {
+              BlocProvider.of<NuevaRutaBloc>(context)
+                  .add(NuevaRutaEventChangeVehiculo(id: value ?? 0))
+            },
+            validar: "Se necesita un Vehiculo",
           ),
           AppComboBox(
             dataList: choferes
@@ -72,7 +87,11 @@ class StepDatos extends StatelessWidget {
             selectedValue: null,
             comboKey: "id",
             comboLabel: "label",
-            onChanged: (value) => {},
+            onChanged: (value) => {
+              BlocProvider.of<NuevaRutaBloc>(context)
+                  .add(NuevaRutaEventChangeChofer(id: value ?? 0))
+            },
+            validar: "Se necesita un Chofer",
           ),
 
           // AppComboBox()

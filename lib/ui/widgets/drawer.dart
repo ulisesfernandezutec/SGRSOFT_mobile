@@ -8,6 +8,7 @@ import 'package:sgrsoft/ui/view/puntos_recoleccion/listado/listado.dart';
 import 'package:sgrsoft/ui/view/puntos_recoleccion/mapa/mapa.dart';
 import 'package:sgrsoft/ui/view/rol/listado/listado.dart';
 import 'package:sgrsoft/ui/view/ruta/listado/listado.dart';
+import 'package:sgrsoft/ui/view/test/en_ruta.dart';
 import 'package:sgrsoft/ui/view/test/route_optimize.dart';
 import 'package:sgrsoft/ui/view/test/route_optimize2.dart';
 import 'package:sgrsoft/ui/view/tipo_de_residuo/listado/listado.dart';
@@ -103,9 +104,9 @@ Drawer appDrawer(BuildContext context) {
         ),
         ListTile(
           leading: const Icon(Icons.route_outlined),
-          title: const Text('Pueba de Rutas 2'),
+          title: const Text('Online Route'),
           onTap: () {
-            Navigator.pushNamed(context, RouteOptimize2.routeName);
+            Navigator.pushNamed(context, OnLIneRoute.routeName);
           },
         ),
       ],

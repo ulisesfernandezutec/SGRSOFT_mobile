@@ -3,12 +3,12 @@ import 'dart:developer';
 
 import 'package:get_it/get_it.dart';
 import 'package:sgrsoft/data/const/netconsts.dart';
-import 'package:sgrsoft/data/repository/usuario.dart';
 import 'package:sgrsoft/domain/models/usuario.dart';
 import 'package:sgrsoft/domain/services/auth_provider.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:sgrsoft/domain/services/encriptar.dart';
+import 'package:sgrsoft/ui/app.dart';
 
 class JWTAuthentication implements AuthenticationProvider {
   final _storage = const FlutterSecureStorage();
@@ -47,7 +47,7 @@ class JWTAuthentication implements AuthenticationProvider {
     if (value != null) {
       return value;
     } else {
-      return '';
+      navigatorKey.currentState?.pushNamed('/login');
     }
   }
 

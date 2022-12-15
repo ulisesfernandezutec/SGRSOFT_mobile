@@ -7,8 +7,11 @@ import 'package:sgrsoft/domain/models/punto_disposicion_final.dart';
 import 'package:sgrsoft/domain/models/punto_mapa.dart';
 import 'package:sgrsoft/domain/models/punto_salida.dart';
 import 'package:sgrsoft/domain/models/ruta.dart';
+import 'package:sgrsoft/domain/models/tipo_residuo.dart';
 import 'package:sgrsoft/domain/models/usuario.dart';
+import 'package:sgrsoft/domain/models/utils/search_puntos_recoleccion.dart';
 import 'package:sgrsoft/domain/models/vehiculo.dart';
+import 'package:sgrsoft/ui/view/puntos_recoleccion/widgets/search_box.dart';
 
 import 'datos.dart';
 import 'mapa.dart';
@@ -24,7 +27,14 @@ class NuevaRutaScreen extends StatefulWidget {
 
 class NuevaRutaScreenState extends State<NuevaRutaScreen> {
   int selectedStep = 0;
-  Ruta ruta = Ruta(id: 0);
+  Ruta ruta = Ruta(
+      id: 0,
+      nombre: '',
+      estado: '',
+      distancia: 0,
+      tiempoTrabajo: 0,
+      tiempoTraslado: 0,
+      optimizar: false);
   Set<Marker> markers = {};
 
   final _formKey = GlobalKey<FormState>(debugLabel: '_nuevaRuta');
@@ -52,6 +62,11 @@ class NuevaRutaScreenState extends State<NuevaRutaScreen> {
   List<Usuario> administradores = [];
   // Listado de puntos para las polylines
   List<LatLng> polylines = [];
+
+  final TextEditingController _buscarControl = TextEditingController();
+  bool filterExpand = false;
+  SearchPuntosRecoleccionObject objSearch = SearchPuntosRecoleccionObject();
+  List<TipoDeResiduo> tiposResiduos = [];
 
   // Puntos seleccionados
   void changePuntosSeleccionados(int id) {
@@ -95,6 +110,9 @@ class NuevaRutaScreenState extends State<NuevaRutaScreen> {
             return Center(
                 child: CircularProgressIndicator(
                     color: Theme.of(context).primaryColor));
+          } else if (state is NuevaRutaSaved) {
+            Navigator.of(context).pop();
+            return Container();
           } else {
             return GestureDetector(
                 onTap: _focusClear,
@@ -108,13 +126,15 @@ class NuevaRutaScreenState extends State<NuevaRutaScreen> {
                         margin: EdgeInsets.zero,
                         elevation: 2,
                         onStepContinue: () {
-                          setState(() {
-                            if (selectedStep < 1) {
-                              selectedStep = selectedStep + 1;
-                            } else {
-                              selectedStep = 0;
-                            }
-                          });
+                          if (_formKey.currentState!.validate()) {
+                            setState(() {
+                              if (selectedStep < 1) {
+                                selectedStep = selectedStep + 1;
+                              } else {
+                                selectedStep = 0;
+                              }
+                            });
+                          }
                         },
                         onStepCancel: () {
                           setState(() {
@@ -154,56 +174,6 @@ class NuevaRutaScreenState extends State<NuevaRutaScreen> {
                               isActive: selectedStep >= 1,
                               title: const Text("Selección de Puntos"),
                               content: Column(children: <Widget>[
-                                Card(
-                                    elevation: 5,
-                                    child: Container(
-                                      constraints: const BoxConstraints(
-                                          minWidth: 200, maxWidth: 500),
-                                      padding: const EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                          color: Theme.of(context)
-                                              .drawerTheme
-                                              .backgroundColor,
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: Row(
-                                        children: <Widget>[
-                                          Icon(Icons.search,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .primary),
-                                          Expanded(
-                                              child: TextField(
-                                            // controller: _buscarControl,
-                                            decoration: const InputDecoration(
-                                              border: InputBorder.none,
-                                              hintText: 'Buscar',
-                                            ),
-                                            onChanged: (String e) {},
-                                          )),
-                                          // const Spacer(),
-                                          Container(
-                                            height: 38,
-                                            // padding: EdgeInsets.all(2),
-                                            decoration: BoxDecoration(
-                                                // border: Border.all(
-                                                //     color: const Color(0xff39ceb9), width: 1),
-                                                borderRadius:
-                                                    BorderRadius.circular(8)),
-                                            child: TextButton.icon(
-                                              // <-- TextButton
-
-                                              onPressed: () {},
-                                              icon: const Icon(
-                                                Icons.tune,
-                                                size: 24.0,
-                                              ),
-                                              label: const Text('Filtros'),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    )),
                                 state is NuevaRutaDatos
                                     ? StepMap(
                                         polylines: polylines,
@@ -234,7 +204,7 @@ class NuevaRutaScreenState extends State<NuevaRutaScreen> {
                                         },
                                       )
                                     : Container()
-                              ]))
+                              ])),
                         ]),
                   ),
                 )));

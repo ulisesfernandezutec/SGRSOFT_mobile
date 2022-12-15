@@ -61,7 +61,7 @@ class RutasTabla extends StatelessWidget {
                       color: Colors.red,
                     ),
                     Text(
-                        "${ruta.puntos![index].distance?.value.toString() ?? ""} | ${ruta.puntos![index].duration?.value.toString() ?? ""}"),
+                        "${ruta.puntos![index].distancia.toString() ?? ""} | ${ruta.puntos![index].tiempoTraslado.toString() ?? ""}"),
                     // const Spacer(),
                     // const Icon(FontAwesomeIcons.truck),
                   ]),

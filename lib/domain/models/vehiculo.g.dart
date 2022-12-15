@@ -13,6 +13,9 @@ Vehiculo _$VehiculoFromJson(Map<String, dynamic> json) => Vehiculo(
       marca: json['marca'] as String?,
       modelo: json['modelo'] as String?,
       chofer: json['chofer'] as int?,
+      totalkilometros: json['totalkilometros'] as String?,
+      totalrutas: json['totalrutas'] as String?,
+      totaltiempotrabajo: json['totaltiempotrabajo'] as String?,
     );
 
 Map<String, dynamic> _$VehiculoToJson(Vehiculo instance) => <String, dynamic>{
@@ -22,4 +25,7 @@ Map<String, dynamic> _$VehiculoToJson(Vehiculo instance) => <String, dynamic>{
       'marca': instance.marca,
       'modelo': instance.modelo,
       'chofer': instance.chofer,
+      'totalkilometros': instance.totalkilometros,
+      'totalrutas': instance.totalrutas,
+      'totaltiempotrabajo': instance.totaltiempotrabajo,
     };

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sgrsoft/domain/blocs/ruta/nueva/nueva_bloc.dart';
 import 'package:sgrsoft/domain/models/punto_disposicion_final.dart';
 import 'package:sgrsoft/domain/models/punto_mapa.dart';
 import 'package:sgrsoft/domain/models/punto_salida.dart';
 import 'package:sgrsoft/domain/models/ruta.dart';
 import 'package:sgrsoft/ui/widgets/forms/app_combo_box.dart';
 import 'package:sgrsoft/ui/widgets/google_maps/route_select_map.dart';
+import 'package:sgrsoft/ui/widgets/util_ruta.dart';
 
-import '../widgets/tabla.dart';
+UtilRuta utilRuta = UtilRuta();
 
 class StepMap extends StatelessWidget {
   final Ruta ruta;
@@ -41,7 +44,7 @@ class StepMap extends StatelessWidget {
               width: double.infinity,
               height: MediaQuery.of(context).size.height * 0.5,
               constraints: const BoxConstraints(
-                  maxWidth: 600, minHeight: 200, minWidth: 200),
+                  maxWidth: 550, minHeight: 200, minWidth: 200),
               child: Card(
                   elevation: 3,
                   child: GoogleSelectRouteMap(
@@ -56,7 +59,7 @@ class StepMap extends StatelessWidget {
           : Container(),
       Container(
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-          constraints: const BoxConstraints(maxWidth: 600, maxHeight: 500),
+          constraints: const BoxConstraints(maxWidth: 400), //, maxHeight: 500
           child: SingleChildScrollView(
               child: Column(children: <Widget>[
             AppComboBox(
@@ -69,9 +72,7 @@ class StepMap extends StatelessWidget {
               comboKey: "id",
               comboLabel: "label",
               onChanged: onChangeSalida,
-            ),
-            RutasTabla(
-              ruta: ruta,
+              validar: null,
             ),
             const Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 10)),
             AppComboBox(
@@ -84,7 +85,65 @@ class StepMap extends StatelessWidget {
               comboKey: "id",
               comboLabel: "label",
               onChanged: onChangeDisposicionFinal,
+              validar: null,
             ),
+            const Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 10)),
+            Column(children: [
+              Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                  child: Row(
+                    children: [
+                      const Text(
+                        "Distancia: ",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(UtilRuta.getDistancia(ruta.distancia.toInt()))
+                    ],
+                  )),
+              Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                  child: Row(
+                    children: [
+                      const Text("Tiempo: ",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text(UtilRuta.getTiempo(ruta.tiempoTraslado.toInt()))
+                    ],
+                  )),
+              Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    children: [
+                      Checkbox(
+                          value: ruta.optimizar,
+                          onChanged: (value) => {
+                                BlocProvider.of<NuevaRutaBloc>(context).add(
+                                    NuevaRutaEventChangeOptimizar(
+                                        optimizar: !ruta.optimizar))
+                              }),
+                      TextButton(
+                          onPressed: () => {
+                                BlocProvider.of<NuevaRutaBloc>(context).add(
+                                    NuevaRutaEventChangeOptimizar(
+                                        optimizar: !ruta.optimizar))
+                              },
+                          child: const Text("Optimmizar ruta",
+                              style: TextStyle(fontWeight: FontWeight.bold))),
+                    ],
+                  )),
+              Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    children: [
+                      TextButton(
+                          onPressed: () => {
+                                BlocProvider.of<NuevaRutaBloc>(context)
+                                    .add(NuevaRutaEventSave())
+                              },
+                          child: const Text("Guardar ruta",
+                              style: TextStyle(fontWeight: FontWeight.bold))),
+                    ],
+                  ))
+            ])
           ]))),
     ]);
   }

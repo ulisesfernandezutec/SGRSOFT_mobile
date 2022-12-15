@@ -8,6 +8,7 @@ class AppComboBox extends StatelessWidget {
   final String label;
   final int? selectedValue;
   final ValueChanged<int?>? onChanged;
+  final String? validar;
 
   const AppComboBox(
       {super.key,
@@ -17,7 +18,8 @@ class AppComboBox extends StatelessWidget {
       required this.hint,
       required this.selectedValue,
       required this.label,
-      required this.onChanged});
+      required this.onChanged,
+      required this.validar});
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,13 @@ class AppComboBox extends StatelessWidget {
               filled: true,
               contentPadding: const EdgeInsets.all(16),
             ),
+            validator: (value) {
+              if (value == null && validar != null) {
+                return validar;
+              } else {
+                return null;
+              }
+            },
             value: selectedValue,
             hint: Text(hint),
             items: dataList

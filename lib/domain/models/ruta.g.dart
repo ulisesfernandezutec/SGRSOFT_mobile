@@ -31,9 +31,12 @@ Ruta _$RutaFromJson(Map<String, dynamic> json) => Ruta(
           ? null
           : PuntoDisposicionFinal.fromJson(
               json['disposicionFinal'] as Map<String, dynamic>),
-      fecha: json['fecha'] == null
-          ? null
-          : DateTime.parse(json['fecha'] as String),
+      fecha: json['fecha'] as int?,
+      optimizar: json['optimizar'] as bool,
+      estado: json['estado'] as String,
+      distancia: (json['distancia'] as num).toDouble(),
+      tiempoTrabajo: (json['tiempoTrabajo'] as num).toDouble(),
+      tiempoTraslado: (json['tiempoTraslado'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$RutaToJson(Ruta instance) => <String, dynamic>{
@@ -46,5 +49,10 @@ Map<String, dynamic> _$RutaToJson(Ruta instance) => <String, dynamic>{
       'puntos': instance.puntos?.map((e) => e.toJson()).toList(),
       'salida': instance.salida?.toJson(),
       'disposicionFinal': instance.disposicionFinal?.toJson(),
-      'fecha': instance.fecha?.toIso8601String(),
+      'fecha': instance.fecha,
+      'estado': instance.estado,
+      'optimizar': instance.optimizar,
+      'distancia': instance.distancia,
+      'tiempoTrabajo': instance.tiempoTrabajo,
+      'tiempoTraslado': instance.tiempoTraslado,
     };
