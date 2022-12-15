@@ -14,8 +14,8 @@ class NetConts {
   static const String API_URL_PUNTO_DE_RECOLECCION = "${API_URL}puntodr/";
   static const String API_URL_USUARIO_ROL = "${API_URL}rol/";
   static const String API_URL_VEHICULO = "${API_URL}vehiculo/";
-
   static const String API_URL_USUARIO = "${API_URL}usr/";
+  static const String API_URL_RUTA = "${API_URL}ruta/";
 
   static const String GOOGLE_URL_DIRECTIONS =
       "https://maps.googleapis.com/maps/api/directions/json";

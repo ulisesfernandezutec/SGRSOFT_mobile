@@ -41,7 +41,13 @@ void data() async {
   usuarioGetIt(_l);
 
   // ignore: prefer_const_literals_to_create_immutables
-  _l.registerSingleton<AddRutaRepository>(AddRutaRepository(Ruta(puntos: [])));
+  _l.registerSingleton<AddRutaRepository>(AddRutaRepository(Ruta(
+      puntos: const [],
+      estado: '',
+      distancia: 0,
+      tiempoTrabajo: 0,
+      tiempoTraslado: 0,
+      optimizar: false)));
 
   // Instacia auxiliar para el manejo de puntos de salida
   _l.registerSingleton<TmpPuntoSalidaRepository>(TmpPuntoSalidaRepository());

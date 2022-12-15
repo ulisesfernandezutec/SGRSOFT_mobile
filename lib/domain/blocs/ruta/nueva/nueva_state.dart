@@ -11,6 +11,8 @@ class NuevaRutaInitial extends NuevaRutaState {}
 
 class NuevaRutaLoading extends NuevaRutaState {}
 
+class NuevaRutaSaved extends NuevaRutaState {}
+
 class NuevaRutaSuccess extends NuevaRutaState {}
 
 class NuevaRutaError extends NuevaRutaState {}

@@ -1,27 +1,32 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:get_it/get_it.dart';
 import 'package:sgrsoft/data/const/netconsts.dart';
 import 'package:http/http.dart' as http;
 import 'package:sgrsoft/domain/models/ruta.dart';
+import 'package:sgrsoft/domain/services/auth_provider.dart';
 
 import 'remote.dart';
+
+GetIt getIt = GetIt.instance;
 
 class ApiRutaDataSource extends RemoteRutaDataSource {
   List<Ruta> db = [];
 
-  String basicAuth = NetConts().getBasicAuth();
-  String url = NetConts.API_URL_PUNTO_DE_RECOLECCION;
+  AuthenticationProvider authProvider = getIt();
+  String url = NetConts.API_URL_RUTA;
 
   ApiRutaDataSource({required this.db});
 
   @override
   Future<List<Ruta>> getList() async {
+    String? authString = await authProvider.getAccessToken();
     List<Ruta> ndb = [];
     var response = await http.get(Uri.parse(url), headers: {
       'Accept': '*/*',
       'Access-Control-Allow-Origin': '*',
-      'Authorization': basicAuth
+      'Authorization': authString ?? ''
     });
     if (response.statusCode == 200) {
       (jsonDecode(utf8.decode(response.bodyBytes))).forEach((element) {
@@ -63,6 +68,7 @@ class ApiRutaDataSource extends RemoteRutaDataSource {
 
   @override
   Future<bool> add(Ruta ruta) async {
+    String? authString = await authProvider.getAccessToken();
     var json = ruta.toJson();
 
     if (kDebugMode) {
@@ -70,7 +76,7 @@ class ApiRutaDataSource extends RemoteRutaDataSource {
     }
 
     var headers = {
-      'Authorization': basicAuth,
+      'Authorization': authString ?? '',
       'Content-Type': 'application/json',
       'Accept': '*/*'
     };
@@ -96,9 +102,10 @@ class ApiRutaDataSource extends RemoteRutaDataSource {
 
   @override
   Future<bool> delete(Ruta ruta) async {
+    String? authString = await authProvider.getAccessToken();
     try {
       var response = await http.delete(Uri.parse(url + ruta.id.toString()),
-          headers: {'Authorization': basicAuth});
+          headers: {'Authorization': authString ?? ''});
       if (response.statusCode == 200) {
         db.remove(ruta);
         return true;
@@ -113,6 +120,7 @@ class ApiRutaDataSource extends RemoteRutaDataSource {
 
   @override
   Future<bool> update(Ruta ruta) async {
+    String? authString = await authProvider.getAccessToken();
     var json = ruta.toJson();
 
     if (kDebugMode) {
@@ -120,7 +128,7 @@ class ApiRutaDataSource extends RemoteRutaDataSource {
     }
 
     var headers = {
-      'Authorization': basicAuth,
+      'Authorization': authString ?? '',
       'Content-Type': 'application/json',
       'Accept': '*/*'
     };

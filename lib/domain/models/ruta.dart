@@ -23,7 +23,12 @@ class Ruta extends Equatable {
   List<RutaPunto>? puntos = [];
   PuntoSalida? salida;
   PuntoDisposicionFinal? disposicionFinal;
-  DateTime? fecha;
+  int? fecha;
+  String estado;
+  bool optimizar = false;
+  double distancia;
+  double tiempoTrabajo;
+  double tiempoTraslado;
 
   Ruta(
       {this.id,
@@ -35,7 +40,12 @@ class Ruta extends Equatable {
       this.bound,
       this.salida,
       this.disposicionFinal,
-      this.fecha});
+      this.fecha,
+      required this.optimizar,
+      required this.estado,
+      required this.distancia,
+      required this.tiempoTrabajo,
+      required this.tiempoTraslado});
 
   factory Ruta.fromJson(Map<String, dynamic> json) => _$RutaFromJson(json);
 

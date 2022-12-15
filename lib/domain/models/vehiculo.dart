@@ -11,6 +11,9 @@ class Vehiculo {
   String? marca;
   String? modelo;
   int? chofer;
+  String? totalkilometros;
+  String? totalrutas;
+  String? totaltiempotrabajo;
 
   Vehiculo(
       {this.id,
@@ -18,7 +21,10 @@ class Vehiculo {
       this.matricula,
       this.marca,
       this.modelo,
-      this.chofer});
+      this.chofer,
+      this.totalkilometros,
+      this.totalrutas,
+      this.totaltiempotrabajo});
 
   factory Vehiculo.fromJson(Map<String, dynamic> json) =>
       _$VehiculoFromJson(json);

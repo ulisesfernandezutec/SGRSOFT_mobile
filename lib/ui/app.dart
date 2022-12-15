@@ -18,6 +18,7 @@ import 'package:sgrsoft/ui/settings/settings_view.dart';
 import 'package:sgrsoft/ui/view/registro/registro.dart';
 import 'package:sgrsoft/ui/view/rol/listado/listado.dart';
 import 'package:sgrsoft/ui/view/ruta/listado/listado.dart';
+import 'package:sgrsoft/ui/view/test/en_ruta.dart';
 import 'package:sgrsoft/ui/view/test/route_optimize2.dart';
 import 'package:sgrsoft/ui/view/tipo_de_residuo/listado/listado.dart';
 import 'package:sgrsoft/ui/view/usuario/listado/listado.dart';
@@ -31,6 +32,7 @@ import 'view/test/route_optimize.dart';
 import 'widgets/google_maps/select_position2.dart';
 
 GetIt getIt = GetIt.instance;
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class MainApp extends StatelessWidget {
   const MainApp({
@@ -50,6 +52,7 @@ class MainApp extends StatelessWidget {
       animation: settingsController,
       builder: (BuildContext context, Widget? child) {
         return MaterialApp(
+          navigatorKey: navigatorKey,
           builder: (BuildContext context, Widget? widget) {
             ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
               return CustomError(errorDetails: errorDetails);
@@ -175,6 +178,8 @@ class MainApp extends StatelessWidget {
                     return const RouteOptimize2();
                   case ListadoUsuarioScreen.routeName:
                     return const ListadoUsuarioScreen();
+                  case OnLIneRoute.routeName:
+                    return const OnLIneRoute();
                   default:
                     return const LoginScreen();
                 }

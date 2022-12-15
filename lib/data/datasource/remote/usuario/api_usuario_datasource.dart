@@ -16,7 +16,6 @@ class ApiUsuarioDataSource extends RemoteUsuarioDataSource {
   AuthenticationProvider authProvider = getIt();
 
   String url = NetConts.API_URL_USUARIO;
-
   ApiUsuarioDataSource({required this.db});
 
   @override
